@@ -1,0 +1,136 @@
+name: mssql-test
+runtime: yaml
+description: A Pulumi YAML project to test the new MSSQL provider
+
+config:
+  resourcegroup-location:
+    type: string
+  resourcegroup-name:
+    type: string
+  local-ip:
+    type: string
+
+variables:
+  current:
+    fn::invoke:
+      function: azure:core:getClientConfig
+      options:
+        provider: ${provider}
+
+  database-id:
+    fn::invoke:
+      function: mssql:getDatabase
+      arguments:
+        name: ${database.name}
+      options:
+        provider: ${provider-mssql}
+
+  database-role-owner:
+    fn::invoke:
+      function: mssql:getDatabaseRole
+      arguments:
+        databaseId: ${database-id.id}
+        name: db_owner
+      options:
+        provider: ${provider-mssql}
+
+outputs: {}
+
+resources:
+  provider:
+    type: pulumi:providers:azure
+    options:
+      version: 5.38.0
+
+  resource-group:
+    type: azure:core:ResourceGroup
+    properties:
+      name: ${resourcegroup-name}
+      location: ${resourcegroup-location}
+    options:
+      provider: ${provider}
+
+  random-prefix:
+    type: random:RandomId
+    properties:
+      byteLength: 8
+      keepers:
+        keep: ${resourcegroup-name}
+    options:
+      provider: ${provider}
+
+  server:
+    type: azure:mssql:Server
+    properties:
+      name: "sql${random-prefix.hex}"
+      resourceGroupName: ${resource-group.name}
+      location: ${resource-group.location}
+      version: '12.0'
+      administratorLogin: sadmin
+      administratorLoginPassword: Password!!!1
+      minimumTlsVersion: '1.2'
+      azureadAdministrator:
+        loginUsername: "AzureAD Admin"
+        objectId: ${current.objectId}
+        tenantId: ${current.tenantId}
+    options:
+      provider: ${provider}
+
+  database-firewall-rule:
+    type: azure:mssql:FirewallRule
+    properties:
+      name: client
+      serverId: ${server.id}
+      startIpAddress: ${local-ip}
+      endIpAddress: ${local-ip}
+    options:
+      provider: ${provider}
+
+  provider-mssql:
+    type: pulumi:providers:mssql
+    properties:
+      hostname: ${server.fullyQualifiedDomainName}
+      # azureAuth: {}
+      sqlAuth:
+        username: ${server.administratorLogin}
+        password: ${server.administratorLoginPassword}
+    options:
+      dependsOn:
+        - ${database-firewall-rule}
+
+  database:
+    type: azure:mssql:Database
+    properties:
+      name: "db${random-prefix.hex}"
+      serverId: ${server.id}
+      collation: SQL_Latin1_General_CP1_CI_AS
+      licenseType: LicenseIncluded
+      maxSizeGb: 2
+      skuName: Basic
+    options:
+      provider: ${provider}
+
+  server-login:
+    type: mssql:SqlLogin
+    properties:
+      name: dbadmin
+      password: "Str0ngPa$$word12"
+    options:
+      provider: ${provider-mssql}
+
+  db-user:
+    type: mssql:SqlUser
+    properties:
+      databaseId: ${database-id.id}
+      name: ${server-login.name}
+      loginId: ${server-login.id}
+    options:
+      provider: ${provider-mssql}
+
+  db-role-member:
+    type: mssql:DatabaseRoleMember
+    properties:
+      roleId: ${database-role-owner.id}
+      memberId: ${db-user.id}
+    options:
+      provider: ${provider-mssql}

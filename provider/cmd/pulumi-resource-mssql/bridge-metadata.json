@@ -1,0 +1,203 @@
+{
+  "resources": {
+    "mssql:index/azureadServicePrincipal:AzureadServicePrincipal": "mssql_azuread_service_principal",
+    "mssql:index/azureadUser:AzureadUser": "mssql_azuread_user",
+    "mssql:index/database:Database": "mssql_database",
+    "mssql:index/databasePermission:DatabasePermission": "mssql_database_permission",
+    "mssql:index/databaseRole:DatabaseRole": "mssql_database_role",
+    "mssql:index/databaseRoleMember:DatabaseRoleMember": "mssql_database_role_member",
+    "mssql:index/schema:Schema": "mssql_schema",
+    "mssql:index/schemaPermission:SchemaPermission": "mssql_schema_permission",
+    "mssql:index/script:Script": "mssql_script",
+    "mssql:index/serverPermission:ServerPermission": "mssql_server_permission",
+    "mssql:index/serverRole:ServerRole": "mssql_server_role",
+    "mssql:index/serverRoleMember:ServerRoleMember": "mssql_server_role_member",
+    "mssql:index/sqlLogin:SqlLogin": "mssql_sql_login",
+    "mssql:index/sqlUser:SqlUser": "mssql_sql_user"
+  },
+  "functions": {
+    "mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal": "mssql_azuread_service_principal",
+    "mssql:index/getAzureadUser:getAzureadUser": "mssql_azuread_user",
+    "mssql:index/getDatabase:getDatabase": "mssql_database",
+    "mssql:index/getDatabasePermissions:getDatabasePermissions": "mssql_database_permissions",
+    "mssql:index/getDatabaseRole:getDatabaseRole": "mssql_database_role",
+    "mssql:index/getDatabaseRoles:getDatabaseRoles": "mssql_database_roles",
+    "mssql:index/getDatabases:getDatabases": "mssql_databases",
+    "mssql:index/getQuery:getQuery": "mssql_query",
+    "mssql:index/getSchema:getSchema": "mssql_schema",
+    "mssql:index/getSchemaPermissions:getSchemaPermissions": "mssql_schema_permissions",
+    "mssql:index/getSchemas:getSchemas": "mssql_schemas",
+    "mssql:index/getServerPermissions:getServerPermissions": "mssql_server_permissions",
+    "mssql:index/getServerRole:getServerRole": "mssql_server_role",
+    "mssql:index/getServerRoles:getServerRoles": "mssql_server_roles",
+    "mssql:index/getSqlLogin:getSqlLogin": "mssql_sql_login",
+    "mssql:index/getSqlLogins:getSqlLogins": "mssql_sql_logins",
+    "mssql:index/getSqlUser:getSqlUser": "mssql_sql_user",
+    "mssql:index/getSqlUsers:getSqlUsers": "mssql_sql_users"
+  },
+  "renamedProperties": {
+    "mssql:config/azureAuth:azureAuth": {
+      "clientId": "client_id",
+      "clientSecret": "client_secret",
+      "tenantId": "tenant_id"
+    },
+    "mssql:index/ProviderAzureAuth:ProviderAzureAuth": {
+      "clientId": "client_id",
+      "clientSecret": "client_secret",
+      "tenantId": "tenant_id"
+    },
+    "mssql:index/azureadServicePrincipal:AzureadServicePrincipal": {
+      "clientId": "client_id",
+      "databaseId": "database_id"
+    },
+    "mssql:index/azureadUser:AzureadUser": {
+      "databaseId": "database_id",
+      "userObjectId": "user_object_id"
+    },
+    "mssql:index/databasePermission:DatabasePermission": {
+      "principalId": "principal_id",
+      "withGrantOption": "with_grant_option"
+    },
+    "mssql:index/databaseRole:DatabaseRole": {
+      "databaseId": "database_id",
+      "ownerId": "owner_id"
+    },
+    "mssql:index/databaseRoleMember:DatabaseRoleMember": {
+      "memberId": "member_id",
+      "roleId": "role_id"
+    },
+    "mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal": {
+      "clientId": "client_id",
+      "databaseId": "database_id"
+    },
+    "mssql:index/getAzureadUser:getAzureadUser": {
+      "databaseId": "database_id",
+      "userObjectId": "user_object_id"
+    },
+    "mssql:index/getDatabasePermissions:getDatabasePermissions": {
+      "principalId": "principal_id"
+    },
+    "mssql:index/getDatabasePermissionsPermission:getDatabasePermissionsPermission": {
+      "withGrantOption": "with_grant_option"
+    },
+    "mssql:index/getDatabaseRole:getDatabaseRole": {
+      "databaseId": "database_id",
+      "ownerId": "owner_id"
+    },
+    "mssql:index/getDatabaseRoles:getDatabaseRoles": {
+      "databaseId": "database_id"
+    },
+    "mssql:index/getDatabaseRolesRole:getDatabaseRolesRole": {
+      "databaseId": "database_id",
+      "ownerId": "owner_id"
+    },
+    "mssql:index/getQuery:getQuery": {
+      "databaseId": "database_id",
+      "results": "result"
+    },
+    "mssql:index/getSchema:getSchema": {
+      "databaseId": "database_id",
+      "ownerId": "owner_id"
+    },
+    "mssql:index/getSchemaPermissions:getSchemaPermissions": {
+      "principalId": "principal_id",
+      "schemaId": "schema_id"
+    },
+    "mssql:index/getSchemaPermissionsPermission:getSchemaPermissionsPermission": {
+      "withGrantOption": "with_grant_option"
+    },
+    "mssql:index/getSchemas:getSchemas": {
+      "databaseId": "database_id"
+    },
+    "mssql:index/getSchemasSchema:getSchemasSchema": {
+      "databaseId": "database_id",
+      "ownerId": "owner_id"
+    },
+    "mssql:index/getServerPermissions:getServerPermissions": {
+      "principalId": "principal_id"
+    },
+    "mssql:index/getServerPermissionsPermission:getServerPermissionsPermission": {
+      "withGrantOption": "with_grant_option"
+    },
+    "mssql:index/getServerRole:getServerRole": {
+      "ownerId": "owner_id"
+    },
+    "mssql:index/getServerRolesRole:getServerRolesRole": {
+      "ownerId": "owner_id"
+    },
+    "mssql:index/getSqlLogin:getSqlLogin": {
+      "checkPasswordExpiration": "check_password_expiration",
+      "checkPasswordPolicy": "check_password_policy",
+      "defaultDatabaseId": "default_database_id",
+      "defaultLanguage": "default_language",
+      "mustChangePassword": "must_change_password",
+      "principalId": "principal_id"
+    },
+    "mssql:index/getSqlLoginsLogin:getSqlLoginsLogin": {
+      "checkPasswordExpiration": "check_password_expiration",
+      "checkPasswordPolicy": "check_password_policy",
+      "defaultDatabaseId": "default_database_id",
+      "defaultLanguage": "default_language",
+      "mustChangePassword": "must_change_password",
+      "principalId": "principal_id"
+    },
+    "mssql:index/getSqlUser:getSqlUser": {
+      "databaseId": "database_id",
+      "loginId": "login_id"
+    },
+    "mssql:index/getSqlUsers:getSqlUsers": {
+      "databaseId": "database_id"
+    },
+    "mssql:index/getSqlUsersUser:getSqlUsersUser": {
+      "databaseId": "database_id",
+      "loginId": "login_id"
+    },
+    "mssql:index/schema:Schema": {
+      "databaseId": "database_id",
+      "ownerId": "owner_id"
+    },
+    "mssql:index/schemaPermission:SchemaPermission": {
+      "principalId": "principal_id",
+      "schemaId": "schema_id",
+      "withGrantOption": "with_grant_option"
+    },
+    "mssql:index/script:Script": {
+      "createScript": "create_script",
+      "databaseId": "database_id",
+      "deleteScript": "delete_script",
+      "readScript": "read_script",
+      "updateScript": "update_script"
+    },
+    "mssql:index/serverPermission:ServerPermission": {
+      "principalId": "principal_id",
+      "withGrantOption": "with_grant_option"
+    },
+    "mssql:index/serverRole:ServerRole": {
+      "ownerId": "owner_id"
+    },
+    "mssql:index/serverRoleMember:ServerRoleMember": {
+      "memberId": "member_id",
+      "roleId": "role_id"
+    },
+    "mssql:index/sqlLogin:SqlLogin": {
+      "checkPasswordExpiration": "check_password_expiration",
+      "checkPasswordPolicy": "check_password_policy",
+      "defaultDatabaseId": "default_database_id",
+      "defaultLanguage": "default_language",
+      "mustChangePassword": "must_change_password",
+      "principalId": "principal_id"
+    },
+    "mssql:index/sqlUser:SqlUser": {
+      "databaseId": "database_id",
+      "loginId": "login_id"
+    },
+    "mssql:index:Provider": {
+      "azureAuth": "azure_auth",
+      "sqlAuth": "sql_auth"
+    }
+  },
+  "renamedConfigProperties": {
+    "azureAuth": "azure_auth",
+    "sqlAuth": "sql_auth"
+  }
+}
