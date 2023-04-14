@@ -11,7 +11,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`mssql` Terraform Provider](https://github.com/PGSSoft/terraform-provider-mssql).",
     "repository": "https://github.com/pulumiverse/pulumi-mssql",
-    "logoUrl": "https://raw.githubusercontent.com/pulumiverse/pulumi-mssql/main/docs/mssql.svg",
+    "logoUrl": "https://raw.githubusercontent.com/pulumiverse/pulumi-mssql/main/docs/mssql.png",
     "pluginDownloadURL": "github://api.github.com/pulumiverse/pulumi-mssql",
     "publisher": "pulumiverse",
     "meta": {
