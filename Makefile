@@ -6,7 +6,7 @@ PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 JAVA_GEN         := pulumi-java-gen
-JAVA_GEN_VERSION := v0.8.0
+JAVA_GEN_VERSION := v0.9.1
 TFGEN            := pulumi-tfgen-mssql
 PROVIDER         := pulumi-resource-mssql
 VERSION          := $(shell pulumictl get version)
