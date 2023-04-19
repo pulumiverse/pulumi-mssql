@@ -1,6 +1,6 @@
 module github.com/PGSSoft/terraform-provider-mssql/shim
 
-go 1.18
+go 1.20
 
 require (
 	github.com/PGSSoft/terraform-provider-mssql v0.6.1-0.20230221122241-5f4f6a894546
@@ -21,7 +21,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang-sql/sqlexp v0.1.0 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -34,7 +34,7 @@ require (
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hashicorp/hc-install v0.5.0 // indirect
-	github.com/hashicorp/hcl/v2 v2.16.1 // indirect
+	github.com/hashicorp/hcl/v2 v2.16.2 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/terraform-exec v0.17.3 // indirect
 	github.com/hashicorp/terraform-json v0.15.0 // indirect
@@ -64,7 +64,7 @@ require (
 	github.com/vmihailenco/msgpack v4.0.4+incompatible // indirect
 	github.com/vmihailenco/msgpack/v4 v4.3.12 // indirect
 	github.com/vmihailenco/tagparser v0.1.2 // indirect
-	github.com/zclconf/go-cty v1.12.1 // indirect
+	github.com/zclconf/go-cty v1.13.1 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
@@ -74,6 +74,6 @@ require (
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/grpc v1.53.0 // indirect
-	google.golang.org/protobuf v1.28.1 // indirect
+	google.golang.org/protobuf v1.29.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
