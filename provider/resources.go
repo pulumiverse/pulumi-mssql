@@ -15,6 +15,7 @@
 package mssql
 
 import (
+	_ "embed"
 	"path/filepath"
 	"strings"
 
@@ -26,6 +27,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumiverse/pulumi-mssql/provider/pkg/version"
 )
+
+//go:embed cmd/pulumi-resource-mssql/bridge-metadata.json
+var bridgeMetadata []byte
 
 // all of the token components used below.
 const (
@@ -86,7 +90,8 @@ func Provider() pf.ProviderInfo {
 		Repository: "https://github.com/pulumiverse/pulumi-mssql",
 		// The GitHub Org for the provider - defaults to `terraform-providers`. Note that this
 		// should match the TF provider module's require directive, not any replace directives.
-		GitHubOrg: "PGSSoft",
+		GitHubOrg:    "PGSSoft",
+		MetadataInfo: tfbridge.NewProviderMetadata(bridgeMetadata),
 		Config: map[string]*tfbridge.SchemaInfo{
 			"hostname": {
 				Default: &tfbridge.DefaultInfo{
@@ -109,6 +114,7 @@ func Provider() pf.ProviderInfo {
 						MarkAsOptional: tfbridge.False(),
 					},
 				},
+				MarkAsOptional: tfbridge.True(),
 			},
 			"azure_auth": {
 				Fields: map[string]*tfbridge.SchemaInfo{
@@ -129,6 +135,7 @@ func Provider() pf.ProviderInfo {
 						},
 					},
 				},
+				MarkAsOptional: tfbridge.True(),
 			},
 		},
 		Resources: map[string]*tfbridge.ResourceInfo{
