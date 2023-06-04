@@ -107,11 +107,17 @@ func Provider() pf.ProviderInfo {
 			"sql_auth": {
 				Fields: map[string]*tfbridge.SchemaInfo{
 					"username": {
-						MarkAsOptional: tfbridge.False(),
+						Default: &tfbridge.DefaultInfo{
+							EnvVars: []string{"MSSQL_USERNAME"},
+						},
+						MarkAsOptional: tfbridge.True(),
 					},
 					"password": {
+						Default: &tfbridge.DefaultInfo{
+							EnvVars: []string{"MSSQL_PASSWORD"},
+						},
 						Secret:         tfbridge.True(),
-						MarkAsOptional: tfbridge.False(),
+						MarkAsOptional: tfbridge.True(),
 					},
 				},
 				MarkAsOptional: tfbridge.True(),
@@ -120,19 +126,22 @@ func Provider() pf.ProviderInfo {
 				Fields: map[string]*tfbridge.SchemaInfo{
 					"client_id": {
 						Default: &tfbridge.DefaultInfo{
-							EnvVars: []string{"ARM_CLIENT_ID"},
+							EnvVars: []string{"ARM_CLIENT_ID", "AZURE_CLIENT_ID"},
 						},
+						MarkAsOptional: tfbridge.True(),
 					},
 					"client_secret": {
 						Secret: tfbridge.True(),
 						Default: &tfbridge.DefaultInfo{
-							EnvVars: []string{"ARM_CLIENT_SECRET"},
+							EnvVars: []string{"ARM_CLIENT_SECRET", "AZURE_CLIENT_SECRET"},
 						},
+						MarkAsOptional: tfbridge.True(),
 					},
 					"tenant_id": {
 						Default: &tfbridge.DefaultInfo{
-							EnvVars: []string{"ARM_TENANT_ID"},
+							EnvVars: []string{"ARM_TENANT_ID", "AZURE_TENANT_ID"},
 						},
+						MarkAsOptional: tfbridge.True(),
 					},
 				},
 				MarkAsOptional: tfbridge.True(),
