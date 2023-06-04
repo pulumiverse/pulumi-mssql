@@ -1,6 +1,6 @@
-# Mssql Resource Provider
+# MSSQL Resource Provider
 
-The Mssql Resource Provider lets you manage [mssql](https://www.pulumi.com/registry/packages/mssql/) resources.
+The MSSQL Resource Provider lets you manage [mssql](https://www.pulumi.com/registry/packages/mssql/) resources.
 
 ## Installing
 
@@ -43,13 +43,6 @@ To use from .NET, install using `dotnet add package`:
 ```bash
 dotnet add package Pulumiverse.Mssql
 ```
-
-## Configuration
-
-The following configuration points are available for the `mssql` provider:
-
-- `mssql:apiKey` (environment: `mssql_API_KEY`) - the API key for `mssql`
-- `mssql:region` (environment: `mssql_REGION`) - the region in which to deploy resources
 
 ## Reference
 
