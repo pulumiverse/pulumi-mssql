@@ -9,8 +9,13 @@ config:
     type: string
   local-ip:
     type: string
+  sqladmin:
+    type: string
 
 variables:
+  server-name: "sql${random-prefix.hex}"
+  role-name: db_owner
+
   current:
     fn::invoke:
       function: azure:core:getClientConfig
@@ -30,25 +35,47 @@ variables:
       function: mssql:getDatabaseRole
       arguments:
         databaseId: ${database-id.id}
-        name: db_owner
+        name: ${role-name}
       options:
         provider: ${provider-mssql}
+
+  aad-sqladmin:
+    fn::invoke:
+      function: azuread:getUser
+      arguments:
+        userPrincipalName: ${sqladmin}
 
 outputs: {}
 
 resources:
   provider:
     type: pulumi:providers:azure
+    properties:
+      skipProviderRegistration: true
     options:
       version: 5.38.0
+
+  provider-azuread:
+    type: pulumi:providers:azuread
+    options:
+      version: 5.30.0
+
+  aad-group-sqladmins:
+    type: azuread:Group
+    properties:
+      displayName: "AZ.RESOURCES.${server-name}.Admins"
+      securityEnabled: true
+      members:
+        - ${current.objectId}
+        - ${aad-sqladmin.objectId}
+    options:
+      provider: ${provider-azuread}
 
   resource-group:
     type: azure:core:ResourceGroup
     properties:
       name: ${resourcegroup-name}
       location: ${resourcegroup-location}
-    options:
-      provider: ${provider}
 
   random-prefix:
     type: random:RandomId
@@ -56,22 +83,27 @@ resources:
       byteLength: 8
       keepers:
         keep: ${resourcegroup-name}
-    options:
-      provider: ${provider}
+
+  server-password:
+    type: random:RandomPassword
+    properties:
+      length: 32
+      special: true
 
   server:
     type: azure:mssql:Server
     properties:
-      name: "sql${random-prefix.hex}"
+      name: ${server-name}
       resourceGroupName: ${resource-group.name}
       location: ${resource-group.location}
       version: '12.0'
       administratorLogin: sadmin
-      administratorLoginPassword: Password!!!1
+      administratorLoginPassword: ${server-password.result}
       minimumTlsVersion: '1.2'
       azureadAdministrator:
-        loginUsername: "AzureAD Admin"
-        objectId: ${current.objectId}
+        azureadAuthenticationOnly: true
+        loginUsername: ${aad-group-sqladmins.displayName}
+        objectId: ${aad-group-sqladmins.objectId}
         tenantId: ${current.tenantId}
     options:
       provider: ${provider}
@@ -90,12 +122,10 @@ resources:
     type: pulumi:providers:mssql
     properties:
       hostname: ${server.fullyQualifiedDomainName}
-      # azureAuth: {}
-      sqlAuth:
-        username: ${server.administratorLogin}
-        password: ${server.administratorLoginPassword}
+      azureAuth: {}
     options:
       dependsOn:
+        - ${server}
         - ${database-firewall-rule}
 
   database:
@@ -103,27 +133,26 @@ resources:
     properties:
       name: "db${random-prefix.hex}"
       serverId: ${server.id}
-      collation: SQL_Latin1_General_CP1_CI_AS
       licenseType: LicenseIncluded
       maxSizeGb: 2
       skuName: Basic
     options:
       provider: ${provider}
 
-  server-login:
-    type: mssql:SqlLogin
+  aad-group-db-owner:
+    type: azuread:Group
     properties:
-      name: dbadmin
-      password: "Str0ngPa$$word12"
+      displayName: "AZ.RESOURCES.${server.name}.Database.${database.name}.${role-name}"
+      securityEnabled: true
     options:
-      provider: ${provider-mssql}
+      provider: ${provider-azuread}
 
   db-user:
-    type: mssql:SqlUser
+    type: mssql:AzureadUser
     properties:
       databaseId: ${database-id.id}
-      name: ${server-login.name}
-      loginId: ${server-login.id}
+      name: ${aad-group-db-owner.displayName}
+      userObjectId: ${aad-group-db-owner.objectId}
     options:
       provider: ${provider-mssql}
 

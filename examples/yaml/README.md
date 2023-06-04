@@ -33,6 +33,7 @@
 
     ```bash
     pulumi config set local-ip <your-external-ip>
+    pulumi config set sqladmin <aad-upn>
     pulumi config set resourcegroup-location <azure-region>
     pulumi config set resourcegroup-name <name-of-resource-group>
     ```
