@@ -29,10 +29,14 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.Hostname == nil {
-		args.Hostname = pulumi.StringPtr(getEnvOrDefault("", nil, "MSSQL_HOSTNAME").(string))
+		if d := getEnvOrDefault(nil, nil, "MSSQL_HOSTNAME"); d != nil {
+			args.Hostname = pulumi.StringPtr(d.(string))
+		}
 	}
 	if args.Port == nil {
-		args.Port = pulumi.IntPtr(getEnvOrDefault(1433, parseEnvInt, "MSSQL_PORT").(int))
+		if d := getEnvOrDefault(1433, parseEnvInt, "MSSQL_PORT"); d != nil {
+			args.Port = pulumi.IntPtr(d.(int))
+		}
 	}
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Provider

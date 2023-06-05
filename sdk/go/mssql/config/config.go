@@ -19,7 +19,11 @@ func GetHostname(ctx *pulumi.Context) string {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault("", nil, "MSSQL_HOSTNAME").(string)
+	var value string
+	if d := getEnvOrDefault(nil, nil, "MSSQL_HOSTNAME"); d != nil {
+		value = d.(string)
+	}
+	return value
 }
 
 // TCP port of SQL endpoint. Defaults to `1433`. Can be also set using `MSSQL_PORT` environment variable.
@@ -28,7 +32,11 @@ func GetPort(ctx *pulumi.Context) int {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault(1433, parseEnvInt, "MSSQL_PORT").(int)
+	var value int
+	if d := getEnvOrDefault(1433, parseEnvInt, "MSSQL_PORT"); d != nil {
+		value = d.(int)
+	}
+	return value
 }
 
 // When provided, SQL authentication will be used when connecting.
