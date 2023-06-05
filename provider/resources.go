@@ -273,7 +273,7 @@ func Provider() pf.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				"github.com/pulumi/pulumi-mssql/sdk/",
+				"github.com/pulumiverse/pulumi-mssql/sdk/",
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				"mssql",
