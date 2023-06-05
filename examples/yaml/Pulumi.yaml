@@ -1,0 +1,165 @@
+name: mssql-test
+runtime: yaml
+description: A Pulumi YAML project to test the new MSSQL provider
+
+config:
+  resourcegroup-location:
+    type: string
+  resourcegroup-name:
+    type: string
+  local-ip:
+    type: string
+  sqladmin:
+    type: string
+
+variables:
+  server-name: "sql${random-prefix.hex}"
+  role-name: db_owner
+
+  current:
+    fn::invoke:
+      function: azure:core:getClientConfig
+      options:
+        provider: ${provider}
+
+  database-id:
+    fn::invoke:
+      function: mssql:getDatabase
+      arguments:
+        name: ${database.name}
+      options:
+        provider: ${provider-mssql}
+
+  database-role-owner:
+    fn::invoke:
+      function: mssql:getDatabaseRole
+      arguments:
+        databaseId: ${database-id.id}
+        name: ${role-name}
+      options:
+        provider: ${provider-mssql}
+
+  aad-sqladmin:
+    fn::invoke:
+      function: azuread:getUser
+      arguments:
+        userPrincipalName: ${sqladmin}
+
+outputs: {}
+
+resources:
+  provider:
+    type: pulumi:providers:azure
+    properties:
+      skipProviderRegistration: true
+    options:
+      version: 5.38.0
+
+  provider-azuread:
+    type: pulumi:providers:azuread
+    options:
+      version: 5.30.0
+
+  aad-group-sqladmins:
+    type: azuread:Group
+    properties:
+      displayName: "AZ.RESOURCES.${server-name}.Admins"
+      securityEnabled: true
+      members:
+        - ${current.objectId}
+        - ${aad-sqladmin.objectId}
+    options:
+      provider: ${provider-azuread}
+
+  resource-group:
+    type: azure:core:ResourceGroup
+    properties:
+      name: ${resourcegroup-name}
+      location: ${resourcegroup-location}
+
+  random-prefix:
+    type: random:RandomId
+    properties:
+      byteLength: 8
+      keepers:
+        keep: ${resourcegroup-name}
+
+  server-password:
+    type: random:RandomPassword
+    properties:
+      length: 32
+      special: true
+
+  server:
+    type: azure:mssql:Server
+    properties:
+      name: ${server-name}
+      resourceGroupName: ${resource-group.name}
+      location: ${resource-group.location}
+      version: '12.0'
+      administratorLogin: sadmin
+      administratorLoginPassword: ${server-password.result}
+      minimumTlsVersion: '1.2'
+      azureadAdministrator:
+        azureadAuthenticationOnly: true
+        loginUsername: ${aad-group-sqladmins.displayName}
+        objectId: ${aad-group-sqladmins.objectId}
+        tenantId: ${current.tenantId}
+    options:
+      provider: ${provider}
+
+  database-firewall-rule:
+    type: azure:mssql:FirewallRule
+    properties:
+      name: client
+      serverId: ${server.id}
+      startIpAddress: ${local-ip}
+      endIpAddress: ${local-ip}
+    options:
+      provider: ${provider}
+
+  provider-mssql:
+    type: pulumi:providers:mssql
+    properties:
+      hostname: ${server.fullyQualifiedDomainName}
+      azureAuth: {}
+    options:
+      dependsOn:
+        - ${server}
+        - ${database-firewall-rule}
+
+  database:
+    type: azure:mssql:Database
+    properties:
+      name: "db${random-prefix.hex}"
+      serverId: ${server.id}
+      licenseType: LicenseIncluded
+      maxSizeGb: 2
+      skuName: Basic
+    options:
+      provider: ${provider}
+
+  aad-group-db-owner:
+    type: azuread:Group
+    properties:
+      displayName: "AZ.RESOURCES.${server.name}.Database.${database.name}.${role-name}"
+      securityEnabled: true
+    options:
+      provider: ${provider-azuread}
+
+  db-user:
+    type: mssql:AzureadUser
+    properties:
+      databaseId: ${database-id.id}
+      name: ${aad-group-db-owner.displayName}
+      userObjectId: ${aad-group-db-owner.objectId}
+    options:
+      provider: ${provider-mssql}
+
+  db-role-member:
+    type: mssql:DatabaseRoleMember
+    properties:
+      roleId: ${database-role-owner.id}
+      memberId: ${db-user.id}
+    options:
+      provider: ${provider-mssql}
