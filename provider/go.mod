@@ -7,8 +7,8 @@ replace github.com/PGSSoft/terraform-provider-mssql/shim => ./shim
 require (
 	github.com/PGSSoft/terraform-provider-mssql/shim v0.0.0-00010101000000-000000000000
 	github.com/ettle/strcase v0.1.1
-	github.com/pulumi/pulumi-terraform-bridge/pf v0.11.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.48.1-0.20230605131955-5a0a54720def
+	github.com/pulumi/pulumi-terraform-bridge/pf v0.11.1
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.49.1-0.20230605212537-46a92ef1828f
 	github.com/pulumi/pulumi/sdk/v3 v3.69.0
 )
 
