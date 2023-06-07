@@ -1,0 +1,12 @@
+name: mssql-test
+runtime: nodejs
+description: A Pulumi YAML project to test the new MSSQL provider
+config:
+  local-ip:
+    type: string
+  resourcegroup-location:
+    type: string
+  resourcegroup-name:
+    type: string
+  sqladmin:
+    type: string
