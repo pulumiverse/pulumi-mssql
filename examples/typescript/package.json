@@ -5,10 +5,10 @@
 		},
 		"dependencies": {
 			"typescript": "^4.0.0",
-			"@pulumi/pulumi": "^3.0.0",
-			"@pulumi/azure": "5.38.0",
-			"@pulumi/azuread": "5.30.0",
-			"@pulumiverse/mssql": "0.0.6",
-			"@pulumi/random": "4.3.1"
+			"@pulumi/pulumi": "^3",
+			"@pulumi/azure": "^5",
+			"@pulumi/azuread": "^3",
+			"@pulumi/random": "^4",
+			"@pulumiverse/mssql": "^0.0.6"
 		}
 }
