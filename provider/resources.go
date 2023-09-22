@@ -55,8 +55,12 @@ func makeResource(mod string, res string) tokens.Type {
 }
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
-func Provider() pf.ProviderInfo {
+func Provider() tfbridge.ProviderInfo {
+	// Instantiate the Terraform provider
+	p := pf.ShimProvider(shimprovider.NewProvider())
+	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
+		P:    p,
 		Name: "mssql",
 		// DisplayName is a way to be able to change the casing of the provider
 		// name when being displayed on the Pulumi registry
@@ -294,10 +298,7 @@ func Provider() pf.ProviderInfo {
 		Version: version.Version,
 	}
 
-	//prov.SetAutonaming(255, "-")
+	prov.SetAutonaming(255, "-")
 
-	return pf.ProviderInfo{
-		ProviderInfo: prov,
-		NewProvider:  shimprovider.NewProvider(),
-	}
+	return prov
 }
