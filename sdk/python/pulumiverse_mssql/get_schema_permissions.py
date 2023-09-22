@@ -114,10 +114,10 @@ def get_schema_permissions(principal_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getSchemaPermissions:getSchemaPermissions', __args__, opts=opts, typ=GetSchemaPermissionsResult).value
 
     return AwaitableGetSchemaPermissionsResult(
-        id=__ret__.id,
-        permissions=__ret__.permissions,
-        principal_id=__ret__.principal_id,
-        schema_id=__ret__.schema_id)
+        id=pulumi.get(__ret__, 'id'),
+        permissions=pulumi.get(__ret__, 'permissions'),
+        principal_id=pulumi.get(__ret__, 'principal_id'),
+        schema_id=pulumi.get(__ret__, 'schema_id'))
 
 
 @_utilities.lift_output_func(get_schema_permissions)

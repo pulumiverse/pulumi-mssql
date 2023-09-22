@@ -26,7 +26,6 @@ namespace Pulumiverse.Mssql
     ///     var example = new Mssql.Database("example", new()
     ///     {
     ///         Collation = "SQL_Latin1_General_CP1_CS_AS",
-    ///         Name = "example",
     ///     });
     /// 
     /// });
@@ -63,7 +62,7 @@ namespace Pulumiverse.Mssql
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Database(string name, DatabaseArgs args, CustomResourceOptions? options = null)
+        public Database(string name, DatabaseArgs? args = null, CustomResourceOptions? options = null)
             : base("mssql:index/database:Database", name, args ?? new DatabaseArgs(), MakeResourceOptions(options, ""))
         {
         }
@@ -111,8 +110,8 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         public DatabaseArgs()
         {

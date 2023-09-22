@@ -122,11 +122,11 @@ def get_database_role(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getDatabaseRole:getDatabaseRole', __args__, opts=opts, typ=GetDatabaseRoleResult).value
 
     return AwaitableGetDatabaseRoleResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        members=__ret__.members,
-        name=__ret__.name,
-        owner_id=__ret__.owner_id)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        members=pulumi.get(__ret__, 'members'),
+        name=pulumi.get(__ret__, 'name'),
+        owner_id=pulumi.get(__ret__, 'owner_id'))
 
 
 @_utilities.lift_output_func(get_database_role)

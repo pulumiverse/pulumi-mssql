@@ -108,10 +108,10 @@ def get_server_role(id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getServerRole:getServerRole', __args__, opts=opts, typ=GetServerRoleResult).value
 
     return AwaitableGetServerRoleResult(
-        id=__ret__.id,
-        members=__ret__.members,
-        name=__ret__.name,
-        owner_id=__ret__.owner_id)
+        id=pulumi.get(__ret__, 'id'),
+        members=pulumi.get(__ret__, 'members'),
+        name=pulumi.get(__ret__, 'name'),
+        owner_id=pulumi.get(__ret__, 'owner_id'))
 
 
 @_utilities.lift_output_func(get_server_role)

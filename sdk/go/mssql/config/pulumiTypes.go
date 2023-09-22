@@ -8,7 +8,11 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
+
+var _ = internal.GetEnvOrDefault
 
 type AzureAuth struct {
 	ClientId     *string `pulumi:"clientId"`
@@ -45,6 +49,12 @@ func (i AzureAuthArgs) ToAzureAuthOutputWithContext(ctx context.Context) AzureAu
 	return pulumi.ToOutputWithContext(ctx, i).(AzureAuthOutput)
 }
 
+func (i AzureAuthArgs) ToOutput(ctx context.Context) pulumix.Output[AzureAuth] {
+	return pulumix.Output[AzureAuth]{
+		OutputState: i.ToAzureAuthOutputWithContext(ctx).OutputState,
+	}
+}
+
 type AzureAuthOutput struct{ *pulumi.OutputState }
 
 func (AzureAuthOutput) ElementType() reflect.Type {
@@ -57,6 +67,12 @@ func (o AzureAuthOutput) ToAzureAuthOutput() AzureAuthOutput {
 
 func (o AzureAuthOutput) ToAzureAuthOutputWithContext(ctx context.Context) AzureAuthOutput {
 	return o
+}
+
+func (o AzureAuthOutput) ToOutput(ctx context.Context) pulumix.Output[AzureAuth] {
+	return pulumix.Output[AzureAuth]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o AzureAuthOutput) ClientId() pulumi.StringPtrOutput {
@@ -104,6 +120,12 @@ func (i SqlAuthArgs) ToSqlAuthOutputWithContext(ctx context.Context) SqlAuthOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SqlAuthOutput)
 }
 
+func (i SqlAuthArgs) ToOutput(ctx context.Context) pulumix.Output[SqlAuth] {
+	return pulumix.Output[SqlAuth]{
+		OutputState: i.ToSqlAuthOutputWithContext(ctx).OutputState,
+	}
+}
+
 type SqlAuthOutput struct{ *pulumi.OutputState }
 
 func (SqlAuthOutput) ElementType() reflect.Type {
@@ -116,6 +138,12 @@ func (o SqlAuthOutput) ToSqlAuthOutput() SqlAuthOutput {
 
 func (o SqlAuthOutput) ToSqlAuthOutputWithContext(ctx context.Context) SqlAuthOutput {
 	return o
+}
+
+func (o SqlAuthOutput) ToOutput(ctx context.Context) pulumix.Output[SqlAuth] {
+	return pulumix.Output[SqlAuth]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SqlAuthOutput) Password() pulumi.StringOutput {

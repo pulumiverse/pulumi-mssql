@@ -39,7 +39,6 @@ namespace Pulumiverse.Mssql
     /// 
     ///     var exampleAzureadServicePrincipal = new Mssql.AzureadServicePrincipal("exampleAzureadServicePrincipal", new()
     ///     {
-    ///         Name = "example",
     ///         DatabaseId = exampleDatabase.Apply(getDatabaseResult =&gt; getDatabaseResult.Id),
     ///         ClientId = exampleServicePrincipal.Apply(getServicePrincipalResult =&gt; getServicePrincipalResult.ApplicationId),
     ///     });
@@ -142,8 +141,8 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// User name. Cannot be longer than 128 chars.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         public AzureadServicePrincipalArgs()
         {

@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single database role.
@@ -46,7 +48,7 @@ import (
 //
 // ```
 func LookupDatabaseRole(ctx *pulumi.Context, args *LookupDatabaseRoleArgs, opts ...pulumi.InvokeOption) (*LookupDatabaseRoleResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupDatabaseRoleResult
 	err := ctx.Invoke("mssql:index/getDatabaseRole:getDatabaseRole", args, &rv, opts...)
 	if err != nil {
@@ -115,6 +117,12 @@ func (o LookupDatabaseRoleResultOutput) ToLookupDatabaseRoleResultOutput() Looku
 
 func (o LookupDatabaseRoleResultOutput) ToLookupDatabaseRoleResultOutputWithContext(ctx context.Context) LookupDatabaseRoleResultOutput {
 	return o
+}
+
+func (o LookupDatabaseRoleResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupDatabaseRoleResult] {
+	return pulumix.Output[LookupDatabaseRoleResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

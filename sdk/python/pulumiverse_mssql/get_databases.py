@@ -75,5 +75,5 @@ def get_databases(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetDa
     __ret__ = pulumi.runtime.invoke('mssql:index/getDatabases:getDatabases', __args__, opts=opts, typ=GetDatabasesResult).value
 
     return AwaitableGetDatabasesResult(
-        databases=__ret__.databases,
-        id=__ret__.id)
+        databases=pulumi.get(__ret__, 'databases'),
+        id=pulumi.get(__ret__, 'id'))

@@ -153,14 +153,14 @@ def get_sql_login(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getSqlLogin:getSqlLogin', __args__, opts=opts, typ=GetSqlLoginResult).value
 
     return AwaitableGetSqlLoginResult(
-        check_password_expiration=__ret__.check_password_expiration,
-        check_password_policy=__ret__.check_password_policy,
-        default_database_id=__ret__.default_database_id,
-        default_language=__ret__.default_language,
-        id=__ret__.id,
-        must_change_password=__ret__.must_change_password,
-        name=__ret__.name,
-        principal_id=__ret__.principal_id)
+        check_password_expiration=pulumi.get(__ret__, 'check_password_expiration'),
+        check_password_policy=pulumi.get(__ret__, 'check_password_policy'),
+        default_database_id=pulumi.get(__ret__, 'default_database_id'),
+        default_language=pulumi.get(__ret__, 'default_language'),
+        id=pulumi.get(__ret__, 'id'),
+        must_change_password=pulumi.get(__ret__, 'must_change_password'),
+        name=pulumi.get(__ret__, 'name'),
+        principal_id=pulumi.get(__ret__, 'principal_id'))
 
 
 @_utilities.lift_output_func(get_sql_login)

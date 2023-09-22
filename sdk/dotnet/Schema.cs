@@ -36,7 +36,6 @@ namespace Pulumiverse.Mssql
     /// 
     ///     var exampleSchema = new Mssql.Schema("exampleSchema", new()
     ///     {
-    ///         Name = "example",
     ///         DatabaseId = exampleDatabase.Apply(getDatabaseResult =&gt; getDatabaseResult.Id),
     ///         OwnerId = owner.Apply(getSqlUserResult =&gt; getSqlUserResult.Id),
     ///     });
@@ -81,7 +80,7 @@ namespace Pulumiverse.Mssql
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Schema(string name, SchemaArgs args, CustomResourceOptions? options = null)
+        public Schema(string name, SchemaArgs? args = null, CustomResourceOptions? options = null)
             : base("mssql:index/schema:Schema", name, args ?? new SchemaArgs(), MakeResourceOptions(options, ""))
         {
         }
@@ -129,8 +128,8 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Schema name.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         /// <summary>
         /// ID of database role or user owning this schema. Can be retrieved using `mssql.DatabaseRole`, `mssql.SqlUser`, `mssql.AzureadUser` or `mssql.AzureadServicePrincipal`

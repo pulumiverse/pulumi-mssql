@@ -24,7 +24,6 @@ import * as utilities from "./utilities";
  *     displayName: "test-application",
  * });
  * const exampleAzureadServicePrincipal = new mssql.AzureadServicePrincipal("exampleAzureadServicePrincipal", {
- *     name: "example",
  *     databaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
  *     clientId: exampleServicePrincipal.then(exampleServicePrincipal => exampleServicePrincipal.applicationId),
  * });
@@ -104,9 +103,6 @@ export class AzureadServicePrincipal extends pulumi.CustomResource {
             if ((!args || args.databaseId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'databaseId'");
             }
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             resourceInputs["clientId"] = args ? args.clientId : undefined;
             resourceInputs["databaseId"] = args ? args.databaseId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -149,5 +145,5 @@ export interface AzureadServicePrincipalArgs {
     /**
      * User name. Cannot be longer than 128 chars.
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
 }

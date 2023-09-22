@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single SQL login.
@@ -40,7 +42,7 @@ import (
 //
 // ```
 func LookupSqlLogin(ctx *pulumi.Context, args *LookupSqlLoginArgs, opts ...pulumi.InvokeOption) (*LookupSqlLoginResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupSqlLoginResult
 	err := ctx.Invoke("mssql:index/getSqlLogin:getSqlLogin", args, &rv, opts...)
 	if err != nil {
@@ -111,6 +113,12 @@ func (o LookupSqlLoginResultOutput) ToLookupSqlLoginResultOutput() LookupSqlLogi
 
 func (o LookupSqlLoginResultOutput) ToLookupSqlLoginResultOutputWithContext(ctx context.Context) LookupSqlLoginResultOutput {
 	return o
+}
+
+func (o LookupSqlLoginResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSqlLoginResult] {
+	return pulumix.Output[LookupSqlLoginResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // When `true`, password expiration policy is enforced for this login.

@@ -72,5 +72,5 @@ def get_server_roles(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGe
     __ret__ = pulumi.runtime.invoke('mssql:index/getServerRoles:getServerRoles', __args__, opts=opts, typ=GetServerRolesResult).value
 
     return AwaitableGetServerRolesResult(
-        id=__ret__.id,
-        roles=__ret__.roles)
+        id=pulumi.get(__ret__, 'id'),
+        roles=pulumi.get(__ret__, 'roles'))

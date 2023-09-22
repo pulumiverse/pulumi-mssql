@@ -40,6 +40,35 @@ namespace Pulumiverse.Mssql
         /// </summary>
         public static Task<GetSqlLoginsResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSqlLoginsResult>("mssql:index/getSqlLogins:getSqlLogins", InvokeArgs.Empty, options.WithDefaults());
+
+        /// <summary>
+        /// Obtains information about all SQL logins found in SQL Server instance.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Mssql = Pulumi.Mssql;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var example = Mssql.GetSqlLogins.Invoke();
+        /// 
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["databases"] = example.Apply(getSqlLoginsResult =&gt; getSqlLoginsResult.Logins),
+        ///     };
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetSqlLoginsResult> Invoke(InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetSqlLoginsResult>("mssql:index/getSqlLogins:getSqlLogins", InvokeArgs.Empty, options.WithDefaults());
     }
 
 

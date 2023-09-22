@@ -18,7 +18,6 @@ import * as utilities from "./utilities";
  *     name: "example",
  * });
  * const exampleSqlLogin = new mssql.SqlLogin("exampleSqlLogin", {
- *     name: "example",
  *     password: "Str0ngPa$$word12",
  *     mustChangePassword: true,
  *     defaultDatabaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
@@ -128,9 +127,6 @@ export class SqlLogin extends pulumi.CustomResource {
             resourceInputs["principalId"] = state ? state.principalId : undefined;
         } else {
             const args = argsOrState as SqlLoginArgs | undefined;
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             if ((!args || args.password === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'password'");
             }
@@ -229,7 +225,7 @@ export interface SqlLoginArgs {
     /**
      * Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
      */

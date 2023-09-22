@@ -9,6 +9,8 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Grants database-level permission.
@@ -99,7 +101,7 @@ func NewSchemaPermission(ctx *pulumi.Context,
 	if args.SchemaId == nil {
 		return nil, errors.New("invalid value for required argument 'SchemaId'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource SchemaPermission
 	err := ctx.RegisterResource("mssql:index/schemaPermission:SchemaPermission", name, args, &resource, opts...)
 	if err != nil {
@@ -193,6 +195,12 @@ func (i *SchemaPermission) ToSchemaPermissionOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(SchemaPermissionOutput)
 }
 
+func (i *SchemaPermission) ToOutput(ctx context.Context) pulumix.Output[*SchemaPermission] {
+	return pulumix.Output[*SchemaPermission]{
+		OutputState: i.ToSchemaPermissionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SchemaPermissionArrayInput is an input type that accepts SchemaPermissionArray and SchemaPermissionArrayOutput values.
 // You can construct a concrete instance of `SchemaPermissionArrayInput` via:
 //
@@ -216,6 +224,12 @@ func (i SchemaPermissionArray) ToSchemaPermissionArrayOutput() SchemaPermissionA
 
 func (i SchemaPermissionArray) ToSchemaPermissionArrayOutputWithContext(ctx context.Context) SchemaPermissionArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SchemaPermissionArrayOutput)
+}
+
+func (i SchemaPermissionArray) ToOutput(ctx context.Context) pulumix.Output[[]*SchemaPermission] {
+	return pulumix.Output[[]*SchemaPermission]{
+		OutputState: i.ToSchemaPermissionArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // SchemaPermissionMapInput is an input type that accepts SchemaPermissionMap and SchemaPermissionMapOutput values.
@@ -243,6 +257,12 @@ func (i SchemaPermissionMap) ToSchemaPermissionMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(SchemaPermissionMapOutput)
 }
 
+func (i SchemaPermissionMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SchemaPermission] {
+	return pulumix.Output[map[string]*SchemaPermission]{
+		OutputState: i.ToSchemaPermissionMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type SchemaPermissionOutput struct{ *pulumi.OutputState }
 
 func (SchemaPermissionOutput) ElementType() reflect.Type {
@@ -255,6 +275,12 @@ func (o SchemaPermissionOutput) ToSchemaPermissionOutput() SchemaPermissionOutpu
 
 func (o SchemaPermissionOutput) ToSchemaPermissionOutputWithContext(ctx context.Context) SchemaPermissionOutput {
 	return o
+}
+
+func (o SchemaPermissionOutput) ToOutput(ctx context.Context) pulumix.Output[*SchemaPermission] {
+	return pulumix.Output[*SchemaPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Name of schema SQL permission. For full list of supported permissions, see [docs](https://learn.microsoft.com/en-us/sql/t-sql/statements/grant-schema-permissions-transact-sql?view=azuresqldb-current#remarks)
@@ -291,6 +317,12 @@ func (o SchemaPermissionArrayOutput) ToSchemaPermissionArrayOutputWithContext(ct
 	return o
 }
 
+func (o SchemaPermissionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SchemaPermission] {
+	return pulumix.Output[[]*SchemaPermission]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o SchemaPermissionArrayOutput) Index(i pulumi.IntInput) SchemaPermissionOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SchemaPermission {
 		return vs[0].([]*SchemaPermission)[vs[1].(int)]
@@ -309,6 +341,12 @@ func (o SchemaPermissionMapOutput) ToSchemaPermissionMapOutput() SchemaPermissio
 
 func (o SchemaPermissionMapOutput) ToSchemaPermissionMapOutputWithContext(ctx context.Context) SchemaPermissionMapOutput {
 	return o
+}
+
+func (o SchemaPermissionMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SchemaPermission] {
+	return pulumix.Output[map[string]*SchemaPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SchemaPermissionMapOutput) MapIndex(k pulumi.StringInput) SchemaPermissionOutput {

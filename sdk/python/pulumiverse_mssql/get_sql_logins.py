@@ -75,5 +75,5 @@ def get_sql_logins(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetS
     __ret__ = pulumi.runtime.invoke('mssql:index/getSqlLogins:getSqlLogins', __args__, opts=opts, typ=GetSqlLoginsResult).value
 
     return AwaitableGetSqlLoginsResult(
-        id=__ret__.id,
-        logins=__ret__.logins)
+        id=pulumi.get(__ret__, 'id'),
+        logins=pulumi.get(__ret__, 'logins'))

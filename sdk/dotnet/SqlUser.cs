@@ -31,7 +31,6 @@ namespace Pulumiverse.Mssql
     /// 
     ///     var exampleSqlLogin = new Mssql.SqlLogin("exampleSqlLogin", new()
     ///     {
-    ///         Name = "example",
     ///         Password = "Str0ngPa$$word12",
     ///         MustChangePassword = true,
     ///         DefaultDatabaseId = exampleDatabase.Apply(getDatabaseResult =&gt; getDatabaseResult.Id),
@@ -42,7 +41,6 @@ namespace Pulumiverse.Mssql
     /// 
     ///     var exampleSqlUser = new Mssql.SqlUser("exampleSqlUser", new()
     ///     {
-    ///         Name = "example",
     ///         DatabaseId = exampleDatabase.Apply(getDatabaseResult =&gt; getDatabaseResult.Id),
     ///         LoginId = exampleSqlLogin.Id,
     ///     });
@@ -145,8 +143,8 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// User name. Cannot be longer than 128 chars.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         public SqlUserArgs()
         {

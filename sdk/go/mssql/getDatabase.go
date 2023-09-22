@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single database.
@@ -40,7 +42,7 @@ import (
 //
 // ```
 func LookupDatabase(ctx *pulumi.Context, args *LookupDatabaseArgs, opts ...pulumi.InvokeOption) (*LookupDatabaseResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupDatabaseResult
 	err := ctx.Invoke("mssql:index/getDatabase:getDatabase", args, &rv, opts...)
 	if err != nil {
@@ -101,6 +103,12 @@ func (o LookupDatabaseResultOutput) ToLookupDatabaseResultOutput() LookupDatabas
 
 func (o LookupDatabaseResultOutput) ToLookupDatabaseResultOutputWithContext(ctx context.Context) LookupDatabaseResultOutput {
 	return o
+}
+
+func (o LookupDatabaseResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupDatabaseResult] {
+	return pulumix.Output[LookupDatabaseResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Default collation name. Can be either a Windows collation name or a SQL collation name.

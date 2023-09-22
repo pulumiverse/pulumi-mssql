@@ -112,10 +112,10 @@ def get_azuread_service_principal(client_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal', __args__, opts=opts, typ=GetAzureadServicePrincipalResult).value
 
     return AwaitableGetAzureadServicePrincipalResult(
-        client_id=__ret__.client_id,
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        name=__ret__.name)
+        client_id=pulumi.get(__ret__, 'client_id'),
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'))
 
 
 @_utilities.lift_output_func(get_azuread_service_principal)

@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about all schemas found in SQL database.
@@ -49,7 +51,7 @@ import (
 //
 // ```
 func GetSchemas(ctx *pulumi.Context, args *GetSchemasArgs, opts ...pulumi.InvokeOption) (*GetSchemasResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetSchemasResult
 	err := ctx.Invoke("mssql:index/getSchemas:getSchemas", args, &rv, opts...)
 	if err != nil {
@@ -110,6 +112,12 @@ func (o GetSchemasResultOutput) ToGetSchemasResultOutput() GetSchemasResultOutpu
 
 func (o GetSchemasResultOutput) ToGetSchemasResultOutputWithContext(ctx context.Context) GetSchemasResultOutput {
 	return o
+}
+
+func (o GetSchemasResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSchemasResult] {
+	return pulumix.Output[GetSchemasResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

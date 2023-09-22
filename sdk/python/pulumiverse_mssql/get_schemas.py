@@ -94,9 +94,9 @@ def get_schemas(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getSchemas:getSchemas', __args__, opts=opts, typ=GetSchemasResult).value
 
     return AwaitableGetSchemasResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        schemas=__ret__.schemas)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        schemas=pulumi.get(__ret__, 'schemas'))
 
 
 @_utilities.lift_output_func(get_schemas)

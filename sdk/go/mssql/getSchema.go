@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Retrieves information about DB schema.
@@ -45,7 +47,7 @@ import (
 //
 // ```
 func LookupSchema(ctx *pulumi.Context, args *LookupSchemaArgs, opts ...pulumi.InvokeOption) (*LookupSchemaResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupSchemaResult
 	err := ctx.Invoke("mssql:index/getSchema:getSchema", args, &rv, opts...)
 	if err != nil {
@@ -116,6 +118,12 @@ func (o LookupSchemaResultOutput) ToLookupSchemaResultOutput() LookupSchemaResul
 
 func (o LookupSchemaResultOutput) ToLookupSchemaResultOutputWithContext(ctx context.Context) LookupSchemaResultOutput {
 	return o
+}
+
+func (o LookupSchemaResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSchemaResult] {
+	return pulumix.Output[LookupSchemaResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

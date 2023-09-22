@@ -7,8 +7,9 @@ import (
 	"context"
 	"reflect"
 
-	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Manages single database.
@@ -29,7 +30,6 @@ import (
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := mssql.NewDatabase(ctx, "example", &mssql.DatabaseArgs{
 //				Collation: pulumi.String("SQL_Latin1_General_CP1_CS_AS"),
-//				Name:      pulumi.String("example"),
 //			})
 //			if err != nil {
 //				return err
@@ -62,13 +62,10 @@ type Database struct {
 func NewDatabase(ctx *pulumi.Context,
 	name string, args *DatabaseArgs, opts ...pulumi.ResourceOption) (*Database, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &DatabaseArgs{}
 	}
 
-	if args.Name == nil {
-		return nil, errors.New("invalid value for required argument 'Name'")
-	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Database
 	err := ctx.RegisterResource("mssql:index/database:Database", name, args, &resource, opts...)
 	if err != nil {
@@ -112,7 +109,7 @@ type databaseArgs struct {
 	// Default collation name. Can be either a Windows collation name or a SQL collation name. Defaults to SQL Server instance's default collation.
 	Collation *string `pulumi:"collation"`
 	// Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
-	Name string `pulumi:"name"`
+	Name *string `pulumi:"name"`
 }
 
 // The set of arguments for constructing a Database resource.
@@ -120,7 +117,7 @@ type DatabaseArgs struct {
 	// Default collation name. Can be either a Windows collation name or a SQL collation name. Defaults to SQL Server instance's default collation.
 	Collation pulumi.StringPtrInput
 	// Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
-	Name pulumi.StringInput
+	Name pulumi.StringPtrInput
 }
 
 func (DatabaseArgs) ElementType() reflect.Type {
@@ -144,6 +141,12 @@ func (i *Database) ToDatabaseOutput() DatabaseOutput {
 
 func (i *Database) ToDatabaseOutputWithContext(ctx context.Context) DatabaseOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseOutput)
+}
+
+func (i *Database) ToOutput(ctx context.Context) pulumix.Output[*Database] {
+	return pulumix.Output[*Database]{
+		OutputState: i.ToDatabaseOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DatabaseArrayInput is an input type that accepts DatabaseArray and DatabaseArrayOutput values.
@@ -171,6 +174,12 @@ func (i DatabaseArray) ToDatabaseArrayOutputWithContext(ctx context.Context) Dat
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseArrayOutput)
 }
 
+func (i DatabaseArray) ToOutput(ctx context.Context) pulumix.Output[[]*Database] {
+	return pulumix.Output[[]*Database]{
+		OutputState: i.ToDatabaseArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DatabaseMapInput is an input type that accepts DatabaseMap and DatabaseMapOutput values.
 // You can construct a concrete instance of `DatabaseMapInput` via:
 //
@@ -196,6 +205,12 @@ func (i DatabaseMap) ToDatabaseMapOutputWithContext(ctx context.Context) Databas
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseMapOutput)
 }
 
+func (i DatabaseMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Database] {
+	return pulumix.Output[map[string]*Database]{
+		OutputState: i.ToDatabaseMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DatabaseOutput struct{ *pulumi.OutputState }
 
 func (DatabaseOutput) ElementType() reflect.Type {
@@ -208,6 +223,12 @@ func (o DatabaseOutput) ToDatabaseOutput() DatabaseOutput {
 
 func (o DatabaseOutput) ToDatabaseOutputWithContext(ctx context.Context) DatabaseOutput {
 	return o
+}
+
+func (o DatabaseOutput) ToOutput(ctx context.Context) pulumix.Output[*Database] {
+	return pulumix.Output[*Database]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Default collation name. Can be either a Windows collation name or a SQL collation name. Defaults to SQL Server instance's default collation.
@@ -234,6 +255,12 @@ func (o DatabaseArrayOutput) ToDatabaseArrayOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o DatabaseArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Database] {
+	return pulumix.Output[[]*Database]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o DatabaseArrayOutput) Index(i pulumi.IntInput) DatabaseOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Database {
 		return vs[0].([]*Database)[vs[1].(int)]
@@ -252,6 +279,12 @@ func (o DatabaseMapOutput) ToDatabaseMapOutput() DatabaseMapOutput {
 
 func (o DatabaseMapOutput) ToDatabaseMapOutputWithContext(ctx context.Context) DatabaseMapOutput {
 	return o
+}
+
+func (o DatabaseMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Database] {
+	return pulumix.Output[map[string]*Database]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DatabaseMapOutput) MapIndex(k pulumi.StringInput) DatabaseOutput {

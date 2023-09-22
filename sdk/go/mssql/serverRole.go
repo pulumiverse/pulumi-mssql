@@ -7,8 +7,9 @@ import (
 	"context"
 	"reflect"
 
-	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Manages server-level role.
@@ -27,14 +28,11 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			owner, err := mssql.NewServerRole(ctx, "owner", &mssql.ServerRoleArgs{
-//				Name: pulumi.String("owner_role"),
-//			})
+//			owner, err := mssql.NewServerRole(ctx, "owner", nil)
 //			if err != nil {
 //				return err
 //			}
 //			_, err = mssql.NewServerRole(ctx, "example", &mssql.ServerRoleArgs{
-//				Name:    pulumi.String("example"),
 //				OwnerId: owner.ID(),
 //			})
 //			if err != nil {
@@ -68,13 +66,10 @@ type ServerRole struct {
 func NewServerRole(ctx *pulumi.Context,
 	name string, args *ServerRoleArgs, opts ...pulumi.ResourceOption) (*ServerRole, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &ServerRoleArgs{}
 	}
 
-	if args.Name == nil {
-		return nil, errors.New("invalid value for required argument 'Name'")
-	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ServerRole
 	err := ctx.RegisterResource("mssql:index/serverRole:ServerRole", name, args, &resource, opts...)
 	if err != nil {
@@ -116,7 +111,7 @@ func (ServerRoleState) ElementType() reflect.Type {
 
 type serverRoleArgs struct {
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name string `pulumi:"name"`
+	Name *string `pulumi:"name"`
 	// ID of another server role or login owning this role. Can be retrieved using `ServerRole` or `SqlLogin`.
 	OwnerId *string `pulumi:"ownerId"`
 }
@@ -124,7 +119,7 @@ type serverRoleArgs struct {
 // The set of arguments for constructing a ServerRole resource.
 type ServerRoleArgs struct {
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name pulumi.StringInput
+	Name pulumi.StringPtrInput
 	// ID of another server role or login owning this role. Can be retrieved using `ServerRole` or `SqlLogin`.
 	OwnerId pulumi.StringPtrInput
 }
@@ -152,6 +147,12 @@ func (i *ServerRole) ToServerRoleOutputWithContext(ctx context.Context) ServerRo
 	return pulumi.ToOutputWithContext(ctx, i).(ServerRoleOutput)
 }
 
+func (i *ServerRole) ToOutput(ctx context.Context) pulumix.Output[*ServerRole] {
+	return pulumix.Output[*ServerRole]{
+		OutputState: i.ToServerRoleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ServerRoleArrayInput is an input type that accepts ServerRoleArray and ServerRoleArrayOutput values.
 // You can construct a concrete instance of `ServerRoleArrayInput` via:
 //
@@ -175,6 +176,12 @@ func (i ServerRoleArray) ToServerRoleArrayOutput() ServerRoleArrayOutput {
 
 func (i ServerRoleArray) ToServerRoleArrayOutputWithContext(ctx context.Context) ServerRoleArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServerRoleArrayOutput)
+}
+
+func (i ServerRoleArray) ToOutput(ctx context.Context) pulumix.Output[[]*ServerRole] {
+	return pulumix.Output[[]*ServerRole]{
+		OutputState: i.ToServerRoleArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ServerRoleMapInput is an input type that accepts ServerRoleMap and ServerRoleMapOutput values.
@@ -202,6 +209,12 @@ func (i ServerRoleMap) ToServerRoleMapOutputWithContext(ctx context.Context) Ser
 	return pulumi.ToOutputWithContext(ctx, i).(ServerRoleMapOutput)
 }
 
+func (i ServerRoleMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServerRole] {
+	return pulumix.Output[map[string]*ServerRole]{
+		OutputState: i.ToServerRoleMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ServerRoleOutput struct{ *pulumi.OutputState }
 
 func (ServerRoleOutput) ElementType() reflect.Type {
@@ -214,6 +227,12 @@ func (o ServerRoleOutput) ToServerRoleOutput() ServerRoleOutput {
 
 func (o ServerRoleOutput) ToServerRoleOutputWithContext(ctx context.Context) ServerRoleOutput {
 	return o
+}
+
+func (o ServerRoleOutput) ToOutput(ctx context.Context) pulumix.Output[*ServerRole] {
+	return pulumix.Output[*ServerRole]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
@@ -240,6 +259,12 @@ func (o ServerRoleArrayOutput) ToServerRoleArrayOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o ServerRoleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ServerRole] {
+	return pulumix.Output[[]*ServerRole]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ServerRoleArrayOutput) Index(i pulumi.IntInput) ServerRoleOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ServerRole {
 		return vs[0].([]*ServerRole)[vs[1].(int)]
@@ -258,6 +283,12 @@ func (o ServerRoleMapOutput) ToServerRoleMapOutput() ServerRoleMapOutput {
 
 func (o ServerRoleMapOutput) ToServerRoleMapOutputWithContext(ctx context.Context) ServerRoleMapOutput {
 	return o
+}
+
+func (o ServerRoleMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServerRole] {
+	return pulumix.Output[map[string]*ServerRole]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServerRoleMapOutput) MapIndex(k pulumi.StringInput) ServerRoleOutput {

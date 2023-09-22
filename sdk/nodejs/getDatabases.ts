@@ -39,3 +39,19 @@ export interface GetDatabasesResult {
      */
     readonly id: string;
 }
+/**
+ * Obtains information about all databases found in SQL Server instance.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as mssql from "@pulumi/mssql";
+ *
+ * const example = mssql.getDatabases({});
+ * export const databases = example.then(example => example.databases);
+ * ```
+ */
+export function getDatabasesOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabasesResult> {
+    return pulumi.output(getDatabases(opts))
+}

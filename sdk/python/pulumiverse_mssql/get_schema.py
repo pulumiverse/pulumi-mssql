@@ -111,10 +111,10 @@ def get_schema(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getSchema:getSchema', __args__, opts=opts, typ=GetSchemaResult).value
 
     return AwaitableGetSchemaResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        name=__ret__.name,
-        owner_id=__ret__.owner_id)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        owner_id=pulumi.get(__ret__, 'owner_id'))
 
 
 @_utilities.lift_output_func(get_schema)

@@ -15,18 +15,19 @@ __all__ = ['SqlUserArgs', 'SqlUser']
 class SqlUserArgs:
     def __init__(__self__, *,
                  login_id: pulumi.Input[str],
-                 name: pulumi.Input[str],
-                 database_id: Optional[pulumi.Input[str]] = None):
+                 database_id: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a SqlUser resource.
         :param pulumi.Input[str] login_id: SID of SQL login. Can be retrieved using `SqlLogin` or `SELECT SUSER_SID('<login_name>')`.
-        :param pulumi.Input[str] name: User name. Cannot be longer than 128 chars.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+        :param pulumi.Input[str] name: User name. Cannot be longer than 128 chars.
         """
         pulumi.set(__self__, "login_id", login_id)
-        pulumi.set(__self__, "name", name)
         if database_id is not None:
             pulumi.set(__self__, "database_id", database_id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter(name="loginId")
@@ -41,18 +42,6 @@ class SqlUserArgs:
         pulumi.set(self, "login_id", value)
 
     @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        User name. Cannot be longer than 128 chars.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -63,6 +52,18 @@ class SqlUserArgs:
     @database_id.setter
     def database_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "database_id", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        User name. Cannot be longer than 128 chars.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
@@ -142,7 +143,6 @@ class SqlUser(pulumi.CustomResource):
 
         example_database = mssql.get_database(name="example")
         example_sql_login = mssql.SqlLogin("exampleSqlLogin",
-            name="example",
             password="Str0ngPa$$word12",
             must_change_password=True,
             default_database_id=example_database.id,
@@ -150,7 +150,6 @@ class SqlUser(pulumi.CustomResource):
             check_password_expiration=True,
             check_password_policy=True)
         example_sql_user = mssql.SqlUser("exampleSqlUser",
-            name="example",
             database_id=example_database.id,
             login_id=example_sql_login.id)
         pulumi.export("userId", example_sql_user.id)
@@ -188,7 +187,6 @@ class SqlUser(pulumi.CustomResource):
 
         example_database = mssql.get_database(name="example")
         example_sql_login = mssql.SqlLogin("exampleSqlLogin",
-            name="example",
             password="Str0ngPa$$word12",
             must_change_password=True,
             default_database_id=example_database.id,
@@ -196,7 +194,6 @@ class SqlUser(pulumi.CustomResource):
             check_password_expiration=True,
             check_password_policy=True)
         example_sql_user = mssql.SqlUser("exampleSqlUser",
-            name="example",
             database_id=example_database.id,
             login_id=example_sql_login.id)
         pulumi.export("userId", example_sql_user.id)
@@ -241,8 +238,6 @@ class SqlUser(pulumi.CustomResource):
             if login_id is None and not opts.urn:
                 raise TypeError("Missing required property 'login_id'")
             __props__.__dict__["login_id"] = login_id
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
         super(SqlUser, __self__).__init__(
             'mssql:index/sqlUser:SqlUser',

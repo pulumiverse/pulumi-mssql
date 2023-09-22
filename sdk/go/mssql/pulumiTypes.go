@@ -8,7 +8,11 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
+
+var _ = internal.GetEnvOrDefault
 
 type ProviderAzureAuth struct {
 	ClientId     *string `pulumi:"clientId"`
@@ -43,6 +47,12 @@ func (i ProviderAzureAuthArgs) ToProviderAzureAuthOutput() ProviderAzureAuthOutp
 
 func (i ProviderAzureAuthArgs) ToProviderAzureAuthOutputWithContext(ctx context.Context) ProviderAzureAuthOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderAzureAuthOutput)
+}
+
+func (i ProviderAzureAuthArgs) ToOutput(ctx context.Context) pulumix.Output[ProviderAzureAuth] {
+	return pulumix.Output[ProviderAzureAuth]{
+		OutputState: i.ToProviderAzureAuthOutputWithContext(ctx).OutputState,
+	}
 }
 
 func (i ProviderAzureAuthArgs) ToProviderAzureAuthPtrOutput() ProviderAzureAuthPtrOutput {
@@ -86,6 +96,12 @@ func (i *providerAzureAuthPtrType) ToProviderAzureAuthPtrOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderAzureAuthPtrOutput)
 }
 
+func (i *providerAzureAuthPtrType) ToOutput(ctx context.Context) pulumix.Output[*ProviderAzureAuth] {
+	return pulumix.Output[*ProviderAzureAuth]{
+		OutputState: i.ToProviderAzureAuthPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProviderAzureAuthOutput struct{ *pulumi.OutputState }
 
 func (ProviderAzureAuthOutput) ElementType() reflect.Type {
@@ -108,6 +124,12 @@ func (o ProviderAzureAuthOutput) ToProviderAzureAuthPtrOutputWithContext(ctx con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProviderAzureAuth) *ProviderAzureAuth {
 		return &v
 	}).(ProviderAzureAuthPtrOutput)
+}
+
+func (o ProviderAzureAuthOutput) ToOutput(ctx context.Context) pulumix.Output[ProviderAzureAuth] {
+	return pulumix.Output[ProviderAzureAuth]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProviderAzureAuthOutput) ClientId() pulumi.StringPtrOutput {
@@ -134,6 +156,12 @@ func (o ProviderAzureAuthPtrOutput) ToProviderAzureAuthPtrOutput() ProviderAzure
 
 func (o ProviderAzureAuthPtrOutput) ToProviderAzureAuthPtrOutputWithContext(ctx context.Context) ProviderAzureAuthPtrOutput {
 	return o
+}
+
+func (o ProviderAzureAuthPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ProviderAzureAuth] {
+	return pulumix.Output[*ProviderAzureAuth]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProviderAzureAuthPtrOutput) Elem() ProviderAzureAuthOutput {
@@ -206,6 +234,12 @@ func (i ProviderSqlAuthArgs) ToProviderSqlAuthOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderSqlAuthOutput)
 }
 
+func (i ProviderSqlAuthArgs) ToOutput(ctx context.Context) pulumix.Output[ProviderSqlAuth] {
+	return pulumix.Output[ProviderSqlAuth]{
+		OutputState: i.ToProviderSqlAuthOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ProviderSqlAuthArgs) ToProviderSqlAuthPtrOutput() ProviderSqlAuthPtrOutput {
 	return i.ToProviderSqlAuthPtrOutputWithContext(context.Background())
 }
@@ -247,6 +281,12 @@ func (i *providerSqlAuthPtrType) ToProviderSqlAuthPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderSqlAuthPtrOutput)
 }
 
+func (i *providerSqlAuthPtrType) ToOutput(ctx context.Context) pulumix.Output[*ProviderSqlAuth] {
+	return pulumix.Output[*ProviderSqlAuth]{
+		OutputState: i.ToProviderSqlAuthPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProviderSqlAuthOutput struct{ *pulumi.OutputState }
 
 func (ProviderSqlAuthOutput) ElementType() reflect.Type {
@@ -271,6 +311,12 @@ func (o ProviderSqlAuthOutput) ToProviderSqlAuthPtrOutputWithContext(ctx context
 	}).(ProviderSqlAuthPtrOutput)
 }
 
+func (o ProviderSqlAuthOutput) ToOutput(ctx context.Context) pulumix.Output[ProviderSqlAuth] {
+	return pulumix.Output[ProviderSqlAuth]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ProviderSqlAuthOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v ProviderSqlAuth) string { return v.Password }).(pulumi.StringOutput)
 }
@@ -291,6 +337,12 @@ func (o ProviderSqlAuthPtrOutput) ToProviderSqlAuthPtrOutput() ProviderSqlAuthPt
 
 func (o ProviderSqlAuthPtrOutput) ToProviderSqlAuthPtrOutputWithContext(ctx context.Context) ProviderSqlAuthPtrOutput {
 	return o
+}
+
+func (o ProviderSqlAuthPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ProviderSqlAuth] {
+	return pulumix.Output[*ProviderSqlAuth]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ProviderSqlAuthPtrOutput) Elem() ProviderSqlAuthOutput {
@@ -358,6 +410,12 @@ func (i GetDatabasePermissionsPermissionArgs) ToGetDatabasePermissionsPermission
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasePermissionsPermissionOutput)
 }
 
+func (i GetDatabasePermissionsPermissionArgs) ToOutput(ctx context.Context) pulumix.Output[GetDatabasePermissionsPermission] {
+	return pulumix.Output[GetDatabasePermissionsPermission]{
+		OutputState: i.ToGetDatabasePermissionsPermissionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetDatabasePermissionsPermissionArrayInput is an input type that accepts GetDatabasePermissionsPermissionArray and GetDatabasePermissionsPermissionArrayOutput values.
 // You can construct a concrete instance of `GetDatabasePermissionsPermissionArrayInput` via:
 //
@@ -383,6 +441,12 @@ func (i GetDatabasePermissionsPermissionArray) ToGetDatabasePermissionsPermissio
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasePermissionsPermissionArrayOutput)
 }
 
+func (i GetDatabasePermissionsPermissionArray) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabasePermissionsPermission] {
+	return pulumix.Output[[]GetDatabasePermissionsPermission]{
+		OutputState: i.ToGetDatabasePermissionsPermissionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetDatabasePermissionsPermissionOutput struct{ *pulumi.OutputState }
 
 func (GetDatabasePermissionsPermissionOutput) ElementType() reflect.Type {
@@ -395,6 +459,12 @@ func (o GetDatabasePermissionsPermissionOutput) ToGetDatabasePermissionsPermissi
 
 func (o GetDatabasePermissionsPermissionOutput) ToGetDatabasePermissionsPermissionOutputWithContext(ctx context.Context) GetDatabasePermissionsPermissionOutput {
 	return o
+}
+
+func (o GetDatabasePermissionsPermissionOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabasePermissionsPermission] {
+	return pulumix.Output[GetDatabasePermissionsPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Name of database-level SQL permission. For full list of supported permissions, see [docs](https://learn.microsoft.com/en-us/sql/t-sql/statements/grant-database-permissions-transact-sql?view=azuresqldb-current#remarks)
@@ -419,6 +489,12 @@ func (o GetDatabasePermissionsPermissionArrayOutput) ToGetDatabasePermissionsPer
 
 func (o GetDatabasePermissionsPermissionArrayOutput) ToGetDatabasePermissionsPermissionArrayOutputWithContext(ctx context.Context) GetDatabasePermissionsPermissionArrayOutput {
 	return o
+}
+
+func (o GetDatabasePermissionsPermissionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabasePermissionsPermission] {
+	return pulumix.Output[[]GetDatabasePermissionsPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetDatabasePermissionsPermissionArrayOutput) Index(i pulumi.IntInput) GetDatabasePermissionsPermissionOutput {
@@ -468,6 +544,12 @@ func (i GetDatabaseRoleMemberTypeArgs) ToGetDatabaseRoleMemberTypeOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabaseRoleMemberTypeOutput)
 }
 
+func (i GetDatabaseRoleMemberTypeArgs) ToOutput(ctx context.Context) pulumix.Output[GetDatabaseRoleMemberType] {
+	return pulumix.Output[GetDatabaseRoleMemberType]{
+		OutputState: i.ToGetDatabaseRoleMemberTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetDatabaseRoleMemberTypeArrayInput is an input type that accepts GetDatabaseRoleMemberTypeArray and GetDatabaseRoleMemberTypeArrayOutput values.
 // You can construct a concrete instance of `GetDatabaseRoleMemberTypeArrayInput` via:
 //
@@ -493,6 +575,12 @@ func (i GetDatabaseRoleMemberTypeArray) ToGetDatabaseRoleMemberTypeArrayOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabaseRoleMemberTypeArrayOutput)
 }
 
+func (i GetDatabaseRoleMemberTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabaseRoleMemberType] {
+	return pulumix.Output[[]GetDatabaseRoleMemberType]{
+		OutputState: i.ToGetDatabaseRoleMemberTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetDatabaseRoleMemberTypeOutput struct{ *pulumi.OutputState }
 
 func (GetDatabaseRoleMemberTypeOutput) ElementType() reflect.Type {
@@ -505,6 +593,12 @@ func (o GetDatabaseRoleMemberTypeOutput) ToGetDatabaseRoleMemberTypeOutput() Get
 
 func (o GetDatabaseRoleMemberTypeOutput) ToGetDatabaseRoleMemberTypeOutputWithContext(ctx context.Context) GetDatabaseRoleMemberTypeOutput {
 	return o
+}
+
+func (o GetDatabaseRoleMemberTypeOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabaseRoleMemberType] {
+	return pulumix.Output[GetDatabaseRoleMemberType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `<database_id>/<member_id>`. Member ID can be retrieved using `SELECT DATABASE*PRINCIPAL*ID('\n\n')
@@ -534,6 +628,12 @@ func (o GetDatabaseRoleMemberTypeArrayOutput) ToGetDatabaseRoleMemberTypeArrayOu
 
 func (o GetDatabaseRoleMemberTypeArrayOutput) ToGetDatabaseRoleMemberTypeArrayOutputWithContext(ctx context.Context) GetDatabaseRoleMemberTypeArrayOutput {
 	return o
+}
+
+func (o GetDatabaseRoleMemberTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabaseRoleMemberType] {
+	return pulumix.Output[[]GetDatabaseRoleMemberType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetDatabaseRoleMemberTypeArrayOutput) Index(i pulumi.IntInput) GetDatabaseRoleMemberTypeOutput {
@@ -587,6 +687,12 @@ func (i GetDatabaseRolesRoleArgs) ToGetDatabaseRolesRoleOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabaseRolesRoleOutput)
 }
 
+func (i GetDatabaseRolesRoleArgs) ToOutput(ctx context.Context) pulumix.Output[GetDatabaseRolesRole] {
+	return pulumix.Output[GetDatabaseRolesRole]{
+		OutputState: i.ToGetDatabaseRolesRoleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetDatabaseRolesRoleArrayInput is an input type that accepts GetDatabaseRolesRoleArray and GetDatabaseRolesRoleArrayOutput values.
 // You can construct a concrete instance of `GetDatabaseRolesRoleArrayInput` via:
 //
@@ -612,6 +718,12 @@ func (i GetDatabaseRolesRoleArray) ToGetDatabaseRolesRoleArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabaseRolesRoleArrayOutput)
 }
 
+func (i GetDatabaseRolesRoleArray) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabaseRolesRole] {
+	return pulumix.Output[[]GetDatabaseRolesRole]{
+		OutputState: i.ToGetDatabaseRolesRoleArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetDatabaseRolesRoleOutput struct{ *pulumi.OutputState }
 
 func (GetDatabaseRolesRoleOutput) ElementType() reflect.Type {
@@ -624,6 +736,12 @@ func (o GetDatabaseRolesRoleOutput) ToGetDatabaseRolesRoleOutput() GetDatabaseRo
 
 func (o GetDatabaseRolesRoleOutput) ToGetDatabaseRolesRoleOutputWithContext(ctx context.Context) GetDatabaseRolesRoleOutput {
 	return o
+}
+
+func (o GetDatabaseRolesRoleOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabaseRolesRole] {
+	return pulumix.Output[GetDatabaseRolesRole]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
@@ -658,6 +776,12 @@ func (o GetDatabaseRolesRoleArrayOutput) ToGetDatabaseRolesRoleArrayOutput() Get
 
 func (o GetDatabaseRolesRoleArrayOutput) ToGetDatabaseRolesRoleArrayOutputWithContext(ctx context.Context) GetDatabaseRolesRoleArrayOutput {
 	return o
+}
+
+func (o GetDatabaseRolesRoleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabaseRolesRole] {
+	return pulumix.Output[[]GetDatabaseRolesRole]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetDatabaseRolesRoleArrayOutput) Index(i pulumi.IntInput) GetDatabaseRolesRoleOutput {
@@ -707,6 +831,12 @@ func (i GetDatabasesDatabaseArgs) ToGetDatabasesDatabaseOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseOutput)
 }
 
+func (i GetDatabasesDatabaseArgs) ToOutput(ctx context.Context) pulumix.Output[GetDatabasesDatabase] {
+	return pulumix.Output[GetDatabasesDatabase]{
+		OutputState: i.ToGetDatabasesDatabaseOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetDatabasesDatabaseArrayInput is an input type that accepts GetDatabasesDatabaseArray and GetDatabasesDatabaseArrayOutput values.
 // You can construct a concrete instance of `GetDatabasesDatabaseArrayInput` via:
 //
@@ -732,6 +862,12 @@ func (i GetDatabasesDatabaseArray) ToGetDatabasesDatabaseArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(GetDatabasesDatabaseArrayOutput)
 }
 
+func (i GetDatabasesDatabaseArray) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabasesDatabase] {
+	return pulumix.Output[[]GetDatabasesDatabase]{
+		OutputState: i.ToGetDatabasesDatabaseArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetDatabasesDatabaseOutput struct{ *pulumi.OutputState }
 
 func (GetDatabasesDatabaseOutput) ElementType() reflect.Type {
@@ -744,6 +880,12 @@ func (o GetDatabasesDatabaseOutput) ToGetDatabasesDatabaseOutput() GetDatabasesD
 
 func (o GetDatabasesDatabaseOutput) ToGetDatabasesDatabaseOutputWithContext(ctx context.Context) GetDatabasesDatabaseOutput {
 	return o
+}
+
+func (o GetDatabasesDatabaseOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabasesDatabase] {
+	return pulumix.Output[GetDatabasesDatabase]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Default collation name. Can be either a Windows collation name or a SQL collation name.
@@ -773,6 +915,12 @@ func (o GetDatabasesDatabaseArrayOutput) ToGetDatabasesDatabaseArrayOutput() Get
 
 func (o GetDatabasesDatabaseArrayOutput) ToGetDatabasesDatabaseArrayOutputWithContext(ctx context.Context) GetDatabasesDatabaseArrayOutput {
 	return o
+}
+
+func (o GetDatabasesDatabaseArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetDatabasesDatabase] {
+	return pulumix.Output[[]GetDatabasesDatabase]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetDatabasesDatabaseArrayOutput) Index(i pulumi.IntInput) GetDatabasesDatabaseOutput {
@@ -818,6 +966,12 @@ func (i GetSchemaPermissionsPermissionArgs) ToGetSchemaPermissionsPermissionOutp
 	return pulumi.ToOutputWithContext(ctx, i).(GetSchemaPermissionsPermissionOutput)
 }
 
+func (i GetSchemaPermissionsPermissionArgs) ToOutput(ctx context.Context) pulumix.Output[GetSchemaPermissionsPermission] {
+	return pulumix.Output[GetSchemaPermissionsPermission]{
+		OutputState: i.ToGetSchemaPermissionsPermissionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetSchemaPermissionsPermissionArrayInput is an input type that accepts GetSchemaPermissionsPermissionArray and GetSchemaPermissionsPermissionArrayOutput values.
 // You can construct a concrete instance of `GetSchemaPermissionsPermissionArrayInput` via:
 //
@@ -843,6 +997,12 @@ func (i GetSchemaPermissionsPermissionArray) ToGetSchemaPermissionsPermissionArr
 	return pulumi.ToOutputWithContext(ctx, i).(GetSchemaPermissionsPermissionArrayOutput)
 }
 
+func (i GetSchemaPermissionsPermissionArray) ToOutput(ctx context.Context) pulumix.Output[[]GetSchemaPermissionsPermission] {
+	return pulumix.Output[[]GetSchemaPermissionsPermission]{
+		OutputState: i.ToGetSchemaPermissionsPermissionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetSchemaPermissionsPermissionOutput struct{ *pulumi.OutputState }
 
 func (GetSchemaPermissionsPermissionOutput) ElementType() reflect.Type {
@@ -855,6 +1015,12 @@ func (o GetSchemaPermissionsPermissionOutput) ToGetSchemaPermissionsPermissionOu
 
 func (o GetSchemaPermissionsPermissionOutput) ToGetSchemaPermissionsPermissionOutputWithContext(ctx context.Context) GetSchemaPermissionsPermissionOutput {
 	return o
+}
+
+func (o GetSchemaPermissionsPermissionOutput) ToOutput(ctx context.Context) pulumix.Output[GetSchemaPermissionsPermission] {
+	return pulumix.Output[GetSchemaPermissionsPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Name of schema SQL permission. For full list of supported permissions, see [docs](https://learn.microsoft.com/en-us/sql/t-sql/statements/grant-schema-permissions-transact-sql?view=azuresqldb-current#remarks)
@@ -879,6 +1045,12 @@ func (o GetSchemaPermissionsPermissionArrayOutput) ToGetSchemaPermissionsPermiss
 
 func (o GetSchemaPermissionsPermissionArrayOutput) ToGetSchemaPermissionsPermissionArrayOutputWithContext(ctx context.Context) GetSchemaPermissionsPermissionArrayOutput {
 	return o
+}
+
+func (o GetSchemaPermissionsPermissionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetSchemaPermissionsPermission] {
+	return pulumix.Output[[]GetSchemaPermissionsPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetSchemaPermissionsPermissionArrayOutput) Index(i pulumi.IntInput) GetSchemaPermissionsPermissionOutput {
@@ -932,6 +1104,12 @@ func (i GetSchemasSchemaArgs) ToGetSchemasSchemaOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(GetSchemasSchemaOutput)
 }
 
+func (i GetSchemasSchemaArgs) ToOutput(ctx context.Context) pulumix.Output[GetSchemasSchema] {
+	return pulumix.Output[GetSchemasSchema]{
+		OutputState: i.ToGetSchemasSchemaOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetSchemasSchemaArrayInput is an input type that accepts GetSchemasSchemaArray and GetSchemasSchemaArrayOutput values.
 // You can construct a concrete instance of `GetSchemasSchemaArrayInput` via:
 //
@@ -957,6 +1135,12 @@ func (i GetSchemasSchemaArray) ToGetSchemasSchemaArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(GetSchemasSchemaArrayOutput)
 }
 
+func (i GetSchemasSchemaArray) ToOutput(ctx context.Context) pulumix.Output[[]GetSchemasSchema] {
+	return pulumix.Output[[]GetSchemasSchema]{
+		OutputState: i.ToGetSchemasSchemaArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetSchemasSchemaOutput struct{ *pulumi.OutputState }
 
 func (GetSchemasSchemaOutput) ElementType() reflect.Type {
@@ -969,6 +1153,12 @@ func (o GetSchemasSchemaOutput) ToGetSchemasSchemaOutput() GetSchemasSchemaOutpu
 
 func (o GetSchemasSchemaOutput) ToGetSchemasSchemaOutputWithContext(ctx context.Context) GetSchemasSchemaOutput {
 	return o
+}
+
+func (o GetSchemasSchemaOutput) ToOutput(ctx context.Context) pulumix.Output[GetSchemasSchema] {
+	return pulumix.Output[GetSchemasSchema]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
@@ -1003,6 +1193,12 @@ func (o GetSchemasSchemaArrayOutput) ToGetSchemasSchemaArrayOutput() GetSchemasS
 
 func (o GetSchemasSchemaArrayOutput) ToGetSchemasSchemaArrayOutputWithContext(ctx context.Context) GetSchemasSchemaArrayOutput {
 	return o
+}
+
+func (o GetSchemasSchemaArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetSchemasSchema] {
+	return pulumix.Output[[]GetSchemasSchema]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetSchemasSchemaArrayOutput) Index(i pulumi.IntInput) GetSchemasSchemaOutput {
@@ -1048,6 +1244,12 @@ func (i GetServerPermissionsPermissionArgs) ToGetServerPermissionsPermissionOutp
 	return pulumi.ToOutputWithContext(ctx, i).(GetServerPermissionsPermissionOutput)
 }
 
+func (i GetServerPermissionsPermissionArgs) ToOutput(ctx context.Context) pulumix.Output[GetServerPermissionsPermission] {
+	return pulumix.Output[GetServerPermissionsPermission]{
+		OutputState: i.ToGetServerPermissionsPermissionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetServerPermissionsPermissionArrayInput is an input type that accepts GetServerPermissionsPermissionArray and GetServerPermissionsPermissionArrayOutput values.
 // You can construct a concrete instance of `GetServerPermissionsPermissionArrayInput` via:
 //
@@ -1073,6 +1275,12 @@ func (i GetServerPermissionsPermissionArray) ToGetServerPermissionsPermissionArr
 	return pulumi.ToOutputWithContext(ctx, i).(GetServerPermissionsPermissionArrayOutput)
 }
 
+func (i GetServerPermissionsPermissionArray) ToOutput(ctx context.Context) pulumix.Output[[]GetServerPermissionsPermission] {
+	return pulumix.Output[[]GetServerPermissionsPermission]{
+		OutputState: i.ToGetServerPermissionsPermissionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetServerPermissionsPermissionOutput struct{ *pulumi.OutputState }
 
 func (GetServerPermissionsPermissionOutput) ElementType() reflect.Type {
@@ -1085,6 +1293,12 @@ func (o GetServerPermissionsPermissionOutput) ToGetServerPermissionsPermissionOu
 
 func (o GetServerPermissionsPermissionOutput) ToGetServerPermissionsPermissionOutputWithContext(ctx context.Context) GetServerPermissionsPermissionOutput {
 	return o
+}
+
+func (o GetServerPermissionsPermissionOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerPermissionsPermission] {
+	return pulumix.Output[GetServerPermissionsPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Name of server-level SQL permission. For full list of supported permissions see [docs](https://learn.microsoft.com/en-us/sql/t-sql/statements/grant-server-permissions-transact-sql?view=azuresqldb-current#remarks)
@@ -1109,6 +1323,12 @@ func (o GetServerPermissionsPermissionArrayOutput) ToGetServerPermissionsPermiss
 
 func (o GetServerPermissionsPermissionArrayOutput) ToGetServerPermissionsPermissionArrayOutputWithContext(ctx context.Context) GetServerPermissionsPermissionArrayOutput {
 	return o
+}
+
+func (o GetServerPermissionsPermissionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetServerPermissionsPermission] {
+	return pulumix.Output[[]GetServerPermissionsPermission]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetServerPermissionsPermissionArrayOutput) Index(i pulumi.IntInput) GetServerPermissionsPermissionOutput {
@@ -1158,6 +1378,12 @@ func (i GetServerRoleMemberTypeArgs) ToGetServerRoleMemberTypeOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(GetServerRoleMemberTypeOutput)
 }
 
+func (i GetServerRoleMemberTypeArgs) ToOutput(ctx context.Context) pulumix.Output[GetServerRoleMemberType] {
+	return pulumix.Output[GetServerRoleMemberType]{
+		OutputState: i.ToGetServerRoleMemberTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetServerRoleMemberTypeArrayInput is an input type that accepts GetServerRoleMemberTypeArray and GetServerRoleMemberTypeArrayOutput values.
 // You can construct a concrete instance of `GetServerRoleMemberTypeArrayInput` via:
 //
@@ -1183,6 +1409,12 @@ func (i GetServerRoleMemberTypeArray) ToGetServerRoleMemberTypeArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(GetServerRoleMemberTypeArrayOutput)
 }
 
+func (i GetServerRoleMemberTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]GetServerRoleMemberType] {
+	return pulumix.Output[[]GetServerRoleMemberType]{
+		OutputState: i.ToGetServerRoleMemberTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetServerRoleMemberTypeOutput struct{ *pulumi.OutputState }
 
 func (GetServerRoleMemberTypeOutput) ElementType() reflect.Type {
@@ -1195,6 +1427,12 @@ func (o GetServerRoleMemberTypeOutput) ToGetServerRoleMemberTypeOutput() GetServ
 
 func (o GetServerRoleMemberTypeOutput) ToGetServerRoleMemberTypeOutputWithContext(ctx context.Context) GetServerRoleMemberTypeOutput {
 	return o
+}
+
+func (o GetServerRoleMemberTypeOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerRoleMemberType] {
+	return pulumix.Output[GetServerRoleMemberType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of the member principal
@@ -1224,6 +1462,12 @@ func (o GetServerRoleMemberTypeArrayOutput) ToGetServerRoleMemberTypeArrayOutput
 
 func (o GetServerRoleMemberTypeArrayOutput) ToGetServerRoleMemberTypeArrayOutputWithContext(ctx context.Context) GetServerRoleMemberTypeArrayOutput {
 	return o
+}
+
+func (o GetServerRoleMemberTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetServerRoleMemberType] {
+	return pulumix.Output[[]GetServerRoleMemberType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetServerRoleMemberTypeArrayOutput) Index(i pulumi.IntInput) GetServerRoleMemberTypeOutput {
@@ -1273,6 +1517,12 @@ func (i GetServerRolesRoleArgs) ToGetServerRolesRoleOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(GetServerRolesRoleOutput)
 }
 
+func (i GetServerRolesRoleArgs) ToOutput(ctx context.Context) pulumix.Output[GetServerRolesRole] {
+	return pulumix.Output[GetServerRolesRole]{
+		OutputState: i.ToGetServerRolesRoleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetServerRolesRoleArrayInput is an input type that accepts GetServerRolesRoleArray and GetServerRolesRoleArrayOutput values.
 // You can construct a concrete instance of `GetServerRolesRoleArrayInput` via:
 //
@@ -1298,6 +1548,12 @@ func (i GetServerRolesRoleArray) ToGetServerRolesRoleArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(GetServerRolesRoleArrayOutput)
 }
 
+func (i GetServerRolesRoleArray) ToOutput(ctx context.Context) pulumix.Output[[]GetServerRolesRole] {
+	return pulumix.Output[[]GetServerRolesRole]{
+		OutputState: i.ToGetServerRolesRoleArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetServerRolesRoleOutput struct{ *pulumi.OutputState }
 
 func (GetServerRolesRoleOutput) ElementType() reflect.Type {
@@ -1310,6 +1566,12 @@ func (o GetServerRolesRoleOutput) ToGetServerRolesRoleOutput() GetServerRolesRol
 
 func (o GetServerRolesRoleOutput) ToGetServerRolesRoleOutputWithContext(ctx context.Context) GetServerRolesRoleOutput {
 	return o
+}
+
+func (o GetServerRolesRoleOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerRolesRole] {
+	return pulumix.Output[GetServerRolesRole]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Role principal ID.
@@ -1339,6 +1601,12 @@ func (o GetServerRolesRoleArrayOutput) ToGetServerRolesRoleArrayOutput() GetServ
 
 func (o GetServerRolesRoleArrayOutput) ToGetServerRolesRoleArrayOutputWithContext(ctx context.Context) GetServerRolesRoleArrayOutput {
 	return o
+}
+
+func (o GetServerRolesRoleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetServerRolesRole] {
+	return pulumix.Output[[]GetServerRolesRole]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetServerRolesRoleArrayOutput) Index(i pulumi.IntInput) GetServerRolesRoleOutput {
@@ -1408,6 +1676,12 @@ func (i GetSqlLoginsLoginArgs) ToGetSqlLoginsLoginOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(GetSqlLoginsLoginOutput)
 }
 
+func (i GetSqlLoginsLoginArgs) ToOutput(ctx context.Context) pulumix.Output[GetSqlLoginsLogin] {
+	return pulumix.Output[GetSqlLoginsLogin]{
+		OutputState: i.ToGetSqlLoginsLoginOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetSqlLoginsLoginArrayInput is an input type that accepts GetSqlLoginsLoginArray and GetSqlLoginsLoginArrayOutput values.
 // You can construct a concrete instance of `GetSqlLoginsLoginArrayInput` via:
 //
@@ -1433,6 +1707,12 @@ func (i GetSqlLoginsLoginArray) ToGetSqlLoginsLoginArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(GetSqlLoginsLoginArrayOutput)
 }
 
+func (i GetSqlLoginsLoginArray) ToOutput(ctx context.Context) pulumix.Output[[]GetSqlLoginsLogin] {
+	return pulumix.Output[[]GetSqlLoginsLogin]{
+		OutputState: i.ToGetSqlLoginsLoginArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetSqlLoginsLoginOutput struct{ *pulumi.OutputState }
 
 func (GetSqlLoginsLoginOutput) ElementType() reflect.Type {
@@ -1445,6 +1725,12 @@ func (o GetSqlLoginsLoginOutput) ToGetSqlLoginsLoginOutput() GetSqlLoginsLoginOu
 
 func (o GetSqlLoginsLoginOutput) ToGetSqlLoginsLoginOutputWithContext(ctx context.Context) GetSqlLoginsLoginOutput {
 	return o
+}
+
+func (o GetSqlLoginsLoginOutput) ToOutput(ctx context.Context) pulumix.Output[GetSqlLoginsLogin] {
+	return pulumix.Output[GetSqlLoginsLogin]{
+		OutputState: o.OutputState,
+	}
 }
 
 // When `true`, password expiration policy is enforced for this login.
@@ -1501,6 +1787,12 @@ func (o GetSqlLoginsLoginArrayOutput) ToGetSqlLoginsLoginArrayOutputWithContext(
 	return o
 }
 
+func (o GetSqlLoginsLoginArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetSqlLoginsLogin] {
+	return pulumix.Output[[]GetSqlLoginsLogin]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o GetSqlLoginsLoginArrayOutput) Index(i pulumi.IntInput) GetSqlLoginsLoginOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetSqlLoginsLogin {
 		return vs[0].([]GetSqlLoginsLogin)[vs[1].(int)]
@@ -1552,6 +1844,12 @@ func (i GetSqlUsersUserArgs) ToGetSqlUsersUserOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(GetSqlUsersUserOutput)
 }
 
+func (i GetSqlUsersUserArgs) ToOutput(ctx context.Context) pulumix.Output[GetSqlUsersUser] {
+	return pulumix.Output[GetSqlUsersUser]{
+		OutputState: i.ToGetSqlUsersUserOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GetSqlUsersUserArrayInput is an input type that accepts GetSqlUsersUserArray and GetSqlUsersUserArrayOutput values.
 // You can construct a concrete instance of `GetSqlUsersUserArrayInput` via:
 //
@@ -1577,6 +1875,12 @@ func (i GetSqlUsersUserArray) ToGetSqlUsersUserArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(GetSqlUsersUserArrayOutput)
 }
 
+func (i GetSqlUsersUserArray) ToOutput(ctx context.Context) pulumix.Output[[]GetSqlUsersUser] {
+	return pulumix.Output[[]GetSqlUsersUser]{
+		OutputState: i.ToGetSqlUsersUserArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type GetSqlUsersUserOutput struct{ *pulumi.OutputState }
 
 func (GetSqlUsersUserOutput) ElementType() reflect.Type {
@@ -1589,6 +1893,12 @@ func (o GetSqlUsersUserOutput) ToGetSqlUsersUserOutput() GetSqlUsersUserOutput {
 
 func (o GetSqlUsersUserOutput) ToGetSqlUsersUserOutputWithContext(ctx context.Context) GetSqlUsersUserOutput {
 	return o
+}
+
+func (o GetSqlUsersUserOutput) ToOutput(ctx context.Context) pulumix.Output[GetSqlUsersUser] {
+	return pulumix.Output[GetSqlUsersUser]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
@@ -1623,6 +1933,12 @@ func (o GetSqlUsersUserArrayOutput) ToGetSqlUsersUserArrayOutput() GetSqlUsersUs
 
 func (o GetSqlUsersUserArrayOutput) ToGetSqlUsersUserArrayOutputWithContext(ctx context.Context) GetSqlUsersUserArrayOutput {
 	return o
+}
+
+func (o GetSqlUsersUserArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GetSqlUsersUser] {
+	return pulumix.Output[[]GetSqlUsersUser]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GetSqlUsersUserArrayOutput) Index(i pulumi.IntInput) GetSqlUsersUserOutput {

@@ -5,6 +5,7 @@ package mssql
 
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about all SQL logins found in SQL Server instance.
@@ -34,7 +35,7 @@ import (
 //
 // ```
 func GetSqlLogins(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetSqlLoginsResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetSqlLoginsResult
 	err := ctx.Invoke("mssql:index/getSqlLogins:getSqlLogins", nil, &rv, opts...)
 	if err != nil {

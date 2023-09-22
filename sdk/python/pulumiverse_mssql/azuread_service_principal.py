@@ -16,7 +16,7 @@ class AzureadServicePrincipalArgs:
     def __init__(__self__, *,
                  client_id: pulumi.Input[str],
                  database_id: pulumi.Input[str],
-                 name: pulumi.Input[str]):
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a AzureadServicePrincipal resource.
         :param pulumi.Input[str] client_id: Azure AD client_id of the Service Principal. This can be either regular Service Principal or Managed Service Identity.
@@ -25,7 +25,8 @@ class AzureadServicePrincipalArgs:
         """
         pulumi.set(__self__, "client_id", client_id)
         pulumi.set(__self__, "database_id", database_id)
-        pulumi.set(__self__, "name", name)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter(name="clientId")
@@ -53,14 +54,14 @@ class AzureadServicePrincipalArgs:
 
     @property
     @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
+    def name(self) -> Optional[pulumi.Input[str]]:
         """
         User name. Cannot be longer than 128 chars.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[str]):
+    def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
 
 
@@ -145,7 +146,6 @@ class AzureadServicePrincipal(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         example_service_principal = azuread.get_service_principal(display_name="test-application")
         example_azuread_service_principal = mssql.AzureadServicePrincipal("exampleAzureadServicePrincipal",
-            name="example",
             database_id=example_database.id,
             client_id=example_service_principal.application_id)
         pulumi.export("userId", example_azuread_service_principal.id)
@@ -187,7 +187,6 @@ class AzureadServicePrincipal(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         example_service_principal = azuread.get_service_principal(display_name="test-application")
         example_azuread_service_principal = mssql.AzureadServicePrincipal("exampleAzureadServicePrincipal",
-            name="example",
             database_id=example_database.id,
             client_id=example_service_principal.application_id)
         pulumi.export("userId", example_azuread_service_principal.id)
@@ -234,8 +233,6 @@ class AzureadServicePrincipal(pulumi.CustomResource):
             if database_id is None and not opts.urn:
                 raise TypeError("Missing required property 'database_id'")
             __props__.__dict__["database_id"] = database_id
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
         super(AzureadServicePrincipal, __self__).__init__(
             'mssql:index/azureadServicePrincipal:AzureadServicePrincipal',

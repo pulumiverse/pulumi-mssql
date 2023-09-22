@@ -67,7 +67,8 @@ utilities.lazyLoad(exports, ["getDatabaseRoles","getDatabaseRolesOutput"], () =>
 
 export { GetDatabasesResult } from "./getDatabases";
 export const getDatabases: typeof import("./getDatabases").getDatabases = null as any;
-utilities.lazyLoad(exports, ["getDatabases"], () => require("./getDatabases"));
+export const getDatabasesOutput: typeof import("./getDatabases").getDatabasesOutput = null as any;
+utilities.lazyLoad(exports, ["getDatabases","getDatabasesOutput"], () => require("./getDatabases"));
 
 export { GetQueryArgs, GetQueryResult, GetQueryOutputArgs } from "./getQuery";
 export const getQuery: typeof import("./getQuery").getQuery = null as any;
@@ -101,7 +102,8 @@ utilities.lazyLoad(exports, ["getServerRole","getServerRoleOutput"], () => requi
 
 export { GetServerRolesResult } from "./getServerRoles";
 export const getServerRoles: typeof import("./getServerRoles").getServerRoles = null as any;
-utilities.lazyLoad(exports, ["getServerRoles"], () => require("./getServerRoles"));
+export const getServerRolesOutput: typeof import("./getServerRoles").getServerRolesOutput = null as any;
+utilities.lazyLoad(exports, ["getServerRoles","getServerRolesOutput"], () => require("./getServerRoles"));
 
 export { GetSqlLoginArgs, GetSqlLoginResult, GetSqlLoginOutputArgs } from "./getSqlLogin";
 export const getSqlLogin: typeof import("./getSqlLogin").getSqlLogin = null as any;
@@ -110,7 +112,8 @@ utilities.lazyLoad(exports, ["getSqlLogin","getSqlLoginOutput"], () => require("
 
 export { GetSqlLoginsResult } from "./getSqlLogins";
 export const getSqlLogins: typeof import("./getSqlLogins").getSqlLogins = null as any;
-utilities.lazyLoad(exports, ["getSqlLogins"], () => require("./getSqlLogins"));
+export const getSqlLoginsOutput: typeof import("./getSqlLogins").getSqlLoginsOutput = null as any;
+utilities.lazyLoad(exports, ["getSqlLogins","getSqlLoginsOutput"], () => require("./getSqlLogins"));
 
 export { GetSqlUserArgs, GetSqlUserResult, GetSqlUserOutputArgs } from "./getSqlUser";
 export const getSqlUser: typeof import("./getSqlUser").getSqlUser = null as any;

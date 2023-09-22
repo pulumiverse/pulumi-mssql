@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single server role.
@@ -44,7 +46,7 @@ import (
 //
 // ```
 func LookupServerRole(ctx *pulumi.Context, args *LookupServerRoleArgs, opts ...pulumi.InvokeOption) (*LookupServerRoleResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupServerRoleResult
 	err := ctx.Invoke("mssql:index/getServerRole:getServerRole", args, &rv, opts...)
 	if err != nil {
@@ -111,6 +113,12 @@ func (o LookupServerRoleResultOutput) ToLookupServerRoleResultOutput() LookupSer
 
 func (o LookupServerRoleResultOutput) ToLookupServerRoleResultOutputWithContext(ctx context.Context) LookupServerRoleResultOutput {
 	return o
+}
+
+func (o LookupServerRoleResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupServerRoleResult] {
+	return pulumix.Output[LookupServerRoleResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Role principal ID. Either `name` or `id` must be provided.

@@ -5,6 +5,7 @@ package mssql
 
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about all databases found in SQL Server instance.
@@ -34,7 +35,7 @@ import (
 //
 // ```
 func GetDatabases(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetDatabasesResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetDatabasesResult
 	err := ctx.Invoke("mssql:index/getDatabases:getDatabases", nil, &rv, opts...)
 	if err != nil {

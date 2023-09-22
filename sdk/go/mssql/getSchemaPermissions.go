@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Returns all permissions granted in a schema to given principal
@@ -60,7 +62,7 @@ import (
 //
 // ```
 func GetSchemaPermissions(ctx *pulumi.Context, args *GetSchemaPermissionsArgs, opts ...pulumi.InvokeOption) (*GetSchemaPermissionsResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetSchemaPermissionsResult
 	err := ctx.Invoke("mssql:index/getSchemaPermissions:getSchemaPermissions", args, &rv, opts...)
 	if err != nil {
@@ -127,6 +129,12 @@ func (o GetSchemaPermissionsResultOutput) ToGetSchemaPermissionsResultOutput() G
 
 func (o GetSchemaPermissionsResultOutput) ToGetSchemaPermissionsResultOutputWithContext(ctx context.Context) GetSchemaPermissionsResultOutput {
 	return o
+}
+
+func (o GetSchemaPermissionsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSchemaPermissionsResult] {
+	return pulumix.Output[GetSchemaPermissionsResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `<database_id>/<schema_id>/<principal_id>`.

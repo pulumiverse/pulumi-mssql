@@ -13,11 +13,8 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as mssql from "@pulumiverse/mssql";
  *
- * const owner = new mssql.ServerRole("owner", {name: "owner_role"});
- * const example = new mssql.ServerRole("example", {
- *     name: "example",
- *     ownerId: owner.id,
- * });
+ * const owner = new mssql.ServerRole("owner", {});
+ * const example = new mssql.ServerRole("example", {ownerId: owner.id});
  * ```
  *
  * ## Import
@@ -72,7 +69,7 @@ export class ServerRole extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ServerRoleArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, args?: ServerRoleArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: ServerRoleArgs | ServerRoleState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
@@ -82,9 +79,6 @@ export class ServerRole extends pulumi.CustomResource {
             resourceInputs["ownerId"] = state ? state.ownerId : undefined;
         } else {
             const args = argsOrState as ServerRoleArgs | undefined;
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["ownerId"] = args ? args.ownerId : undefined;
         }
@@ -114,7 +108,7 @@ export interface ServerRoleArgs {
     /**
      * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * ID of another server role or login owning this role. Can be retrieved using `mssql.ServerRole` or `mssql.SqlLogin`.
      */

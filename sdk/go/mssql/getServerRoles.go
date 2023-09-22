@@ -5,6 +5,7 @@ package mssql
 
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about all roles defined in the server.
@@ -34,7 +35,7 @@ import (
 //
 // ```
 func GetServerRoles(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*GetServerRolesResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetServerRolesResult
 	err := ctx.Invoke("mssql:index/getServerRoles:getServerRoles", nil, &rv, opts...)
 	if err != nil {

@@ -9,26 +9,6 @@ from subprocess import check_call
 
 
 VERSION = "0.0.0"
-PLUGIN_VERSION = "0.0.0"
-
-class InstallPluginCommand(install):
-    def run(self):
-        install.run(self)
-        try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'mssql', PLUGIN_VERSION, '--server', 'github://api.github.com/pulumiverse/pulumi-mssql'])
-        except OSError as error:
-            if error.errno == errno.ENOENT:
-                print(f"""
-                There was an error installing the mssql resource provider plugin.
-                It looks like `pulumi` is not installed on your system.
-                Please visit https://pulumi.com/ to install the Pulumi CLI.
-                You may try manually installing the plugin by running
-                `pulumi plugin install resource mssql {PLUGIN_VERSION}`
-                """)
-            else:
-                raise
-
-
 def readme():
     try:
         with open('README.md', encoding='utf-8') as f:
@@ -43,9 +23,6 @@ setup(name='pulumiverse_mssql',
       description="A Pulumi Provider for Microsoft SQL Server and Azure SQL",
       long_description=readme(),
       long_description_content_type='text/markdown',
-      cmdclass={
-          'install': InstallPluginCommand,
-      },
       keywords='pulumi mssql category/database',
       url='https://github.com/pulumiverse/pulumi-mssql',
       project_urls={

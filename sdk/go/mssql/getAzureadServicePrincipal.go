@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single Azure AD Service Principal database user.
@@ -46,7 +48,7 @@ import (
 //
 // ```
 func LookupAzureadServicePrincipal(ctx *pulumi.Context, args *LookupAzureadServicePrincipalArgs, opts ...pulumi.InvokeOption) (*LookupAzureadServicePrincipalResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupAzureadServicePrincipalResult
 	err := ctx.Invoke("mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal", args, &rv, opts...)
 	if err != nil {
@@ -117,6 +119,12 @@ func (o LookupAzureadServicePrincipalResultOutput) ToLookupAzureadServicePrincip
 
 func (o LookupAzureadServicePrincipalResultOutput) ToLookupAzureadServicePrincipalResultOutputWithContext(ctx context.Context) LookupAzureadServicePrincipalResultOutput {
 	return o
+}
+
+func (o LookupAzureadServicePrincipalResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupAzureadServicePrincipalResult] {
+	return pulumix.Output[LookupAzureadServicePrincipalResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Azure AD clientId of the Service Principal. This can be either regular Service Principal or Managed Service Identity.
