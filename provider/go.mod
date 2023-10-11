@@ -8,7 +8,7 @@ require (
 	github.com/PGSSoft/terraform-provider-mssql/shim v0.0.0-00010101000000-000000000000
 	github.com/ettle/strcase v0.1.1
 	github.com/pulumi/pulumi-terraform-bridge/pf v0.16.1
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.60.0
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.60.1
 	github.com/pulumi/pulumi/sdk/v3 v3.81.0
 )
 

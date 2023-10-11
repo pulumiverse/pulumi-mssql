@@ -322,6 +322,8 @@ github.com/pulumi/pulumi-terraform-bridge/testing v0.0.1/go.mod h1:7OeUPH8rpt5ip
 github.com/pulumi/pulumi-terraform-bridge/v3 v3.43.0/go.mod h1:tyvu1G9JH1kMNzYYpODtTv/7fgK+ko174AEHn+uSJ0o=
 github.com/pulumi/pulumi-terraform-bridge/v3 v3.44.3 h1:CET8z6seLHtEYj3OnrFh/XRaqi1Jyj9xxQWQVFZzZIw=
 github.com/pulumi/pulumi-terraform-bridge/v3 v3.44.3/go.mod h1:MbllbPNA49TmCI2N0awqHCHdB7JrdFB7odFUEo4WRXk=
+github.com/pulumi/pulumi-terraform-bridge/v3 v3.60.1 h1:+W2JHLi4y+G57jLPLJbDLv1xvm/9L2NO0gWXrtR8MDM=
+github.com/pulumi/pulumi-terraform-bridge/v3 v3.60.1/go.mod h1:o0Vfch2UXtHOnGYpNElzGg4htT6B8X8hS9fa5AguP7g=
 github.com/pulumi/pulumi-yaml v1.0.4 h1:p+989rW3AqkkxbzxtxccHKAN4xCJi3K2cRpvA2K84tw=
 github.com/pulumi/pulumi-yaml v1.0.4/go.mod h1:Szj8ud4Vqyq3oO1n3kzIUfaP3AiCjYZM4FYjOVWwJn8=
 github.com/pulumi/pulumi/pkg/v3 v3.53.1/go.mod h1:XqciW5mPO8RxBEbN2/My9XjO829UQ2cHuhVLfoKM/yE=
