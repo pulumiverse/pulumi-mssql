@@ -58,7 +58,7 @@ func GetSqlUsers(ctx *pulumi.Context, args *GetSqlUsersArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getSqlUsers.
 type GetSqlUsersArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -87,7 +87,7 @@ func GetSqlUsersOutput(ctx *pulumi.Context, args GetSqlUsersOutputArgs, opts ...
 
 // A collection of arguments for invoking getSqlUsers.
 type GetSqlUsersOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 

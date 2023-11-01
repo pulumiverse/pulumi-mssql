@@ -57,9 +57,9 @@ func LookupServerRole(ctx *pulumi.Context, args *LookupServerRoleArgs, opts ...p
 
 // A collection of arguments for invoking getServerRole.
 type LookupServerRoleArgs struct {
-	// Role principal ID. Either `name` or `id` must be provided.
+	// ID of the member principal
 	Id *string `pulumi:"id"`
-	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+	// Name of the server principal
 	Name *string `pulumi:"name"`
 }
 
@@ -90,9 +90,9 @@ func LookupServerRoleOutput(ctx *pulumi.Context, args LookupServerRoleOutputArgs
 
 // A collection of arguments for invoking getServerRole.
 type LookupServerRoleOutputArgs struct {
-	// Role principal ID. Either `name` or `id` must be provided.
+	// ID of the member principal
 	Id pulumi.StringPtrInput `pulumi:"id"`
-	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+	// Name of the server principal
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 

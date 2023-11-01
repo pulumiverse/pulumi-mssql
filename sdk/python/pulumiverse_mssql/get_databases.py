@@ -14,6 +14,7 @@ __all__ = [
     'GetDatabasesResult',
     'AwaitableGetDatabasesResult',
     'get_databases',
+    'get_databases_output',
 ]
 
 @pulumi.output_type
@@ -77,3 +78,21 @@ def get_databases(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetDa
     return AwaitableGetDatabasesResult(
         databases=pulumi.get(__ret__, 'databases'),
         id=pulumi.get(__ret__, 'id'))
+
+
+@_utilities.lift_output_func(get_databases)
+def get_databases_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetDatabasesResult]:
+    """
+    Obtains information about all databases found in SQL Server instance.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_mssql as mssql
+
+    example = mssql.get_databases()
+    pulumi.export("databases", example.databases)
+    ```
+    """
+    ...

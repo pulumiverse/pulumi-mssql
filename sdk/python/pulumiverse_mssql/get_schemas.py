@@ -86,7 +86,7 @@ def get_schemas(database_id: Optional[str] = None,
     ```
 
 
-    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -117,6 +117,6 @@ def get_schemas_output(database_id: Optional[pulumi.Input[Optional[str]]] = None
     ```
 
 
-    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
     """
     ...

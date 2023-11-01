@@ -4,7 +4,11 @@
 package mssql
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -50,4 +54,50 @@ type GetSqlLoginsResult struct {
 	Id string `pulumi:"id"`
 	// Set of SQL login objects
 	Logins []GetSqlLoginsLogin `pulumi:"logins"`
+}
+
+func GetSqlLoginsOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetSqlLoginsResultOutput {
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetSqlLoginsResult, error) {
+		r, err := GetSqlLogins(ctx, opts...)
+		var s GetSqlLoginsResult
+		if r != nil {
+			s = *r
+		}
+		return s, err
+	}).(GetSqlLoginsResultOutput)
+}
+
+// A collection of values returned by getSqlLogins.
+type GetSqlLoginsResultOutput struct{ *pulumi.OutputState }
+
+func (GetSqlLoginsResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSqlLoginsResult)(nil)).Elem()
+}
+
+func (o GetSqlLoginsResultOutput) ToGetSqlLoginsResultOutput() GetSqlLoginsResultOutput {
+	return o
+}
+
+func (o GetSqlLoginsResultOutput) ToGetSqlLoginsResultOutputWithContext(ctx context.Context) GetSqlLoginsResultOutput {
+	return o
+}
+
+func (o GetSqlLoginsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSqlLoginsResult] {
+	return pulumix.Output[GetSqlLoginsResult]{
+		OutputState: o.OutputState,
+	}
+}
+
+// ID of the resource used only internally by the provider.
+func (o GetSqlLoginsResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSqlLoginsResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Set of SQL login objects
+func (o GetSqlLoginsResultOutput) Logins() GetSqlLoginsLoginArrayOutput {
+	return o.ApplyT(func(v GetSqlLoginsResult) []GetSqlLoginsLogin { return v.Logins }).(GetSqlLoginsLoginArrayOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetSqlLoginsResultOutput{})
 }

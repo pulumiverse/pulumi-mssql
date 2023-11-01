@@ -43,7 +43,7 @@ export interface GetDatabaseRoleArgs {
      */
     databaseId?: string;
     /**
-     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+     * Name of the database principal.
      */
     name: string;
 }
@@ -105,7 +105,7 @@ export interface GetDatabaseRoleOutputArgs {
      */
     databaseId?: pulumi.Input<string>;
     /**
-     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+     * Name of the database principal.
      */
     name: pulumi.Input<string>;
 }

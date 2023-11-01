@@ -98,8 +98,8 @@ def get_server_role(id: Optional[str] = None,
     ```
 
 
-    :param str id: Role principal ID. Either `name` or `id` must be provided.
-    :param str name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+    :param str id: ID of the member principal
+    :param str name: Name of the server principal
     """
     __args__ = dict()
     __args__['id'] = id
@@ -132,7 +132,7 @@ def get_server_role_output(id: Optional[pulumi.Input[Optional[str]]] = None,
     ```
 
 
-    :param str id: Role principal ID. Either `name` or `id` must be provided.
-    :param str name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+    :param str id: ID of the member principal
+    :param str name: Name of the server principal
     """
     ...

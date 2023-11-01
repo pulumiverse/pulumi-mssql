@@ -113,7 +113,7 @@ def get_database_role(database_id: Optional[str] = None,
 
 
     :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
-    :param str name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+    :param str name: Name of the database principal.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -150,6 +150,6 @@ def get_database_role_output(database_id: Optional[pulumi.Input[Optional[str]]] 
 
 
     :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
-    :param str name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+    :param str name: Name of the database principal.
     """
     ...

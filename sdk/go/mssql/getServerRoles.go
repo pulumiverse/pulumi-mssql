@@ -4,7 +4,11 @@
 package mssql
 
 import (
+	"context"
+	"reflect"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -49,4 +53,49 @@ type GetServerRolesResult struct {
 	Id string `pulumi:"id"`
 	// Set of all roles found in the server
 	Roles []GetServerRolesRole `pulumi:"roles"`
+}
+
+func GetServerRolesOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetServerRolesResultOutput {
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetServerRolesResult, error) {
+		r, err := GetServerRoles(ctx, opts...)
+		var s GetServerRolesResult
+		if r != nil {
+			s = *r
+		}
+		return s, err
+	}).(GetServerRolesResultOutput)
+}
+
+// A collection of values returned by getServerRoles.
+type GetServerRolesResultOutput struct{ *pulumi.OutputState }
+
+func (GetServerRolesResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetServerRolesResult)(nil)).Elem()
+}
+
+func (o GetServerRolesResultOutput) ToGetServerRolesResultOutput() GetServerRolesResultOutput {
+	return o
+}
+
+func (o GetServerRolesResultOutput) ToGetServerRolesResultOutputWithContext(ctx context.Context) GetServerRolesResultOutput {
+	return o
+}
+
+func (o GetServerRolesResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerRolesResult] {
+	return pulumix.Output[GetServerRolesResult]{
+		OutputState: o.OutputState,
+	}
+}
+
+func (o GetServerRolesResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetServerRolesResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// Set of all roles found in the server
+func (o GetServerRolesResultOutput) Roles() GetServerRolesRoleArrayOutput {
+	return o.ApplyT(func(v GetServerRolesResult) []GetServerRolesRole { return v.Roles }).(GetServerRolesRoleArrayOutput)
+}
+
+func init() {
+	pulumi.RegisterOutputType(GetServerRolesResultOutput{})
 }

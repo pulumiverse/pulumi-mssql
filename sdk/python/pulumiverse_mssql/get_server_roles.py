@@ -14,6 +14,7 @@ __all__ = [
     'GetServerRolesResult',
     'AwaitableGetServerRolesResult',
     'get_server_roles',
+    'get_server_roles_output',
 ]
 
 @pulumi.output_type
@@ -74,3 +75,21 @@ def get_server_roles(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGe
     return AwaitableGetServerRolesResult(
         id=pulumi.get(__ret__, 'id'),
         roles=pulumi.get(__ret__, 'roles'))
+
+
+@_utilities.lift_output_func(get_server_roles)
+def get_server_roles_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetServerRolesResult]:
+    """
+    Obtains information about all roles defined in the server.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_mssql as mssql
+
+    all = mssql.get_server_roles()
+    pulumi.export("roles", all.roles)
+    ```
+    """
+    ...

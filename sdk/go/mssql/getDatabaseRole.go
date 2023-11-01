@@ -61,7 +61,7 @@ func LookupDatabaseRole(ctx *pulumi.Context, args *LookupDatabaseRoleArgs, opts 
 type LookupDatabaseRoleArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
-	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+	// Name of the database principal.
 	Name string `pulumi:"name"`
 }
 
@@ -96,7 +96,7 @@ func LookupDatabaseRoleOutput(ctx *pulumi.Context, args LookupDatabaseRoleOutput
 type LookupDatabaseRoleOutputArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
-	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+	// Name of the database principal.
 	Name pulumi.StringInput `pulumi:"name"`
 }
 

@@ -1599,7 +1599,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "description": "Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.\n"
+                        "description": "Name of the database principal.\n"
                     }
                 },
                 "type": "object",
@@ -1650,7 +1650,7 @@
                 "properties": {
                     "databaseId": {
                         "type": "string",
-                        "description": "ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('\u003cdb_name\u003e')`. Defaults to ID of `master`.\n"
+                        "description": "ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('\u003cdb_name\u003e')`.\n"
                     }
                 },
                 "type": "object"
@@ -1867,7 +1867,7 @@
                 "properties": {
                     "databaseId": {
                         "type": "string",
-                        "description": "ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('\u003cdb_name\u003e')`. Defaults to ID of `master`.\n"
+                        "description": "ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('\u003cdb_name\u003e')`.\n"
                     }
                 },
                 "type": "object"
@@ -1948,11 +1948,11 @@
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "Role principal ID. Either `name` or `id` must be provided.\n"
+                        "description": "ID of the member principal\n"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.\n"
+                        "description": "Name of the server principal\n"
                     }
                 },
                 "type": "object"
@@ -2155,7 +2155,7 @@
                 "properties": {
                     "databaseId": {
                         "type": "string",
-                        "description": "ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('\u003cdb_name\u003e')`. Defaults to ID of `master`.\n"
+                        "description": "ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('\u003cdb_name\u003e')`.\n"
                     }
                 },
                 "type": "object"

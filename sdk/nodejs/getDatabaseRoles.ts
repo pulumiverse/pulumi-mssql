@@ -38,7 +38,7 @@ export function getDatabaseRoles(args?: GetDatabaseRolesArgs, opts?: pulumi.Invo
  */
 export interface GetDatabaseRolesArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
      */
     databaseId?: string;
 }
@@ -87,7 +87,7 @@ export function getDatabaseRolesOutput(args?: GetDatabaseRolesOutputArgs, opts?:
  */
 export interface GetDatabaseRolesOutputArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
      */
     databaseId?: pulumi.Input<string>;
 }

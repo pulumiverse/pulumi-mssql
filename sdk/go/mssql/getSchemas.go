@@ -62,7 +62,7 @@ func GetSchemas(ctx *pulumi.Context, args *GetSchemasArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getSchemas.
 type GetSchemasArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -91,7 +91,7 @@ func GetSchemasOutput(ctx *pulumi.Context, args GetSchemasOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getSchemas.
 type GetSchemasOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 

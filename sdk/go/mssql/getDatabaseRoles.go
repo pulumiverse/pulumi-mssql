@@ -58,7 +58,7 @@ func GetDatabaseRoles(ctx *pulumi.Context, args *GetDatabaseRolesArgs, opts ...p
 
 // A collection of arguments for invoking getDatabaseRoles.
 type GetDatabaseRolesArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -87,7 +87,7 @@ func GetDatabaseRolesOutput(ctx *pulumi.Context, args GetDatabaseRolesOutputArgs
 
 // A collection of arguments for invoking getDatabaseRoles.
 type GetDatabaseRolesOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 
