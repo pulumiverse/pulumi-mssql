@@ -98,8 +98,8 @@ def get_server_role(id: Optional[str] = None,
     ```
 
 
-    :param str id: Role principal ID. Either `name` or `id` must be provided.
-    :param str name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+    :param str id: ID of the member principal
+    :param str name: Name of the server principal
     """
     __args__ = dict()
     __args__['id'] = id
@@ -108,10 +108,10 @@ def get_server_role(id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getServerRole:getServerRole', __args__, opts=opts, typ=GetServerRoleResult).value
 
     return AwaitableGetServerRoleResult(
-        id=__ret__.id,
-        members=__ret__.members,
-        name=__ret__.name,
-        owner_id=__ret__.owner_id)
+        id=pulumi.get(__ret__, 'id'),
+        members=pulumi.get(__ret__, 'members'),
+        name=pulumi.get(__ret__, 'name'),
+        owner_id=pulumi.get(__ret__, 'owner_id'))
 
 
 @_utilities.lift_output_func(get_server_role)
@@ -132,7 +132,7 @@ def get_server_role_output(id: Optional[pulumi.Input[Optional[str]]] = None,
     ```
 
 
-    :param str id: Role principal ID. Either `name` or `id` must be provided.
-    :param str name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+    :param str id: ID of the member principal
+    :param str name: Name of the server principal
     """
     ...

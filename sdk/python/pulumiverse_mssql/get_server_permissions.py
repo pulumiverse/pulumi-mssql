@@ -94,9 +94,9 @@ def get_server_permissions(principal_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getServerPermissions:getServerPermissions', __args__, opts=opts, typ=GetServerPermissionsResult).value
 
     return AwaitableGetServerPermissionsResult(
-        id=__ret__.id,
-        permissions=__ret__.permissions,
-        principal_id=__ret__.principal_id)
+        id=pulumi.get(__ret__, 'id'),
+        permissions=pulumi.get(__ret__, 'permissions'),
+        principal_id=pulumi.get(__ret__, 'principal_id'))
 
 
 @_utilities.lift_output_func(get_server_permissions)

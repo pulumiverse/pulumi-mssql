@@ -24,7 +24,6 @@ import * as utilities from "./utilities";
  *     userPrincipalName: "user@example.com",
  * });
  * const exampleAzureadUser = new mssql.AzureadUser("exampleAzureadUser", {
- *     name: "example",
  *     databaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
  *     userObjectId: exampleUser.then(exampleUser => exampleUser.objectId),
  * });
@@ -101,9 +100,6 @@ export class AzureadUser extends pulumi.CustomResource {
             if ((!args || args.databaseId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'databaseId'");
             }
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             if ((!args || args.userObjectId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'userObjectId'");
             }
@@ -145,7 +141,7 @@ export interface AzureadUserArgs {
     /**
      * User name. Cannot be longer than 128 chars.
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * Azure AD objectId of the user. This can be either regular user or a group.
      */

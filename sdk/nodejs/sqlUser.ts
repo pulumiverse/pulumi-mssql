@@ -18,7 +18,6 @@ import * as utilities from "./utilities";
  *     name: "example",
  * });
  * const exampleSqlLogin = new mssql.SqlLogin("exampleSqlLogin", {
- *     name: "example",
  *     password: "Str0ngPa$$word12",
  *     mustChangePassword: true,
  *     defaultDatabaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
@@ -27,7 +26,6 @@ import * as utilities from "./utilities";
  *     checkPasswordPolicy: true,
  * });
  * const exampleSqlUser = new mssql.SqlUser("exampleSqlUser", {
- *     name: "example",
  *     databaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
  *     loginId: exampleSqlLogin.id,
  * });
@@ -104,9 +102,6 @@ export class SqlUser extends pulumi.CustomResource {
             if ((!args || args.loginId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'loginId'");
             }
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             resourceInputs["databaseId"] = args ? args.databaseId : undefined;
             resourceInputs["loginId"] = args ? args.loginId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -149,5 +144,5 @@ export interface SqlUserArgs {
     /**
      * User name. Cannot be longer than 128 chars.
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
 }

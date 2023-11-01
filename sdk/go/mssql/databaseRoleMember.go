@@ -9,6 +9,8 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Manages database role membership.
@@ -48,7 +50,6 @@ import (
 //				return err
 //			}
 //			exampleDatabaseRole, err := mssql.NewDatabaseRole(ctx, "exampleDatabaseRole", &mssql.DatabaseRoleArgs{
-//				Name:       pulumi.String("example"),
 //				DatabaseId: *pulumi.String(exampleDatabase.Id),
 //				OwnerId:    *pulumi.String(owner.Id),
 //			})
@@ -99,7 +100,7 @@ func NewDatabaseRoleMember(ctx *pulumi.Context,
 	if args.RoleId == nil {
 		return nil, errors.New("invalid value for required argument 'RoleId'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource DatabaseRoleMember
 	err := ctx.RegisterResource("mssql:index/databaseRoleMember:DatabaseRoleMember", name, args, &resource, opts...)
 	if err != nil {
@@ -177,6 +178,12 @@ func (i *DatabaseRoleMember) ToDatabaseRoleMemberOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseRoleMemberOutput)
 }
 
+func (i *DatabaseRoleMember) ToOutput(ctx context.Context) pulumix.Output[*DatabaseRoleMember] {
+	return pulumix.Output[*DatabaseRoleMember]{
+		OutputState: i.ToDatabaseRoleMemberOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DatabaseRoleMemberArrayInput is an input type that accepts DatabaseRoleMemberArray and DatabaseRoleMemberArrayOutput values.
 // You can construct a concrete instance of `DatabaseRoleMemberArrayInput` via:
 //
@@ -200,6 +207,12 @@ func (i DatabaseRoleMemberArray) ToDatabaseRoleMemberArrayOutput() DatabaseRoleM
 
 func (i DatabaseRoleMemberArray) ToDatabaseRoleMemberArrayOutputWithContext(ctx context.Context) DatabaseRoleMemberArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseRoleMemberArrayOutput)
+}
+
+func (i DatabaseRoleMemberArray) ToOutput(ctx context.Context) pulumix.Output[[]*DatabaseRoleMember] {
+	return pulumix.Output[[]*DatabaseRoleMember]{
+		OutputState: i.ToDatabaseRoleMemberArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DatabaseRoleMemberMapInput is an input type that accepts DatabaseRoleMemberMap and DatabaseRoleMemberMapOutput values.
@@ -227,6 +240,12 @@ func (i DatabaseRoleMemberMap) ToDatabaseRoleMemberMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseRoleMemberMapOutput)
 }
 
+func (i DatabaseRoleMemberMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DatabaseRoleMember] {
+	return pulumix.Output[map[string]*DatabaseRoleMember]{
+		OutputState: i.ToDatabaseRoleMemberMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DatabaseRoleMemberOutput struct{ *pulumi.OutputState }
 
 func (DatabaseRoleMemberOutput) ElementType() reflect.Type {
@@ -239,6 +258,12 @@ func (o DatabaseRoleMemberOutput) ToDatabaseRoleMemberOutput() DatabaseRoleMembe
 
 func (o DatabaseRoleMemberOutput) ToDatabaseRoleMemberOutputWithContext(ctx context.Context) DatabaseRoleMemberOutput {
 	return o
+}
+
+func (o DatabaseRoleMemberOutput) ToOutput(ctx context.Context) pulumix.Output[*DatabaseRoleMember] {
+	return pulumix.Output[*DatabaseRoleMember]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Can be either user or role ID in format `<database_id>/<member_id>`. Can be retrieved using `SqlUser` or `mssqlDatabaseMember`.
@@ -265,6 +290,12 @@ func (o DatabaseRoleMemberArrayOutput) ToDatabaseRoleMemberArrayOutputWithContex
 	return o
 }
 
+func (o DatabaseRoleMemberArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DatabaseRoleMember] {
+	return pulumix.Output[[]*DatabaseRoleMember]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o DatabaseRoleMemberArrayOutput) Index(i pulumi.IntInput) DatabaseRoleMemberOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DatabaseRoleMember {
 		return vs[0].([]*DatabaseRoleMember)[vs[1].(int)]
@@ -283,6 +314,12 @@ func (o DatabaseRoleMemberMapOutput) ToDatabaseRoleMemberMapOutput() DatabaseRol
 
 func (o DatabaseRoleMemberMapOutput) ToDatabaseRoleMemberMapOutputWithContext(ctx context.Context) DatabaseRoleMemberMapOutput {
 	return o
+}
+
+func (o DatabaseRoleMemberMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DatabaseRoleMember] {
+	return pulumix.Output[map[string]*DatabaseRoleMember]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DatabaseRoleMemberMapOutput) MapIndex(k pulumi.StringInput) DatabaseRoleMemberOutput {

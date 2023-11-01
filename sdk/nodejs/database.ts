@@ -13,10 +13,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as mssql from "@pulumiverse/mssql";
  *
- * const example = new mssql.Database("example", {
- *     collation: "SQL_Latin1_General_CP1_CS_AS",
- *     name: "example",
- * });
+ * const example = new mssql.Database("example", {collation: "SQL_Latin1_General_CP1_CS_AS"});
  * ```
  *
  * ## Import
@@ -71,7 +68,7 @@ export class Database extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: DatabaseArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, args?: DatabaseArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: DatabaseArgs | DatabaseState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
@@ -81,9 +78,6 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["name"] = state ? state.name : undefined;
         } else {
             const args = argsOrState as DatabaseArgs | undefined;
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             resourceInputs["collation"] = args ? args.collation : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
         }
@@ -117,5 +111,5 @@ export interface DatabaseArgs {
     /**
      * Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
 }

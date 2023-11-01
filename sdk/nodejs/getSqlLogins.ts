@@ -39,3 +39,19 @@ export interface GetSqlLoginsResult {
      */
     readonly logins: outputs.GetSqlLoginsLogin[];
 }
+/**
+ * Obtains information about all SQL logins found in SQL Server instance.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as mssql from "@pulumi/mssql";
+ *
+ * const example = mssql.getSqlLogins({});
+ * export const databases = example.then(example => example.logins);
+ * ```
+ */
+export function getSqlLoginsOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetSqlLoginsResult> {
+    return pulumi.output(getSqlLogins(opts))
+}

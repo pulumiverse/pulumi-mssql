@@ -83,13 +83,13 @@ namespace Pulumiverse.Mssql
     public sealed class GetServerRoleArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Role principal ID. Either `name` or `id` must be provided.
+        /// ID of the member principal
         /// </summary>
         [Input("id")]
         public string? Id { get; set; }
 
         /// <summary>
-        /// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+        /// Name of the server principal
         /// </summary>
         [Input("name")]
         public string? Name { get; set; }
@@ -103,13 +103,13 @@ namespace Pulumiverse.Mssql
     public sealed class GetServerRoleInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Role principal ID. Either `name` or `id` must be provided.
+        /// ID of the member principal
         /// </summary>
         [Input("id")]
         public Input<string>? Id { get; set; }
 
         /// <summary>
-        /// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+        /// Name of the server principal
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }

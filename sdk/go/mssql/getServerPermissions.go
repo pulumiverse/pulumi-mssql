@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Returns all permissions grated to given principal
@@ -45,7 +47,7 @@ import (
 //
 // ```
 func GetServerPermissions(ctx *pulumi.Context, args *GetServerPermissionsArgs, opts ...pulumi.InvokeOption) (*GetServerPermissionsResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetServerPermissionsResult
 	err := ctx.Invoke("mssql:index/getServerPermissions:getServerPermissions", args, &rv, opts...)
 	if err != nil {
@@ -106,6 +108,12 @@ func (o GetServerPermissionsResultOutput) ToGetServerPermissionsResultOutput() G
 
 func (o GetServerPermissionsResultOutput) ToGetServerPermissionsResultOutputWithContext(ctx context.Context) GetServerPermissionsResultOutput {
 	return o
+}
+
+func (o GetServerPermissionsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerPermissionsResult] {
+	return pulumix.Output[GetServerPermissionsResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Equals to `principalId`.

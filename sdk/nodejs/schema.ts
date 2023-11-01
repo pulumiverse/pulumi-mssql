@@ -21,7 +21,6 @@ import * as utilities from "./utilities";
  *     name: "example_user",
  * });
  * const exampleSchema = new mssql.Schema("exampleSchema", {
- *     name: "example",
  *     databaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
  *     ownerId: owner.then(owner => owner.id),
  * });
@@ -83,7 +82,7 @@ export class Schema extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: SchemaArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, args?: SchemaArgs, opts?: pulumi.CustomResourceOptions)
     constructor(name: string, argsOrState?: SchemaArgs | SchemaState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
@@ -94,9 +93,6 @@ export class Schema extends pulumi.CustomResource {
             resourceInputs["ownerId"] = state ? state.ownerId : undefined;
         } else {
             const args = argsOrState as SchemaArgs | undefined;
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
             resourceInputs["databaseId"] = args ? args.databaseId : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["ownerId"] = args ? args.ownerId : undefined;
@@ -135,7 +131,7 @@ export interface SchemaArgs {
     /**
      * Schema name.
      */
-    name: pulumi.Input<string>;
+    name?: pulumi.Input<string>;
     /**
      * ID of database role or user owning this schema. Can be retrieved using `mssql.DatabaseRole`, `mssql.SqlUser`, `mssql.AzureadUser` or `mssql.AzureadServicePrincipal`
      */

@@ -36,3 +36,19 @@ export interface GetServerRolesResult {
      */
     readonly roles: outputs.GetServerRolesRole[];
 }
+/**
+ * Obtains information about all roles defined in the server.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as mssql from "@pulumi/mssql";
+ *
+ * const all = mssql.getServerRoles({});
+ * export const roles = all.then(all => all.roles);
+ * ```
+ */
+export function getServerRolesOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetServerRolesResult> {
+    return pulumi.output(getServerRoles(opts))
+}

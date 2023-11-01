@@ -14,33 +14,22 @@ __all__ = ['DatabaseRoleArgs', 'DatabaseRole']
 @pulumi.input_type
 class DatabaseRoleArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[str],
                  database_id: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
                  owner_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a DatabaseRole resource.
-        :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+        :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
         :param pulumi.Input[str] owner_id: ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
                Defaults to ID of current user, used to authorize the Terraform provider.
         """
-        pulumi.set(__self__, "name", name)
         if database_id is not None:
             pulumi.set(__self__, "database_id", database_id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if owner_id is not None:
             pulumi.set(__self__, "owner_id", owner_id)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter(name="databaseId")
@@ -53,6 +42,18 @@ class DatabaseRoleArgs:
     @database_id.setter
     def database_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "database_id", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter(name="ownerId")
@@ -148,7 +149,6 @@ class DatabaseRole(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         owner = mssql.get_sql_user(name="example_user")
         example_database_role = mssql.DatabaseRole("exampleDatabaseRole",
-            name="example",
             database_id=example_database.id,
             owner_id=owner.id)
         ```
@@ -172,7 +172,7 @@ class DatabaseRole(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: DatabaseRoleArgs,
+                 args: Optional[DatabaseRoleArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages database-level role.
@@ -187,7 +187,6 @@ class DatabaseRole(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         owner = mssql.get_sql_user(name="example_user")
         example_database_role = mssql.DatabaseRole("exampleDatabaseRole",
-            name="example",
             database_id=example_database.id,
             owner_id=owner.id)
         ```
@@ -228,8 +227,6 @@ class DatabaseRole(pulumi.CustomResource):
             __props__ = DatabaseRoleArgs.__new__(DatabaseRoleArgs)
 
             __props__.__dict__["database_id"] = database_id
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             __props__.__dict__["owner_id"] = owner_id
         super(DatabaseRole, __self__).__init__(

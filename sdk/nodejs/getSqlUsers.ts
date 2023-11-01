@@ -38,7 +38,7 @@ export function getSqlUsers(args?: GetSqlUsersArgs, opts?: pulumi.InvokeOptions)
  */
 export interface GetSqlUsersArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
      */
     databaseId?: string;
 }
@@ -87,7 +87,7 @@ export function getSqlUsersOutput(args?: GetSqlUsersOutputArgs, opts?: pulumi.In
  */
 export interface GetSqlUsersOutputArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
      */
     databaseId?: pulumi.Input<string>;
 }

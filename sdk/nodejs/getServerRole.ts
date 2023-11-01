@@ -38,11 +38,11 @@ export function getServerRole(args?: GetServerRoleArgs, opts?: pulumi.InvokeOpti
  */
 export interface GetServerRoleArgs {
     /**
-     * Role principal ID. Either `name` or `id` must be provided.
+     * ID of the member principal
      */
     id?: string;
     /**
-     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+     * Name of the server principal
      */
     name?: string;
 }
@@ -94,11 +94,11 @@ export function getServerRoleOutput(args?: GetServerRoleOutputArgs, opts?: pulum
  */
 export interface GetServerRoleOutputArgs {
     /**
-     * Role principal ID. Either `name` or `id` must be provided.
+     * ID of the member principal
      */
     id?: pulumi.Input<string>;
     /**
-     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
+     * Name of the server principal
      */
     name?: pulumi.Input<string>;
 }

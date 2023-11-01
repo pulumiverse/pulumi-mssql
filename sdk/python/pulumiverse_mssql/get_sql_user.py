@@ -109,10 +109,10 @@ def get_sql_user(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getSqlUser:getSqlUser', __args__, opts=opts, typ=GetSqlUserResult).value
 
     return AwaitableGetSqlUserResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        login_id=__ret__.login_id,
-        name=__ret__.name)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        login_id=pulumi.get(__ret__, 'login_id'),
+        name=pulumi.get(__ret__, 'name'))
 
 
 @_utilities.lift_output_func(get_sql_user)

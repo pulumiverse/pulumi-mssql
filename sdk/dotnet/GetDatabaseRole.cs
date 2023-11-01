@@ -99,7 +99,7 @@ namespace Pulumiverse.Mssql
         public string? DatabaseId { get; set; }
 
         /// <summary>
-        /// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+        /// Name of the database principal.
         /// </summary>
         [Input("name", required: true)]
         public string Name { get; set; } = null!;
@@ -119,7 +119,7 @@ namespace Pulumiverse.Mssql
         public Input<string>? DatabaseId { get; set; }
 
         /// <summary>
-        /// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+        /// Name of the database principal.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;

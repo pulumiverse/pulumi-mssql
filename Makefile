@@ -43,6 +43,9 @@ development:: install_plugins provider lint_provider build_sdks install_sdks cle
 build:: install_plugins provider build_sdks install_sdks
 only_build:: build
 
+generate::
+	go generate provider/resources.go
+
 tfgen:: install_plugins
 	(cd provider && go build -o $(WORKING_DIR)/bin/${TFGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/${TFGEN})
 	$(WORKING_DIR)/bin/${TFGEN} schema --out provider/cmd/${PROVIDER}
@@ -59,8 +62,7 @@ build_nodejs:: install_plugins tfgen # build the node sdk
 	cd sdk/nodejs/ && \
         yarn install && \
         yarn run tsc && \
-		cp -R scripts/ bin && \
-        cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
+		    cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 		sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json
 
 build_python:: PYPI_VERSION := $(shell pulumictl get version --language python)

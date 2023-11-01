@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // The provider type for the mssql package. By default, resources use package-wide configuration
@@ -29,16 +31,16 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.Hostname == nil {
-		if d := getEnvOrDefault(nil, nil, "MSSQL_HOSTNAME"); d != nil {
+		if d := internal.GetEnvOrDefault(nil, nil, "MSSQL_HOSTNAME"); d != nil {
 			args.Hostname = pulumi.StringPtr(d.(string))
 		}
 	}
 	if args.Port == nil {
-		if d := getEnvOrDefault(1433, parseEnvInt, "MSSQL_PORT"); d != nil {
+		if d := internal.GetEnvOrDefault(1433, internal.ParseEnvInt, "MSSQL_PORT"); d != nil {
 			args.Port = pulumi.IntPtr(d.(int))
 		}
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:mssql", name, args, &resource, opts...)
 	if err != nil {
@@ -93,6 +95,12 @@ func (i *Provider) ToProviderOutputWithContext(ctx context.Context) ProviderOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderOutput)
 }
 
+func (i *Provider) ToOutput(ctx context.Context) pulumix.Output[*Provider] {
+	return pulumix.Output[*Provider]{
+		OutputState: i.ToProviderOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ProviderOutput struct{ *pulumi.OutputState }
 
 func (ProviderOutput) ElementType() reflect.Type {
@@ -105,6 +113,12 @@ func (o ProviderOutput) ToProviderOutput() ProviderOutput {
 
 func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return o
+}
+
+func (o ProviderOutput) ToOutput(ctx context.Context) pulumix.Output[*Provider] {
+	return pulumix.Output[*Provider]{
+		OutputState: o.OutputState,
+	}
 }
 
 // FQDN or IP address of the SQL endpoint. Can be also set using `MSSQL_HOSTNAME` environment variable.

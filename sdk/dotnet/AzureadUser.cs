@@ -39,7 +39,6 @@ namespace Pulumiverse.Mssql
     /// 
     ///     var exampleAzureadUser = new Mssql.AzureadUser("exampleAzureadUser", new()
     ///     {
-    ///         Name = "example",
     ///         DatabaseId = exampleDatabase.Apply(getDatabaseResult =&gt; getDatabaseResult.Id),
     ///         UserObjectId = exampleUser.Apply(getUserResult =&gt; getUserResult.ObjectId),
     ///     });
@@ -136,8 +135,8 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// User name. Cannot be longer than 128 chars.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         /// <summary>
         /// Azure AD object_id of the user. This can be either regular user or a group.

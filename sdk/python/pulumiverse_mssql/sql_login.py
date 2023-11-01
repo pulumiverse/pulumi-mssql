@@ -14,16 +14,15 @@ __all__ = ['SqlLoginArgs', 'SqlLogin']
 @pulumi.input_type
 class SqlLoginArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[str],
                  password: pulumi.Input[str],
                  check_password_expiration: Optional[pulumi.Input[bool]] = None,
                  check_password_policy: Optional[pulumi.Input[bool]] = None,
                  default_database_id: Optional[pulumi.Input[str]] = None,
                  default_language: Optional[pulumi.Input[str]] = None,
-                 must_change_password: Optional[pulumi.Input[bool]] = None):
+                 must_change_password: Optional[pulumi.Input[bool]] = None,
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a SqlLogin resource.
-        :param pulumi.Input[str] name: Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
         :param pulumi.Input[str] password: Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
         :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
                SQL, which does not support this feature, the flag will be ignored.
@@ -37,8 +36,8 @@ class SqlLoginArgs:
         :param pulumi.Input[bool] must_change_password: When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
                this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
                this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        :param pulumi.Input[str] name: Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
         """
-        pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "password", password)
         if check_password_expiration is not None:
             pulumi.set(__self__, "check_password_expiration", check_password_expiration)
@@ -50,18 +49,8 @@ class SqlLoginArgs:
             pulumi.set(__self__, "default_language", default_language)
         if must_change_password is not None:
             pulumi.set(__self__, "must_change_password", must_change_password)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -141,6 +130,18 @@ class SqlLoginArgs:
     @must_change_password.setter
     def must_change_password(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "must_change_password", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
@@ -318,7 +319,6 @@ class SqlLogin(pulumi.CustomResource):
 
         example_database = mssql.get_database(name="example")
         example_sql_login = mssql.SqlLogin("exampleSqlLogin",
-            name="example",
             password="Str0ngPa$$word12",
             must_change_password=True,
             default_database_id=example_database.id,
@@ -371,7 +371,6 @@ class SqlLogin(pulumi.CustomResource):
 
         example_database = mssql.get_database(name="example")
         example_sql_login = mssql.SqlLogin("exampleSqlLogin",
-            name="example",
             password="Str0ngPa$$word12",
             must_change_password=True,
             default_database_id=example_database.id,
@@ -425,8 +424,6 @@ class SqlLogin(pulumi.CustomResource):
             __props__.__dict__["default_database_id"] = default_database_id
             __props__.__dict__["default_language"] = default_language
             __props__.__dict__["must_change_password"] = must_change_password
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             if password is None and not opts.urn:
                 raise TypeError("Missing required property 'password'")

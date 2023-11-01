@@ -108,7 +108,7 @@ class ServerRoleMember(pulumi.CustomResource):
         import pulumiverse_mssql as mssql
 
         member = mssql.get_sql_login(name="member_login")
-        example_server_role = mssql.ServerRole("exampleServerRole", name="example")
+        example_server_role = mssql.ServerRole("exampleServerRole")
         example_server_role_member = mssql.ServerRoleMember("exampleServerRoleMember",
             role_id=example_server_role.id,
             member_id=member.id)
@@ -144,7 +144,7 @@ class ServerRoleMember(pulumi.CustomResource):
         import pulumiverse_mssql as mssql
 
         member = mssql.get_sql_login(name="member_login")
-        example_server_role = mssql.ServerRole("exampleServerRole", name="example")
+        example_server_role = mssql.ServerRole("exampleServerRole")
         example_server_role_member = mssql.ServerRoleMember("exampleServerRoleMember",
             role_id=example_server_role.id,
             member_id=member.id)

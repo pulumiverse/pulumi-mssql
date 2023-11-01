@@ -14,32 +14,21 @@ __all__ = ['SchemaArgs', 'Schema']
 @pulumi.input_type
 class SchemaArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[str],
                  database_id: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
                  owner_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Schema resource.
-        :param pulumi.Input[str] name: Schema name.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+        :param pulumi.Input[str] name: Schema name.
         :param pulumi.Input[str] owner_id: ID of database role or user owning this schema. Can be retrieved using `DatabaseRole`, `SqlUser`, `AzureadUser` or `AzureadServicePrincipal`
         """
-        pulumi.set(__self__, "name", name)
         if database_id is not None:
             pulumi.set(__self__, "database_id", database_id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if owner_id is not None:
             pulumi.set(__self__, "owner_id", owner_id)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Schema name.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter(name="databaseId")
@@ -52,6 +41,18 @@ class SchemaArgs:
     @database_id.setter
     def database_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "database_id", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Schema name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter(name="ownerId")
@@ -144,7 +145,6 @@ class Schema(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         owner = mssql.get_sql_user(name="example_user")
         example_schema = mssql.Schema("exampleSchema",
-            name="example",
             database_id=example_database.id,
             owner_id=owner.id)
         ```
@@ -167,7 +167,7 @@ class Schema(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: SchemaArgs,
+                 args: Optional[SchemaArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages single DB schema.
@@ -182,7 +182,6 @@ class Schema(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         owner = mssql.get_sql_user(name="example_user")
         example_schema = mssql.Schema("exampleSchema",
-            name="example",
             database_id=example_database.id,
             owner_id=owner.id)
         ```
@@ -223,8 +222,6 @@ class Schema(pulumi.CustomResource):
             __props__ = SchemaArgs.__new__(SchemaArgs)
 
             __props__.__dict__["database_id"] = database_id
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             __props__.__dict__["owner_id"] = owner_id
         super(Schema, __self__).__init__(

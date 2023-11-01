@@ -43,7 +43,6 @@ namespace Pulumiverse.Mssql
     /// 
     ///     var exampleDatabaseRole = new Mssql.DatabaseRole("exampleDatabaseRole", new()
     ///     {
-    ///         Name = "example",
     ///         DatabaseId = exampleDatabase.Apply(getDatabaseResult =&gt; getDatabaseResult.Id),
     ///         OwnerId = owner.Apply(getSqlUserResult =&gt; getSqlUserResult.Id),
     ///     });

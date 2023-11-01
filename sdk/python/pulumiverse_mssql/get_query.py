@@ -108,10 +108,10 @@ def get_query(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getQuery:getQuery', __args__, opts=opts, typ=GetQueryResult).value
 
     return AwaitableGetQueryResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        query=__ret__.query,
-        results=__ret__.results)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        query=pulumi.get(__ret__, 'query'),
+        results=pulumi.get(__ret__, 'results'))
 
 
 @_utilities.lift_output_func(get_query)

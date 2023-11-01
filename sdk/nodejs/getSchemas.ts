@@ -38,7 +38,7 @@ export function getSchemas(args?: GetSchemasArgs, opts?: pulumi.InvokeOptions): 
  */
 export interface GetSchemasArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
      */
     databaseId?: string;
 }
@@ -87,7 +87,7 @@ export function getSchemasOutput(args?: GetSchemasOutputArgs, opts?: pulumi.Invo
  */
 export interface GetSchemasOutputArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
      */
     databaseId?: pulumi.Input<string>;
 }

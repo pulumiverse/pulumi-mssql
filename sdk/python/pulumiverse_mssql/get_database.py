@@ -93,9 +93,9 @@ def get_database(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getDatabase:getDatabase', __args__, opts=opts, typ=GetDatabaseResult).value
 
     return AwaitableGetDatabaseResult(
-        collation=__ret__.collation,
-        id=__ret__.id,
-        name=__ret__.name)
+        collation=pulumi.get(__ret__, 'collation'),
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'))
 
 
 @_utilities.lift_output_func(get_database)

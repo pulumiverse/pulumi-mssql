@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single SQL database user.
@@ -46,7 +48,7 @@ import (
 //
 // ```
 func LookupSqlUser(ctx *pulumi.Context, args *LookupSqlUserArgs, opts ...pulumi.InvokeOption) (*LookupSqlUserResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupSqlUserResult
 	err := ctx.Invoke("mssql:index/getSqlUser:getSqlUser", args, &rv, opts...)
 	if err != nil {
@@ -113,6 +115,12 @@ func (o LookupSqlUserResultOutput) ToLookupSqlUserResultOutput() LookupSqlUserRe
 
 func (o LookupSqlUserResultOutput) ToLookupSqlUserResultOutputWithContext(ctx context.Context) LookupSqlUserResultOutput {
 	return o
+}
+
+func (o LookupSqlUserResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSqlUserResult] {
+	return pulumix.Output[LookupSqlUserResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

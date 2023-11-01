@@ -113,7 +113,6 @@ class DatabaseRoleMember(pulumi.CustomResource):
         member = mssql.get_sql_user(name="member_user",
             database_id=example_database.id)
         example_database_role = mssql.DatabaseRole("exampleDatabaseRole",
-            name="example",
             database_id=example_database.id,
             owner_id=owner.id)
         example_database_role_member = mssql.DatabaseRoleMember("exampleDatabaseRoleMember",
@@ -156,7 +155,6 @@ class DatabaseRoleMember(pulumi.CustomResource):
         member = mssql.get_sql_user(name="member_user",
             database_id=example_database.id)
         example_database_role = mssql.DatabaseRole("exampleDatabaseRole",
-            name="example",
             database_id=example_database.id,
             owner_id=owner.id)
         example_database_role_member = mssql.DatabaseRoleMember("exampleDatabaseRoleMember",

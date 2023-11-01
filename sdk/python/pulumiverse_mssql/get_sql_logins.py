@@ -14,6 +14,7 @@ __all__ = [
     'GetSqlLoginsResult',
     'AwaitableGetSqlLoginsResult',
     'get_sql_logins',
+    'get_sql_logins_output',
 ]
 
 @pulumi.output_type
@@ -75,5 +76,23 @@ def get_sql_logins(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetS
     __ret__ = pulumi.runtime.invoke('mssql:index/getSqlLogins:getSqlLogins', __args__, opts=opts, typ=GetSqlLoginsResult).value
 
     return AwaitableGetSqlLoginsResult(
-        id=__ret__.id,
-        logins=__ret__.logins)
+        id=pulumi.get(__ret__, 'id'),
+        logins=pulumi.get(__ret__, 'logins'))
+
+
+@_utilities.lift_output_func(get_sql_logins)
+def get_sql_logins_output(opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSqlLoginsResult]:
+    """
+    Obtains information about all SQL logins found in SQL Server instance.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_mssql as mssql
+
+    example = mssql.get_sql_logins()
+    pulumi.export("databases", example.logins)
+    ```
+    """
+    ...

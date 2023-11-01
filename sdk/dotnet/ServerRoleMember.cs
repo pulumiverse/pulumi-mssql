@@ -29,10 +29,7 @@ namespace Pulumiverse.Mssql
     ///         Name = "member_login",
     ///     });
     /// 
-    ///     var exampleServerRole = new Mssql.ServerRole("exampleServerRole", new()
-    ///     {
-    ///         Name = "example",
-    ///     });
+    ///     var exampleServerRole = new Mssql.ServerRole("exampleServerRole");
     /// 
     ///     var exampleServerRoleMember = new Mssql.ServerRoleMember("exampleServerRoleMember", new()
     ///     {

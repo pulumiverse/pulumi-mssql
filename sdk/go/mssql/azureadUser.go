@@ -9,6 +9,8 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Managed database-level user mapped to Azure AD identity (user or group).
@@ -43,7 +45,6 @@ import (
 //				return err
 //			}
 //			exampleAzureadUser, err := mssql.NewAzureadUser(ctx, "exampleAzureadUser", &mssql.AzureadUserArgs{
-//				Name:         pulumi.String("example"),
 //				DatabaseId:   *pulumi.String(exampleDatabase.Id),
 //				UserObjectId: *pulumi.String(exampleUser.ObjectId),
 //			})
@@ -87,13 +88,10 @@ func NewAzureadUser(ctx *pulumi.Context,
 	if args.DatabaseId == nil {
 		return nil, errors.New("invalid value for required argument 'DatabaseId'")
 	}
-	if args.Name == nil {
-		return nil, errors.New("invalid value for required argument 'Name'")
-	}
 	if args.UserObjectId == nil {
 		return nil, errors.New("invalid value for required argument 'UserObjectId'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource AzureadUser
 	err := ctx.RegisterResource("mssql:index/azureadUser:AzureadUser", name, args, &resource, opts...)
 	if err != nil {
@@ -141,7 +139,7 @@ type azureadUserArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId string `pulumi:"databaseId"`
 	// User name. Cannot be longer than 128 chars.
-	Name string `pulumi:"name"`
+	Name *string `pulumi:"name"`
 	// Azure AD objectId of the user. This can be either regular user or a group.
 	UserObjectId string `pulumi:"userObjectId"`
 }
@@ -151,7 +149,7 @@ type AzureadUserArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringInput
 	// User name. Cannot be longer than 128 chars.
-	Name pulumi.StringInput
+	Name pulumi.StringPtrInput
 	// Azure AD objectId of the user. This can be either regular user or a group.
 	UserObjectId pulumi.StringInput
 }
@@ -179,6 +177,12 @@ func (i *AzureadUser) ToAzureadUserOutputWithContext(ctx context.Context) Azurea
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadUserOutput)
 }
 
+func (i *AzureadUser) ToOutput(ctx context.Context) pulumix.Output[*AzureadUser] {
+	return pulumix.Output[*AzureadUser]{
+		OutputState: i.ToAzureadUserOutputWithContext(ctx).OutputState,
+	}
+}
+
 // AzureadUserArrayInput is an input type that accepts AzureadUserArray and AzureadUserArrayOutput values.
 // You can construct a concrete instance of `AzureadUserArrayInput` via:
 //
@@ -202,6 +206,12 @@ func (i AzureadUserArray) ToAzureadUserArrayOutput() AzureadUserArrayOutput {
 
 func (i AzureadUserArray) ToAzureadUserArrayOutputWithContext(ctx context.Context) AzureadUserArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadUserArrayOutput)
+}
+
+func (i AzureadUserArray) ToOutput(ctx context.Context) pulumix.Output[[]*AzureadUser] {
+	return pulumix.Output[[]*AzureadUser]{
+		OutputState: i.ToAzureadUserArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // AzureadUserMapInput is an input type that accepts AzureadUserMap and AzureadUserMapOutput values.
@@ -229,6 +239,12 @@ func (i AzureadUserMap) ToAzureadUserMapOutputWithContext(ctx context.Context) A
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadUserMapOutput)
 }
 
+func (i AzureadUserMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*AzureadUser] {
+	return pulumix.Output[map[string]*AzureadUser]{
+		OutputState: i.ToAzureadUserMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type AzureadUserOutput struct{ *pulumi.OutputState }
 
 func (AzureadUserOutput) ElementType() reflect.Type {
@@ -241,6 +257,12 @@ func (o AzureadUserOutput) ToAzureadUserOutput() AzureadUserOutput {
 
 func (o AzureadUserOutput) ToAzureadUserOutputWithContext(ctx context.Context) AzureadUserOutput {
 	return o
+}
+
+func (o AzureadUserOutput) ToOutput(ctx context.Context) pulumix.Output[*AzureadUser] {
+	return pulumix.Output[*AzureadUser]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
@@ -272,6 +294,12 @@ func (o AzureadUserArrayOutput) ToAzureadUserArrayOutputWithContext(ctx context.
 	return o
 }
 
+func (o AzureadUserArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*AzureadUser] {
+	return pulumix.Output[[]*AzureadUser]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o AzureadUserArrayOutput) Index(i pulumi.IntInput) AzureadUserOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *AzureadUser {
 		return vs[0].([]*AzureadUser)[vs[1].(int)]
@@ -290,6 +318,12 @@ func (o AzureadUserMapOutput) ToAzureadUserMapOutput() AzureadUserMapOutput {
 
 func (o AzureadUserMapOutput) ToAzureadUserMapOutputWithContext(ctx context.Context) AzureadUserMapOutput {
 	return o
+}
+
+func (o AzureadUserMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*AzureadUser] {
+	return pulumix.Output[map[string]*AzureadUser]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o AzureadUserMapOutput) MapIndex(k pulumi.StringInput) AzureadUserOutput {

@@ -17,7 +17,7 @@ import * as utilities from "./utilities";
  * const member = mssql.getSqlLogin({
  *     name: "member_login",
  * });
- * const exampleServerRole = new mssql.ServerRole("exampleServerRole", {name: "example"});
+ * const exampleServerRole = new mssql.ServerRole("exampleServerRole", {});
  * const exampleServerRoleMember = new mssql.ServerRoleMember("exampleServerRoleMember", {
  *     roleId: exampleServerRole.id,
  *     memberId: member.then(member => member.id),

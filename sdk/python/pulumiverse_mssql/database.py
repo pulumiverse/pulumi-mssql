@@ -14,28 +14,17 @@ __all__ = ['DatabaseArgs', 'Database']
 @pulumi.input_type
 class DatabaseArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[str],
-                 collation: Optional[pulumi.Input[str]] = None):
+                 collation: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Database resource.
-        :param pulumi.Input[str] name: Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
         :param pulumi.Input[str] collation: Default collation name. Can be either a Windows collation name or a SQL collation name. Defaults to SQL Server instance's default collation.
+        :param pulumi.Input[str] name: Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
         """
-        pulumi.set(__self__, "name", name)
         if collation is not None:
             pulumi.set(__self__, "collation", collation)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -48,6 +37,18 @@ class DatabaseArgs:
     @collation.setter
     def collation(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "collation", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Database name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers).
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
@@ -107,9 +108,7 @@ class Database(pulumi.CustomResource):
         import pulumi
         import pulumiverse_mssql as mssql
 
-        example = mssql.Database("example",
-            collation="SQL_Latin1_General_CP1_CS_AS",
-            name="example")
+        example = mssql.Database("example", collation="SQL_Latin1_General_CP1_CS_AS")
         ```
 
         ## Import
@@ -129,7 +128,7 @@ class Database(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: DatabaseArgs,
+                 args: Optional[DatabaseArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages single database.
@@ -140,9 +139,7 @@ class Database(pulumi.CustomResource):
         import pulumi
         import pulumiverse_mssql as mssql
 
-        example = mssql.Database("example",
-            collation="SQL_Latin1_General_CP1_CS_AS",
-            name="example")
+        example = mssql.Database("example", collation="SQL_Latin1_General_CP1_CS_AS")
         ```
 
         ## Import
@@ -180,8 +177,6 @@ class Database(pulumi.CustomResource):
             __props__ = DatabaseArgs.__new__(DatabaseArgs)
 
             __props__.__dict__["collation"] = collation
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
         super(Database, __self__).__init__(
             'mssql:index/database:Database',

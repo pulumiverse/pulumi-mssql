@@ -15,17 +15,18 @@ __all__ = ['AzureadUserArgs', 'AzureadUser']
 class AzureadUserArgs:
     def __init__(__self__, *,
                  database_id: pulumi.Input[str],
-                 name: pulumi.Input[str],
-                 user_object_id: pulumi.Input[str]):
+                 user_object_id: pulumi.Input[str],
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a AzureadUser resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
-        :param pulumi.Input[str] name: User name. Cannot be longer than 128 chars.
         :param pulumi.Input[str] user_object_id: Azure AD object_id of the user. This can be either regular user or a group.
+        :param pulumi.Input[str] name: User name. Cannot be longer than 128 chars.
         """
         pulumi.set(__self__, "database_id", database_id)
-        pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "user_object_id", user_object_id)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter(name="databaseId")
@@ -40,18 +41,6 @@ class AzureadUserArgs:
         pulumi.set(self, "database_id", value)
 
     @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        User name. Cannot be longer than 128 chars.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
     @pulumi.getter(name="userObjectId")
     def user_object_id(self) -> pulumi.Input[str]:
         """
@@ -62,6 +51,18 @@ class AzureadUserArgs:
     @user_object_id.setter
     def user_object_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "user_object_id", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        User name. Cannot be longer than 128 chars.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
@@ -145,7 +146,6 @@ class AzureadUser(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         example_user = azuread.get_user(user_principal_name="user@example.com")
         example_azuread_user = mssql.AzureadUser("exampleAzureadUser",
-            name="example",
             database_id=example_database.id,
             user_object_id=example_user.object_id)
         pulumi.export("userId", example_azuread_user.id)
@@ -187,7 +187,6 @@ class AzureadUser(pulumi.CustomResource):
         example_database = mssql.get_database(name="example")
         example_user = azuread.get_user(user_principal_name="user@example.com")
         example_azuread_user = mssql.AzureadUser("exampleAzureadUser",
-            name="example",
             database_id=example_database.id,
             user_object_id=example_user.object_id)
         pulumi.export("userId", example_azuread_user.id)
@@ -231,8 +230,6 @@ class AzureadUser(pulumi.CustomResource):
             if database_id is None and not opts.urn:
                 raise TypeError("Missing required property 'database_id'")
             __props__.__dict__["database_id"] = database_id
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             if user_object_id is None and not opts.urn:
                 raise TypeError("Missing required property 'user_object_id'")

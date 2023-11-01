@@ -14,27 +14,28 @@ __all__ = ['ServerRoleArgs', 'ServerRole']
 @pulumi.input_type
 class ServerRoleArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[str],
+                 name: Optional[pulumi.Input[str]] = None,
                  owner_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a ServerRole resource.
         :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
         :param pulumi.Input[str] owner_id: ID of another server role or login owning this role. Can be retrieved using `ServerRole` or `SqlLogin`.
         """
-        pulumi.set(__self__, "name", name)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if owner_id is not None:
             pulumi.set(__self__, "owner_id", owner_id)
 
     @property
     @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
+    def name(self) -> Optional[pulumi.Input[str]]:
         """
         Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[str]):
+    def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
 
     @property
@@ -107,10 +108,8 @@ class ServerRole(pulumi.CustomResource):
         import pulumi
         import pulumiverse_mssql as mssql
 
-        owner = mssql.ServerRole("owner", name="owner_role")
-        example = mssql.ServerRole("example",
-            name="example",
-            owner_id=owner.id)
+        owner = mssql.ServerRole("owner")
+        example = mssql.ServerRole("example", owner_id=owner.id)
         ```
 
         ## Import
@@ -130,7 +129,7 @@ class ServerRole(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ServerRoleArgs,
+                 args: Optional[ServerRoleArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages server-level role.
@@ -141,10 +140,8 @@ class ServerRole(pulumi.CustomResource):
         import pulumi
         import pulumiverse_mssql as mssql
 
-        owner = mssql.ServerRole("owner", name="owner_role")
-        example = mssql.ServerRole("example",
-            name="example",
-            owner_id=owner.id)
+        owner = mssql.ServerRole("owner")
+        example = mssql.ServerRole("example", owner_id=owner.id)
         ```
 
         ## Import
@@ -181,8 +178,6 @@ class ServerRole(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ServerRoleArgs.__new__(ServerRoleArgs)
 
-            if name is None and not opts.urn:
-                raise TypeError("Missing required property 'name'")
             __props__.__dict__["name"] = name
             __props__.__dict__["owner_id"] = owner_id
         super(ServerRole, __self__).__init__(

@@ -40,6 +40,35 @@ namespace Pulumiverse.Mssql
         /// </summary>
         public static Task<GetServerRolesResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetServerRolesResult>("mssql:index/getServerRoles:getServerRoles", InvokeArgs.Empty, options.WithDefaults());
+
+        /// <summary>
+        /// Obtains information about all roles defined in the server.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Mssql = Pulumi.Mssql;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var all = Mssql.GetServerRoles.Invoke();
+        /// 
+        ///     return new Dictionary&lt;string, object?&gt;
+        ///     {
+        ///         ["roles"] = all.Apply(getServerRolesResult =&gt; getServerRolesResult.Roles),
+        ///     };
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
+        public static Output<GetServerRolesResult> Invoke(InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetServerRolesResult>("mssql:index/getServerRoles:getServerRoles", InvokeArgs.Empty, options.WithDefaults());
     }
 
 

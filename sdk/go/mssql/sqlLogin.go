@@ -9,6 +9,8 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Manages single login.
@@ -34,7 +36,6 @@ import (
 //				return err
 //			}
 //			exampleSqlLogin, err := mssql.NewSqlLogin(ctx, "exampleSqlLogin", &mssql.SqlLoginArgs{
-//				Name:                    pulumi.String("example"),
 //				Password:                pulumi.String("Str0ngPa$$word12"),
 //				MustChangePassword:      pulumi.Bool(true),
 //				DefaultDatabaseId:       *pulumi.String(exampleDatabase.Id),
@@ -96,9 +97,6 @@ func NewSqlLogin(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Name == nil {
-		return nil, errors.New("invalid value for required argument 'Name'")
-	}
 	if args.Password == nil {
 		return nil, errors.New("invalid value for required argument 'Password'")
 	}
@@ -109,7 +107,7 @@ func NewSqlLogin(ctx *pulumi.Context,
 		"password",
 	})
 	opts = append(opts, secrets)
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource SqlLogin
 	err := ctx.RegisterResource("mssql:index/sqlLogin:SqlLogin", name, args, &resource, opts...)
 	if err != nil {
@@ -206,7 +204,7 @@ type sqlLoginArgs struct {
 	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	MustChangePassword *bool `pulumi:"mustChangePassword"`
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
-	Name string `pulumi:"name"`
+	Name *string `pulumi:"name"`
 	// Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
 	Password string `pulumi:"password"`
 }
@@ -231,7 +229,7 @@ type SqlLoginArgs struct {
 	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	MustChangePassword pulumi.BoolPtrInput
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
-	Name pulumi.StringInput
+	Name pulumi.StringPtrInput
 	// Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
 	Password pulumi.StringInput
 }
@@ -259,6 +257,12 @@ func (i *SqlLogin) ToSqlLoginOutputWithContext(ctx context.Context) SqlLoginOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SqlLoginOutput)
 }
 
+func (i *SqlLogin) ToOutput(ctx context.Context) pulumix.Output[*SqlLogin] {
+	return pulumix.Output[*SqlLogin]{
+		OutputState: i.ToSqlLoginOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SqlLoginArrayInput is an input type that accepts SqlLoginArray and SqlLoginArrayOutput values.
 // You can construct a concrete instance of `SqlLoginArrayInput` via:
 //
@@ -282,6 +286,12 @@ func (i SqlLoginArray) ToSqlLoginArrayOutput() SqlLoginArrayOutput {
 
 func (i SqlLoginArray) ToSqlLoginArrayOutputWithContext(ctx context.Context) SqlLoginArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SqlLoginArrayOutput)
+}
+
+func (i SqlLoginArray) ToOutput(ctx context.Context) pulumix.Output[[]*SqlLogin] {
+	return pulumix.Output[[]*SqlLogin]{
+		OutputState: i.ToSqlLoginArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // SqlLoginMapInput is an input type that accepts SqlLoginMap and SqlLoginMapOutput values.
@@ -309,6 +319,12 @@ func (i SqlLoginMap) ToSqlLoginMapOutputWithContext(ctx context.Context) SqlLogi
 	return pulumi.ToOutputWithContext(ctx, i).(SqlLoginMapOutput)
 }
 
+func (i SqlLoginMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SqlLogin] {
+	return pulumix.Output[map[string]*SqlLogin]{
+		OutputState: i.ToSqlLoginMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type SqlLoginOutput struct{ *pulumi.OutputState }
 
 func (SqlLoginOutput) ElementType() reflect.Type {
@@ -321,6 +337,12 @@ func (o SqlLoginOutput) ToSqlLoginOutput() SqlLoginOutput {
 
 func (o SqlLoginOutput) ToSqlLoginOutputWithContext(ctx context.Context) SqlLoginOutput {
 	return o
+}
+
+func (o SqlLoginOutput) ToOutput(ctx context.Context) pulumix.Output[*SqlLogin] {
+	return pulumix.Output[*SqlLogin]{
+		OutputState: o.OutputState,
+	}
 }
 
 // When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
@@ -384,6 +406,12 @@ func (o SqlLoginArrayOutput) ToSqlLoginArrayOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o SqlLoginArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SqlLogin] {
+	return pulumix.Output[[]*SqlLogin]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o SqlLoginArrayOutput) Index(i pulumi.IntInput) SqlLoginOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SqlLogin {
 		return vs[0].([]*SqlLogin)[vs[1].(int)]
@@ -402,6 +430,12 @@ func (o SqlLoginMapOutput) ToSqlLoginMapOutput() SqlLoginMapOutput {
 
 func (o SqlLoginMapOutput) ToSqlLoginMapOutputWithContext(ctx context.Context) SqlLoginMapOutput {
 	return o
+}
+
+func (o SqlLoginMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SqlLogin] {
+	return pulumix.Output[map[string]*SqlLogin]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SqlLoginMapOutput) MapIndex(k pulumi.StringInput) SqlLoginOutput {

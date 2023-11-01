@@ -91,7 +91,7 @@ namespace Pulumiverse.Mssql
     public sealed class GetSqlUsersArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('&lt;db_name&gt;')`. Defaults to ID of `master`.
+        /// ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('&lt;db_name&gt;')`.
         /// </summary>
         [Input("databaseId")]
         public string? DatabaseId { get; set; }
@@ -105,7 +105,7 @@ namespace Pulumiverse.Mssql
     public sealed class GetSqlUsersInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('&lt;db_name&gt;')`. Defaults to ID of `master`.
+        /// ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('&lt;db_name&gt;')`.
         /// </summary>
         [Input("databaseId")]
         public Input<string>? DatabaseId { get; set; }

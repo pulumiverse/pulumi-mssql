@@ -112,10 +112,10 @@ def get_azuread_user(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getAzureadUser:getAzureadUser', __args__, opts=opts, typ=GetAzureadUserResult).value
 
     return AwaitableGetAzureadUserResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        name=__ret__.name,
-        user_object_id=__ret__.user_object_id)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        user_object_id=pulumi.get(__ret__, 'user_object_id'))
 
 
 @_utilities.lift_output_func(get_azuread_user)

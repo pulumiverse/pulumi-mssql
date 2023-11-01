@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about single database role.
@@ -46,7 +48,7 @@ import (
 //
 // ```
 func LookupDatabaseRole(ctx *pulumi.Context, args *LookupDatabaseRoleArgs, opts ...pulumi.InvokeOption) (*LookupDatabaseRoleResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupDatabaseRoleResult
 	err := ctx.Invoke("mssql:index/getDatabaseRole:getDatabaseRole", args, &rv, opts...)
 	if err != nil {
@@ -59,7 +61,7 @@ func LookupDatabaseRole(ctx *pulumi.Context, args *LookupDatabaseRoleArgs, opts 
 type LookupDatabaseRoleArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
-	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+	// Name of the database principal.
 	Name string `pulumi:"name"`
 }
 
@@ -94,7 +96,7 @@ func LookupDatabaseRoleOutput(ctx *pulumi.Context, args LookupDatabaseRoleOutput
 type LookupDatabaseRoleOutputArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
-	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
+	// Name of the database principal.
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -115,6 +117,12 @@ func (o LookupDatabaseRoleResultOutput) ToLookupDatabaseRoleResultOutput() Looku
 
 func (o LookupDatabaseRoleResultOutput) ToLookupDatabaseRoleResultOutputWithContext(ctx context.Context) LookupDatabaseRoleResultOutput {
 	return o
+}
+
+func (o LookupDatabaseRoleResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupDatabaseRoleResult] {
+	return pulumix.Output[LookupDatabaseRoleResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

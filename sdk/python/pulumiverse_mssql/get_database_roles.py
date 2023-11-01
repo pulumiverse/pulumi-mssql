@@ -86,7 +86,7 @@ def get_database_roles(database_id: Optional[str] = None,
     ```
 
 
-    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -94,9 +94,9 @@ def get_database_roles(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('mssql:index/getDatabaseRoles:getDatabaseRoles', __args__, opts=opts, typ=GetDatabaseRolesResult).value
 
     return AwaitableGetDatabaseRolesResult(
-        database_id=__ret__.database_id,
-        id=__ret__.id,
-        roles=__ret__.roles)
+        database_id=pulumi.get(__ret__, 'database_id'),
+        id=pulumi.get(__ret__, 'id'),
+        roles=pulumi.get(__ret__, 'roles'))
 
 
 @_utilities.lift_output_func(get_database_roles)
@@ -117,6 +117,6 @@ def get_database_roles_output(database_id: Optional[pulumi.Input[Optional[str]]]
     ```
 
 
-    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
     """
     ...

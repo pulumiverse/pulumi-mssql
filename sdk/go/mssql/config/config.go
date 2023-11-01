@@ -6,7 +6,10 @@ package config
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
+
+var _ = internal.GetEnvOrDefault
 
 // When provided, Azure AD authentication will be used when connecting.
 func GetAzureAuth(ctx *pulumi.Context) string {
@@ -20,7 +23,7 @@ func GetHostname(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := getEnvOrDefault(nil, nil, "MSSQL_HOSTNAME"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, nil, "MSSQL_HOSTNAME"); d != nil {
 		value = d.(string)
 	}
 	return value
@@ -33,7 +36,7 @@ func GetPort(ctx *pulumi.Context) int {
 		return v
 	}
 	var value int
-	if d := getEnvOrDefault(1433, parseEnvInt, "MSSQL_PORT"); d != nil {
+	if d := internal.GetEnvOrDefault(1433, internal.ParseEnvInt, "MSSQL_PORT"); d != nil {
 		value = d.(int)
 	}
 	return value

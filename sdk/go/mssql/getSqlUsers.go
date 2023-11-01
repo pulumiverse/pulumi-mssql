@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about all SQL users found in a database
@@ -45,7 +47,7 @@ import (
 //
 // ```
 func GetSqlUsers(ctx *pulumi.Context, args *GetSqlUsersArgs, opts ...pulumi.InvokeOption) (*GetSqlUsersResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetSqlUsersResult
 	err := ctx.Invoke("mssql:index/getSqlUsers:getSqlUsers", args, &rv, opts...)
 	if err != nil {
@@ -56,7 +58,7 @@ func GetSqlUsers(ctx *pulumi.Context, args *GetSqlUsersArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getSqlUsers.
 type GetSqlUsersArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -85,7 +87,7 @@ func GetSqlUsersOutput(ctx *pulumi.Context, args GetSqlUsersOutputArgs, opts ...
 
 // A collection of arguments for invoking getSqlUsers.
 type GetSqlUsersOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 
@@ -106,6 +108,12 @@ func (o GetSqlUsersResultOutput) ToGetSqlUsersResultOutput() GetSqlUsersResultOu
 
 func (o GetSqlUsersResultOutput) ToGetSqlUsersResultOutputWithContext(ctx context.Context) GetSqlUsersResultOutput {
 	return o
+}
+
+func (o GetSqlUsersResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSqlUsersResult] {
+	return pulumix.Output[GetSqlUsersResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

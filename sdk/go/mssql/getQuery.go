@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Retrieves arbitrary SQL query result.
@@ -52,7 +54,7 @@ import (
 //
 // ```
 func GetQuery(ctx *pulumi.Context, args *GetQueryArgs, opts ...pulumi.InvokeOption) (*GetQueryResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetQueryResult
 	err := ctx.Invoke("mssql:index/getQuery:getQuery", args, &rv, opts...)
 	if err != nil {
@@ -118,6 +120,12 @@ func (o GetQueryResultOutput) ToGetQueryResultOutput() GetQueryResultOutput {
 
 func (o GetQueryResultOutput) ToGetQueryResultOutputWithContext(ctx context.Context) GetQueryResultOutput {
 	return o
+}
+
+func (o GetQueryResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetQueryResult] {
+	return pulumix.Output[GetQueryResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

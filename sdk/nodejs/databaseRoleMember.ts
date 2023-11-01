@@ -26,7 +26,6 @@ import * as utilities from "./utilities";
  *     databaseId: exampleDatabase.id,
  * }));
  * const exampleDatabaseRole = new mssql.DatabaseRole("exampleDatabaseRole", {
- *     name: "example",
  *     databaseId: exampleDatabase.then(exampleDatabase => exampleDatabase.id),
  *     ownerId: owner.then(owner => owner.id),
  * });

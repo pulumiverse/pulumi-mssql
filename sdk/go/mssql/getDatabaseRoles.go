@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 // Obtains information about all roles defined in a database.
@@ -45,7 +47,7 @@ import (
 //
 // ```
 func GetDatabaseRoles(ctx *pulumi.Context, args *GetDatabaseRolesArgs, opts ...pulumi.InvokeOption) (*GetDatabaseRolesResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetDatabaseRolesResult
 	err := ctx.Invoke("mssql:index/getDatabaseRoles:getDatabaseRoles", args, &rv, opts...)
 	if err != nil {
@@ -56,7 +58,7 @@ func GetDatabaseRoles(ctx *pulumi.Context, args *GetDatabaseRolesArgs, opts ...p
 
 // A collection of arguments for invoking getDatabaseRoles.
 type GetDatabaseRolesArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -85,7 +87,7 @@ func GetDatabaseRolesOutput(ctx *pulumi.Context, args GetDatabaseRolesOutputArgs
 
 // A collection of arguments for invoking getDatabaseRoles.
 type GetDatabaseRolesOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 
@@ -106,6 +108,12 @@ func (o GetDatabaseRolesResultOutput) ToGetDatabaseRolesResultOutput() GetDataba
 
 func (o GetDatabaseRolesResultOutput) ToGetDatabaseRolesResultOutputWithContext(ctx context.Context) GetDatabaseRolesResultOutput {
 	return o
+}
+
+func (o GetDatabaseRolesResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabaseRolesResult] {
+	return pulumix.Output[GetDatabaseRolesResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
