@@ -31,3 +31,4 @@ sdk/java/gradlew
 sdk/java/gradlew.bat
 
 **/.env*
+**/.venv

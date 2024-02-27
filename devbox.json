@@ -1,0 +1,21 @@
+{
+  "packages": [
+    "nodejs@18",
+    "dotnet-sdk@6.0",
+    "python@3.9",
+    "go@1.20",
+    "pulumictl@latest",
+    "pulumi@latest",
+    "yarn@latest",
+    "gradle_7@latest"
+  ],
+  "env": {
+    "VENV_DIR": ".venv"
+  },
+  "shell": {
+    "init_hook": [
+      "source $VENV_DIR/bin/activate",
+      "pip install setuptools wheel"
+    ]
+  }
+}

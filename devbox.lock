@@ -1,0 +1,167 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "dotnet-sdk@6.0": {
+      "last_modified": "2024-02-10T18:15:24Z",
+      "resolved": "github:NixOS/nixpkgs/10b813040df67c4039086db0f6eaf65c536886c6#dotnet-sdk",
+      "source": "devbox-search",
+      "version": "6.0.418",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/cihwkz2j3rj798kvjczp0wyy08yqrjk1-dotnet-sdk-6.0.418"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/2k701f6xriajl3hi5az6sz8pw7yjdbl3-dotnet-sdk-6.0.418"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/03xnhsz61h2m83sj4cm3ag4ck5wwy7ji-dotnet-sdk-6.0.418"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/7523v2ypcvgmli44gsfvrx2mf33syp07-dotnet-sdk-6.0.418"
+        }
+      }
+    },
+    "go@1.20": {
+      "last_modified": "2024-02-10T18:15:24Z",
+      "resolved": "github:NixOS/nixpkgs/10b813040df67c4039086db0f6eaf65c536886c6#go_1_20",
+      "source": "devbox-search",
+      "version": "1.20.14",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/mgsmb3hm8zlyy9rrlyipck9w3r2xdbba-go-1.20.14"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/ihsc6y6lrxwpxbpflqi8kqfvbyv21l5v-go-1.20.14"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/6qf7nwq09sn0lxjx018yz9n6b08l402d-go-1.20.14"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/ab7c7h5swg2zgy833chqbdify859477m-go-1.20.14"
+        }
+      }
+    },
+    "gradle_7@latest": {
+      "last_modified": "2024-02-10T18:15:24Z",
+      "plugin_version": "0.0.1",
+      "resolved": "github:NixOS/nixpkgs/10b813040df67c4039086db0f6eaf65c536886c6#gradle_7",
+      "source": "devbox-search",
+      "version": "7.6.4",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/3r533nbby58fj5zqpd8brj5v6hr1cnc6-gradle-7.6.4"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/v32kz9aic7wg23ddbs0rgf8hhzj2mb7g-gradle-7.6.4"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/sg6hk6xljmilhzaj0sz77lkiwdird8gi-gradle-7.6.4"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/m10yx7zjld05p2cnd20d2zm3d9wnfcw3-gradle-7.6.4"
+        }
+      }
+    },
+    "nodejs@18": {
+      "last_modified": "2024-02-15T12:53:33Z",
+      "resolved": "github:NixOS/nixpkgs/085589047343aad800c4d305cf7b98e8a3d51ae2#nodejs_18",
+      "source": "devbox-search",
+      "version": "18.19.1",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/85siw3p53ki5lldcshgah2rrlrcgi527-nodejs-18.19.1"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/v15fm8wlssnfg1vygh9xiw7f2z99v4vn-nodejs-18.19.1"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/2a5cxm45616hxg9ynfp25mxa0xinpwr3-nodejs-18.19.1"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/1ihd9lyhn8q73n9s3iaxbilx4mn4nc5b-nodejs-18.19.1"
+        }
+      }
+    },
+    "pulumi@latest": {
+      "last_modified": "2024-02-10T18:15:24Z",
+      "resolved": "github:NixOS/nixpkgs/10b813040df67c4039086db0f6eaf65c536886c6#pulumi",
+      "source": "devbox-search",
+      "version": "3.93.0",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/sh1y0dvi83z38day2rb6gkqx4xnqc50q-pulumi-3.93.0"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/yfd9rb16xjps7z845l1nyg07jlfiabj5-pulumi-3.93.0"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/2l9x5whbwdh1hnai1hcrg0xg52fgqjs5-pulumi-3.93.0"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/yrfcq8g1xm23m471hh49mhl35rsc3j0k-pulumi-3.93.0"
+        }
+      }
+    },
+    "pulumictl@latest": {
+      "last_modified": "2024-02-10T18:15:24Z",
+      "resolved": "github:NixOS/nixpkgs/10b813040df67c4039086db0f6eaf65c536886c6#pulumictl",
+      "source": "devbox-search",
+      "version": "0.0.46",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/p5w1rgllq4gd7ncq83lz8xcnx6vd74ha-pulumictl-0.0.46"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/675lqmgjikm9q275issnmwy82w7qmiqd-pulumictl-0.0.46"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/3vnyjykqgiylzy0khxcilxsh61yj1ibm-pulumictl-0.0.46"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/f1n65iapdm8zvmga0d9lzqsh4qgkhhrb-pulumictl-0.0.46"
+        }
+      }
+    },
+    "python@3.9": {
+      "last_modified": "2024-02-10T18:15:24Z",
+      "plugin_version": "0.0.3",
+      "resolved": "github:NixOS/nixpkgs/10b813040df67c4039086db0f6eaf65c536886c6#python39",
+      "source": "devbox-search",
+      "version": "3.9.18",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/m7ciigwzlxqsgx57h3hkn41b6ggdjy3k-python3-3.9.18"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/200ns7r97r7skz7d6sbd2rclx3la25nj-python3-3.9.18"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/qiynzc30g53i5kizx5wriz73pbdy6dpp-python3-3.9.18"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/fzra7caxi6gphhgmivkqvvv61wi21wp5-python3-3.9.18"
+        }
+      }
+    },
+    "yarn@latest": {
+      "last_modified": "2024-02-15T12:53:33Z",
+      "resolved": "github:NixOS/nixpkgs/085589047343aad800c4d305cf7b98e8a3d51ae2#yarn",
+      "source": "devbox-search",
+      "version": "1.22.19",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/qfnj26j8cwrwp6hq3fvwjcmanv9ibcpw-yarn-1.22.19"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/0x6p8q6f5kjz1jy1wrpxgz8yz6ydf139-yarn-1.22.19"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/dakr5jjc9apfxy3c9dd2afgmnp16q9qf-yarn-1.22.19"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/f8nf1q0lffdni21lfw9frd5f9z231nzp-yarn-1.22.19"
+        }
+      }
+    }
+  }
+}
