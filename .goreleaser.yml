@@ -1,3 +1,4 @@
+version: 2
 archives:
   - id: archive
     name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
@@ -21,7 +22,7 @@ builds:
       - -X github.com/pulumiverse/pulumi-mssql/provider/pkg/version.Version={{.Tag }}
     main: ./cmd/pulumi-resource-mssql/
 changelog:
-  skip: true
+  disable: true
 release:
   disable: false
   prerelease: auto
