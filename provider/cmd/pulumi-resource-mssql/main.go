@@ -22,7 +22,7 @@ import (
 	mssql "github.com/pulumiverse/pulumi-mssql/provider"
 )
 
-//go:embed schema-embed.json
+//go:embed schema.json
 var pulumiSchema []byte
 
 func main() {
