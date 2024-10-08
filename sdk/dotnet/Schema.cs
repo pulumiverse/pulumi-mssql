@@ -48,7 +48,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;schema_id&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', SCHEMA_ID('&lt;schema_name&gt;'))`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/schema:Schema example '7/5'
+    /// $ pulumi import mssql:index/schema:Schema example '7/5'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/schema:Schema")]

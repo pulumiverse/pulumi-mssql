@@ -20,7 +20,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getDatabases(opts?: pulumi.InvokeOptions): Promise<GetDatabasesResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getDatabases:getDatabases", {
     }, opts);
@@ -53,5 +52,7 @@ export interface GetDatabasesResult {
  * ```
  */
 export function getDatabasesOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabasesResult> {
-    return pulumi.output(getDatabases(opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getDatabases:getDatabases", {
+    }, opts);
 }

@@ -29,7 +29,7 @@ import * as utilities from "./utilities";
  * import using <principal_id>/<permission>
  *
  * ```sh
- *  $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
+ * $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
  * ```
  */
 export class ServerPermission extends pulumi.CustomResource {

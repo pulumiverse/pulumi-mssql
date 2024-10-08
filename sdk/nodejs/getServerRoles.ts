@@ -20,7 +20,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getServerRoles(opts?: pulumi.InvokeOptions): Promise<GetServerRolesResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getServerRoles:getServerRoles", {
     }, opts);
@@ -50,5 +49,7 @@ export interface GetServerRolesResult {
  * ```
  */
 export function getServerRolesOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetServerRolesResult> {
-    return pulumi.output(getServerRoles(opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getServerRoles:getServerRoles", {
+    }, opts);
 }

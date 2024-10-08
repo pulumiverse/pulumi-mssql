@@ -93,10 +93,10 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 azure_auth: Optional[pulumi.Input[pulumi.InputType['ProviderAzureAuthArgs']]] = None,
+                 azure_auth: Optional[pulumi.Input[Union['ProviderAzureAuthArgs', 'ProviderAzureAuthArgsDict']]] = None,
                  hostname: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
-                 sql_auth: Optional[pulumi.Input[pulumi.InputType['ProviderSqlAuthArgs']]] = None,
+                 sql_auth: Optional[pulumi.Input[Union['ProviderSqlAuthArgs', 'ProviderSqlAuthArgsDict']]] = None,
                  __props__=None):
         """
         The provider type for the mssql package. By default, resources use package-wide configuration
@@ -106,10 +106,10 @@ class Provider(pulumi.ProviderResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[pulumi.InputType['ProviderAzureAuthArgs']] azure_auth: When provided, Azure AD authentication will be used when connecting.
+        :param pulumi.Input[Union['ProviderAzureAuthArgs', 'ProviderAzureAuthArgsDict']] azure_auth: When provided, Azure AD authentication will be used when connecting.
         :param pulumi.Input[str] hostname: FQDN or IP address of the SQL endpoint. Can be also set using `MSSQL_HOSTNAME` environment variable.
         :param pulumi.Input[int] port: TCP port of SQL endpoint. Defaults to `1433`. Can be also set using `MSSQL_PORT` environment variable.
-        :param pulumi.Input[pulumi.InputType['ProviderSqlAuthArgs']] sql_auth: When provided, SQL authentication will be used when connecting.
+        :param pulumi.Input[Union['ProviderSqlAuthArgs', 'ProviderSqlAuthArgsDict']] sql_auth: When provided, SQL authentication will be used when connecting.
         """
         ...
     @overload
@@ -138,10 +138,10 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 azure_auth: Optional[pulumi.Input[pulumi.InputType['ProviderAzureAuthArgs']]] = None,
+                 azure_auth: Optional[pulumi.Input[Union['ProviderAzureAuthArgs', 'ProviderAzureAuthArgsDict']]] = None,
                  hostname: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
-                 sql_auth: Optional[pulumi.Input[pulumi.InputType['ProviderSqlAuthArgs']]] = None,
+                 sql_auth: Optional[pulumi.Input[Union['ProviderSqlAuthArgs', 'ProviderSqlAuthArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

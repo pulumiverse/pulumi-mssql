@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -57,9 +56,9 @@ func LookupServerRole(ctx *pulumi.Context, args *LookupServerRoleArgs, opts ...p
 
 // A collection of arguments for invoking getServerRole.
 type LookupServerRoleArgs struct {
-	// ID of the member principal
+	// Role principal ID. Either `name` or `id` must be provided.
 	Id *string `pulumi:"id"`
-	// Name of the server principal
+	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
 	Name *string `pulumi:"name"`
 }
 
@@ -77,22 +76,28 @@ type LookupServerRoleResult struct {
 
 func LookupServerRoleOutput(ctx *pulumi.Context, args LookupServerRoleOutputArgs, opts ...pulumi.InvokeOption) LookupServerRoleResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupServerRoleResult, error) {
+		ApplyT(func(v interface{}) (LookupServerRoleResultOutput, error) {
 			args := v.(LookupServerRoleArgs)
-			r, err := LookupServerRole(ctx, &args, opts...)
-			var s LookupServerRoleResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupServerRoleResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getServerRole:getServerRole", args, &rv, "", opts...)
+			if err != nil {
+				return LookupServerRoleResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupServerRoleResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupServerRoleResultOutput), nil
+			}
+			return output, nil
 		}).(LookupServerRoleResultOutput)
 }
 
 // A collection of arguments for invoking getServerRole.
 type LookupServerRoleOutputArgs struct {
-	// ID of the member principal
+	// Role principal ID. Either `name` or `id` must be provided.
 	Id pulumi.StringPtrInput `pulumi:"id"`
-	// Name of the server principal
+	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -113,12 +118,6 @@ func (o LookupServerRoleResultOutput) ToLookupServerRoleResultOutput() LookupSer
 
 func (o LookupServerRoleResultOutput) ToLookupServerRoleResultOutputWithContext(ctx context.Context) LookupServerRoleResultOutput {
 	return o
-}
-
-func (o LookupServerRoleResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupServerRoleResult] {
-	return pulumix.Output[LookupServerRoleResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Role principal ID. Either `name` or `id` must be provided.

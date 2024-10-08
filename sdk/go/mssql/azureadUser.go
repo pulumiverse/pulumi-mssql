@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -45,8 +44,8 @@ import (
 //				return err
 //			}
 //			exampleAzureadUser, err := mssql.NewAzureadUser(ctx, "exampleAzureadUser", &mssql.AzureadUserArgs{
-//				DatabaseId:   *pulumi.String(exampleDatabase.Id),
-//				UserObjectId: *pulumi.String(exampleUser.ObjectId),
+//				DatabaseId:   pulumi.String(exampleDatabase.Id),
+//				UserObjectId: pulumi.String(exampleUser.ObjectId),
 //			})
 //			if err != nil {
 //				return err
@@ -63,9 +62,7 @@ import (
 // import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', principal_id) FROM sys.database_principals WHERE [name] = '<username>'`
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/azureadUser:AzureadUser example '7/5'
-//
+// $ pulumi import mssql:index/azureadUser:AzureadUser example '7/5'
 // ```
 type AzureadUser struct {
 	pulumi.CustomResourceState
@@ -177,12 +174,6 @@ func (i *AzureadUser) ToAzureadUserOutputWithContext(ctx context.Context) Azurea
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadUserOutput)
 }
 
-func (i *AzureadUser) ToOutput(ctx context.Context) pulumix.Output[*AzureadUser] {
-	return pulumix.Output[*AzureadUser]{
-		OutputState: i.ToAzureadUserOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AzureadUserArrayInput is an input type that accepts AzureadUserArray and AzureadUserArrayOutput values.
 // You can construct a concrete instance of `AzureadUserArrayInput` via:
 //
@@ -206,12 +197,6 @@ func (i AzureadUserArray) ToAzureadUserArrayOutput() AzureadUserArrayOutput {
 
 func (i AzureadUserArray) ToAzureadUserArrayOutputWithContext(ctx context.Context) AzureadUserArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadUserArrayOutput)
-}
-
-func (i AzureadUserArray) ToOutput(ctx context.Context) pulumix.Output[[]*AzureadUser] {
-	return pulumix.Output[[]*AzureadUser]{
-		OutputState: i.ToAzureadUserArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // AzureadUserMapInput is an input type that accepts AzureadUserMap and AzureadUserMapOutput values.
@@ -239,12 +224,6 @@ func (i AzureadUserMap) ToAzureadUserMapOutputWithContext(ctx context.Context) A
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadUserMapOutput)
 }
 
-func (i AzureadUserMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*AzureadUser] {
-	return pulumix.Output[map[string]*AzureadUser]{
-		OutputState: i.ToAzureadUserMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type AzureadUserOutput struct{ *pulumi.OutputState }
 
 func (AzureadUserOutput) ElementType() reflect.Type {
@@ -257,12 +236,6 @@ func (o AzureadUserOutput) ToAzureadUserOutput() AzureadUserOutput {
 
 func (o AzureadUserOutput) ToAzureadUserOutputWithContext(ctx context.Context) AzureadUserOutput {
 	return o
-}
-
-func (o AzureadUserOutput) ToOutput(ctx context.Context) pulumix.Output[*AzureadUser] {
-	return pulumix.Output[*AzureadUser]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
@@ -294,12 +267,6 @@ func (o AzureadUserArrayOutput) ToAzureadUserArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o AzureadUserArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*AzureadUser] {
-	return pulumix.Output[[]*AzureadUser]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o AzureadUserArrayOutput) Index(i pulumi.IntInput) AzureadUserOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *AzureadUser {
 		return vs[0].([]*AzureadUser)[vs[1].(int)]
@@ -318,12 +285,6 @@ func (o AzureadUserMapOutput) ToAzureadUserMapOutput() AzureadUserMapOutput {
 
 func (o AzureadUserMapOutput) ToAzureadUserMapOutputWithContext(ctx context.Context) AzureadUserMapOutput {
 	return o
-}
-
-func (o AzureadUserMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*AzureadUser] {
-	return pulumix.Output[map[string]*AzureadUser]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AzureadUserMapOutput) MapIndex(k pulumi.StringInput) AzureadUserOutput {

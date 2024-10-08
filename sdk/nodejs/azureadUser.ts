@@ -35,7 +35,7 @@ import * as utilities from "./utilities";
  * import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', principal_id) FROM sys.database_principals WHERE [name] = '<username>'`
  *
  * ```sh
- *  $ pulumi import mssql:index/azureadUser:AzureadUser example '7/5'
+ * $ pulumi import mssql:index/azureadUser:AzureadUser example '7/5'
  * ```
  */
 export class AzureadUser extends pulumi.CustomResource {

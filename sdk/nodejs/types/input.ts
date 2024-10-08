@@ -6,13 +6,28 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface ProviderAzureAuth {
+    /**
+     * Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+     */
     clientId?: pulumi.Input<string>;
+    /**
+     * Service Principal secret. When omitted, default, chained set of credentials will be used.
+     */
     clientSecret?: pulumi.Input<string>;
+    /**
+     * Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+     */
     tenantId?: pulumi.Input<string>;
 }
 
 export interface ProviderSqlAuth {
+    /**
+     * Password for SQL authentication.
+     */
     password: pulumi.Input<string>;
+    /**
+     * User name for SQL authentication.
+     */
     username: pulumi.Input<string>;
 }
 export namespace config {

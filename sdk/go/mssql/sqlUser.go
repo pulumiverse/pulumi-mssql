@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -38,7 +37,7 @@ import (
 //			exampleSqlLogin, err := mssql.NewSqlLogin(ctx, "exampleSqlLogin", &mssql.SqlLoginArgs{
 //				Password:                pulumi.String("Str0ngPa$$word12"),
 //				MustChangePassword:      pulumi.Bool(true),
-//				DefaultDatabaseId:       *pulumi.String(exampleDatabase.Id),
+//				DefaultDatabaseId:       pulumi.String(exampleDatabase.Id),
 //				DefaultLanguage:         pulumi.String("english"),
 //				CheckPasswordExpiration: pulumi.Bool(true),
 //				CheckPasswordPolicy:     pulumi.Bool(true),
@@ -47,7 +46,7 @@ import (
 //				return err
 //			}
 //			exampleSqlUser, err := mssql.NewSqlUser(ctx, "exampleSqlUser", &mssql.SqlUserArgs{
-//				DatabaseId: *pulumi.String(exampleDatabase.Id),
+//				DatabaseId: pulumi.String(exampleDatabase.Id),
 //				LoginId:    exampleSqlLogin.ID(),
 //			})
 //			if err != nil {
@@ -65,9 +64,7 @@ import (
 // import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<username>'))`
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
-//
+// $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
 // ```
 type SqlUser struct {
 	pulumi.CustomResourceState
@@ -176,12 +173,6 @@ func (i *SqlUser) ToSqlUserOutputWithContext(ctx context.Context) SqlUserOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(SqlUserOutput)
 }
 
-func (i *SqlUser) ToOutput(ctx context.Context) pulumix.Output[*SqlUser] {
-	return pulumix.Output[*SqlUser]{
-		OutputState: i.ToSqlUserOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SqlUserArrayInput is an input type that accepts SqlUserArray and SqlUserArrayOutput values.
 // You can construct a concrete instance of `SqlUserArrayInput` via:
 //
@@ -205,12 +196,6 @@ func (i SqlUserArray) ToSqlUserArrayOutput() SqlUserArrayOutput {
 
 func (i SqlUserArray) ToSqlUserArrayOutputWithContext(ctx context.Context) SqlUserArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SqlUserArrayOutput)
-}
-
-func (i SqlUserArray) ToOutput(ctx context.Context) pulumix.Output[[]*SqlUser] {
-	return pulumix.Output[[]*SqlUser]{
-		OutputState: i.ToSqlUserArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // SqlUserMapInput is an input type that accepts SqlUserMap and SqlUserMapOutput values.
@@ -238,12 +223,6 @@ func (i SqlUserMap) ToSqlUserMapOutputWithContext(ctx context.Context) SqlUserMa
 	return pulumi.ToOutputWithContext(ctx, i).(SqlUserMapOutput)
 }
 
-func (i SqlUserMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SqlUser] {
-	return pulumix.Output[map[string]*SqlUser]{
-		OutputState: i.ToSqlUserMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type SqlUserOutput struct{ *pulumi.OutputState }
 
 func (SqlUserOutput) ElementType() reflect.Type {
@@ -256,12 +235,6 @@ func (o SqlUserOutput) ToSqlUserOutput() SqlUserOutput {
 
 func (o SqlUserOutput) ToSqlUserOutputWithContext(ctx context.Context) SqlUserOutput {
 	return o
-}
-
-func (o SqlUserOutput) ToOutput(ctx context.Context) pulumix.Output[*SqlUser] {
-	return pulumix.Output[*SqlUser]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
@@ -293,12 +266,6 @@ func (o SqlUserArrayOutput) ToSqlUserArrayOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o SqlUserArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SqlUser] {
-	return pulumix.Output[[]*SqlUser]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o SqlUserArrayOutput) Index(i pulumi.IntInput) SqlUserOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SqlUser {
 		return vs[0].([]*SqlUser)[vs[1].(int)]
@@ -317,12 +284,6 @@ func (o SqlUserMapOutput) ToSqlUserMapOutput() SqlUserMapOutput {
 
 func (o SqlUserMapOutput) ToSqlUserMapOutputWithContext(ctx context.Context) SqlUserMapOutput {
 	return o
-}
-
-func (o SqlUserMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SqlUser] {
-	return pulumix.Output[map[string]*SqlUser]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SqlUserMapOutput) MapIndex(k pulumi.StringInput) SqlUserOutput {

@@ -156,7 +156,7 @@ class AzureadServicePrincipal(pulumi.CustomResource):
         import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', principal_id) FROM sys.database_principals WHERE [name] = '<username>'`
 
         ```sh
-         $ pulumi import mssql:index/azureadServicePrincipal:AzureadServicePrincipal example '7/5'
+        $ pulumi import mssql:index/azureadServicePrincipal:AzureadServicePrincipal example '7/5'
         ```
 
         :param str resource_name: The name of the resource.
@@ -197,7 +197,7 @@ class AzureadServicePrincipal(pulumi.CustomResource):
         import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', principal_id) FROM sys.database_principals WHERE [name] = '<username>'`
 
         ```sh
-         $ pulumi import mssql:index/azureadServicePrincipal:AzureadServicePrincipal example '7/5'
+        $ pulumi import mssql:index/azureadServicePrincipal:AzureadServicePrincipal example '7/5'
         ```
 
         :param str resource_name: The name of the resource.

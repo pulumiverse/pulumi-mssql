@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -36,7 +35,7 @@ import (
 //				return err
 //			}
 //			_, err = mssql.NewServerPermission(ctx, "connectToExample", &mssql.ServerPermissionArgs{
-//				PrincipalId:     *pulumi.String(example.PrincipalId),
+//				PrincipalId:     pulumi.String(example.PrincipalId),
 //				Permission:      pulumi.String("CONNECT SQL"),
 //				WithGrantOption: pulumi.Bool(true),
 //			})
@@ -54,9 +53,7 @@ import (
 // import using <principal_id>/<permission>
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
-//
+// $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
 // ```
 type ServerPermission struct {
 	pulumi.CustomResourceState
@@ -168,12 +165,6 @@ func (i *ServerPermission) ToServerPermissionOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(ServerPermissionOutput)
 }
 
-func (i *ServerPermission) ToOutput(ctx context.Context) pulumix.Output[*ServerPermission] {
-	return pulumix.Output[*ServerPermission]{
-		OutputState: i.ToServerPermissionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServerPermissionArrayInput is an input type that accepts ServerPermissionArray and ServerPermissionArrayOutput values.
 // You can construct a concrete instance of `ServerPermissionArrayInput` via:
 //
@@ -197,12 +188,6 @@ func (i ServerPermissionArray) ToServerPermissionArrayOutput() ServerPermissionA
 
 func (i ServerPermissionArray) ToServerPermissionArrayOutputWithContext(ctx context.Context) ServerPermissionArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServerPermissionArrayOutput)
-}
-
-func (i ServerPermissionArray) ToOutput(ctx context.Context) pulumix.Output[[]*ServerPermission] {
-	return pulumix.Output[[]*ServerPermission]{
-		OutputState: i.ToServerPermissionArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ServerPermissionMapInput is an input type that accepts ServerPermissionMap and ServerPermissionMapOutput values.
@@ -230,12 +215,6 @@ func (i ServerPermissionMap) ToServerPermissionMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ServerPermissionMapOutput)
 }
 
-func (i ServerPermissionMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServerPermission] {
-	return pulumix.Output[map[string]*ServerPermission]{
-		OutputState: i.ToServerPermissionMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ServerPermissionOutput struct{ *pulumi.OutputState }
 
 func (ServerPermissionOutput) ElementType() reflect.Type {
@@ -248,12 +227,6 @@ func (o ServerPermissionOutput) ToServerPermissionOutput() ServerPermissionOutpu
 
 func (o ServerPermissionOutput) ToServerPermissionOutputWithContext(ctx context.Context) ServerPermissionOutput {
 	return o
-}
-
-func (o ServerPermissionOutput) ToOutput(ctx context.Context) pulumix.Output[*ServerPermission] {
-	return pulumix.Output[*ServerPermission]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name of server-level SQL permission. For full list of supported permissions see [docs](https://learn.microsoft.com/en-us/sql/t-sql/statements/grant-server-permissions-transact-sql?view=azuresqldb-current#remarks)
@@ -285,12 +258,6 @@ func (o ServerPermissionArrayOutput) ToServerPermissionArrayOutputWithContext(ct
 	return o
 }
 
-func (o ServerPermissionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ServerPermission] {
-	return pulumix.Output[[]*ServerPermission]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ServerPermissionArrayOutput) Index(i pulumi.IntInput) ServerPermissionOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ServerPermission {
 		return vs[0].([]*ServerPermission)[vs[1].(int)]
@@ -309,12 +276,6 @@ func (o ServerPermissionMapOutput) ToServerPermissionMapOutput() ServerPermissio
 
 func (o ServerPermissionMapOutput) ToServerPermissionMapOutputWithContext(ctx context.Context) ServerPermissionMapOutput {
 	return o
-}
-
-func (o ServerPermissionMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServerPermission] {
-	return pulumix.Output[map[string]*ServerPermission]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServerPermissionMapOutput) MapIndex(k pulumi.StringInput) ServerPermissionOutput {

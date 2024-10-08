@@ -20,6 +20,11 @@ class AzureAuth(dict):
                  client_id: Optional[str] = None,
                  client_secret: Optional[str] = None,
                  tenant_id: Optional[str] = None):
+        """
+        :param str client_id: Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+        :param str client_secret: Service Principal secret. When omitted, default, chained set of credentials will be used.
+        :param str tenant_id: Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+        """
         if client_id is not None:
             pulumi.set(__self__, "client_id", client_id)
         if client_secret is not None:
@@ -30,16 +35,25 @@ class AzureAuth(dict):
     @property
     @pulumi.getter(name="clientId")
     def client_id(self) -> Optional[str]:
+        """
+        Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+        """
         return pulumi.get(self, "client_id")
 
     @property
     @pulumi.getter(name="clientSecret")
     def client_secret(self) -> Optional[str]:
+        """
+        Service Principal secret. When omitted, default, chained set of credentials will be used.
+        """
         return pulumi.get(self, "client_secret")
 
     @property
     @pulumi.getter(name="tenantId")
     def tenant_id(self) -> Optional[str]:
+        """
+        Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+        """
         return pulumi.get(self, "tenant_id")
 
 
@@ -48,17 +62,27 @@ class SqlAuth(dict):
     def __init__(__self__, *,
                  password: str,
                  username: str):
+        """
+        :param str password: Password for SQL authentication.
+        :param str username: User name for SQL authentication.
+        """
         pulumi.set(__self__, "password", password)
         pulumi.set(__self__, "username", username)
 
     @property
     @pulumi.getter
     def password(self) -> str:
+        """
+        Password for SQL authentication.
+        """
         return pulumi.get(self, "password")
 
     @property
     @pulumi.getter
     def username(self) -> str:
+        """
+        User name for SQL authentication.
+        """
         return pulumi.get(self, "username")
 
 

@@ -24,18 +24,15 @@ class SqlLoginArgs:
         """
         The set of arguments for constructing a SqlLogin resource.
         :param pulumi.Input[str] password: Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
-        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
                SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[bool] check_password_policy: When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-               Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-               **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+               Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+               In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] default_language: Default language assigned to login. Defaults to current default language of the server. If the default language of the
-               server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+               server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
                does not support this feature, the flag will be ignored.
-        :param pulumi.Input[bool] must_change_password: When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-               this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-               this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] name: Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
         """
         pulumi.set(__self__, "password", password)
@@ -68,7 +65,7 @@ class SqlLoginArgs:
     @pulumi.getter(name="checkPasswordExpiration")
     def check_password_expiration(self) -> Optional[pulumi.Input[bool]]:
         """
-        When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
         SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "check_password_expiration")
@@ -82,7 +79,7 @@ class SqlLoginArgs:
     def check_password_policy(self) -> Optional[pulumi.Input[bool]]:
         """
         When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-        Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "check_password_policy")
 
@@ -94,8 +91,8 @@ class SqlLoginArgs:
     @pulumi.getter(name="defaultDatabaseId")
     def default_database_id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-        **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+        In case of Azure SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "default_database_id")
 
@@ -108,7 +105,7 @@ class SqlLoginArgs:
     def default_language(self) -> Optional[pulumi.Input[str]]:
         """
         Default language assigned to login. Defaults to current default language of the server. If the default language of the
-        server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+        server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
         does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "default_language")
@@ -120,11 +117,6 @@ class SqlLoginArgs:
     @property
     @pulumi.getter(name="mustChangePassword")
     def must_change_password(self) -> Optional[pulumi.Input[bool]]:
-        """
-        When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-        this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-        this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        """
         return pulumi.get(self, "must_change_password")
 
     @must_change_password.setter
@@ -157,18 +149,15 @@ class _SqlLoginState:
                  principal_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering SqlLogin resources.
-        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
                SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[bool] check_password_policy: When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-               Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-               **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+               Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+               In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] default_language: Default language assigned to login. Defaults to current default language of the server. If the default language of the
-               server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+               server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
                does not support this feature, the flag will be ignored.
-        :param pulumi.Input[bool] must_change_password: When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-               this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-               this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] name: Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
         :param pulumi.Input[str] password: Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
         :param pulumi.Input[str] principal_id: ID used to reference SQL Login in other resources, e.g. `server_role`. Can be retrieved from `sys.sql_logins`.
@@ -194,7 +183,7 @@ class _SqlLoginState:
     @pulumi.getter(name="checkPasswordExpiration")
     def check_password_expiration(self) -> Optional[pulumi.Input[bool]]:
         """
-        When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
         SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "check_password_expiration")
@@ -208,7 +197,7 @@ class _SqlLoginState:
     def check_password_policy(self) -> Optional[pulumi.Input[bool]]:
         """
         When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-        Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "check_password_policy")
 
@@ -220,8 +209,8 @@ class _SqlLoginState:
     @pulumi.getter(name="defaultDatabaseId")
     def default_database_id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-        **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+        In case of Azure SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "default_database_id")
 
@@ -234,7 +223,7 @@ class _SqlLoginState:
     def default_language(self) -> Optional[pulumi.Input[str]]:
         """
         Default language assigned to login. Defaults to current default language of the server. If the default language of the
-        server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+        server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
         does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "default_language")
@@ -246,11 +235,6 @@ class _SqlLoginState:
     @property
     @pulumi.getter(name="mustChangePassword")
     def must_change_password(self) -> Optional[pulumi.Input[bool]]:
-        """
-        When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-        this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-        this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        """
         return pulumi.get(self, "must_change_password")
 
     @must_change_password.setter
@@ -333,23 +317,20 @@ class SqlLogin(pulumi.CustomResource):
         import using login ID - can be retrieved using `SELECT SUSER_SID('<login_name>')`
 
         ```sh
-         $ pulumi import mssql:index/sqlLogin:SqlLogin example 0x27578D8516843E4094EFA2CEED085C82
+        $ pulumi import mssql:index/sqlLogin:SqlLogin example 0x27578D8516843E4094EFA2CEED085C82
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
                SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[bool] check_password_policy: When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-               Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-               **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+               Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+               In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] default_language: Default language assigned to login. Defaults to current default language of the server. If the default language of the
-               server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+               server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
                does not support this feature, the flag will be ignored.
-        :param pulumi.Input[bool] must_change_password: When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-               this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-               this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] name: Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
         :param pulumi.Input[str] password: Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
         """
@@ -385,7 +366,7 @@ class SqlLogin(pulumi.CustomResource):
         import using login ID - can be retrieved using `SELECT SUSER_SID('<login_name>')`
 
         ```sh
-         $ pulumi import mssql:index/sqlLogin:SqlLogin example 0x27578D8516843E4094EFA2CEED085C82
+        $ pulumi import mssql:index/sqlLogin:SqlLogin example 0x27578D8516843E4094EFA2CEED085C82
         ```
 
         :param str resource_name: The name of the resource.
@@ -456,18 +437,15 @@ class SqlLogin(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        :param pulumi.Input[bool] check_password_expiration: When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
                SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[bool] check_password_policy: When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-               Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-               **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+               Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        :param pulumi.Input[str] default_database_id: ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+               In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] default_language: Default language assigned to login. Defaults to current default language of the server. If the default language of the
-               server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+               server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
                does not support this feature, the flag will be ignored.
-        :param pulumi.Input[bool] must_change_password: When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-               this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-               this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         :param pulumi.Input[str] name: Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\\`
         :param pulumi.Input[str] password: Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
         :param pulumi.Input[str] principal_id: ID used to reference SQL Login in other resources, e.g. `server_role`. Can be retrieved from `sys.sql_logins`.
@@ -490,7 +468,7 @@ class SqlLogin(pulumi.CustomResource):
     @pulumi.getter(name="checkPasswordExpiration")
     def check_password_expiration(self) -> pulumi.Output[Optional[bool]]:
         """
-        When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+        When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
         SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "check_password_expiration")
@@ -500,7 +478,7 @@ class SqlLogin(pulumi.CustomResource):
     def check_password_policy(self) -> pulumi.Output[Optional[bool]]:
         """
         When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-        Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "check_password_policy")
 
@@ -508,8 +486,8 @@ class SqlLogin(pulumi.CustomResource):
     @pulumi.getter(name="defaultDatabaseId")
     def default_database_id(self) -> pulumi.Output[Optional[str]]:
         """
-        ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-        **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+        ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+        In case of Azure SQL, which does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "default_database_id")
 
@@ -518,7 +496,7 @@ class SqlLogin(pulumi.CustomResource):
     def default_language(self) -> pulumi.Output[Optional[str]]:
         """
         Default language assigned to login. Defaults to current default language of the server. If the default language of the
-        server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+        server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
         does not support this feature, the flag will be ignored.
         """
         return pulumi.get(self, "default_language")
@@ -526,11 +504,6 @@ class SqlLogin(pulumi.CustomResource):
     @property
     @pulumi.getter(name="mustChangePassword")
     def must_change_password(self) -> pulumi.Output[Optional[bool]]:
-        """
-        When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-        this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-        this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-        """
         return pulumi.get(self, "must_change_password")
 
     @property

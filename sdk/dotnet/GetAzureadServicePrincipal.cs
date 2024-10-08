@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single Azure AD Service Principal database user.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -44,8 +42,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetAzureadServicePrincipalResult> InvokeAsync(GetAzureadServicePrincipalArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAzureadServicePrincipalResult>("mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal", args ?? new GetAzureadServicePrincipalArgs(), options.WithDefaults());
@@ -53,9 +49,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single Azure AD Service Principal database user.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -82,8 +76,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetAzureadServicePrincipalResult> Invoke(GetAzureadServicePrincipalInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAzureadServicePrincipalResult>("mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal", args ?? new GetAzureadServicePrincipalInvokeArgs(), options.WithDefaults());

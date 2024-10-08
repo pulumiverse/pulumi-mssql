@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about all databases found in SQL Server instance.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -35,8 +33,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetDatabasesResult> InvokeAsync(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetDatabasesResult>("mssql:index/getDatabases:getDatabases", InvokeArgs.Empty, options.WithDefaults());
@@ -44,9 +40,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about all databases found in SQL Server instance.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -64,8 +58,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetDatabasesResult> Invoke(InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetDatabasesResult>("mssql:index/getDatabases:getDatabases", InvokeArgs.Empty, options.WithDefaults());

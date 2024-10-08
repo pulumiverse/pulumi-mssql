@@ -25,7 +25,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getServerPermissions(args: GetServerPermissionsArgs, opts?: pulumi.InvokeOptions): Promise<GetServerPermissionsResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getServerPermissions:getServerPermissions", {
         "principalId": args.principalId,
@@ -78,7 +77,10 @@ export interface GetServerPermissionsResult {
  * ```
  */
 export function getServerPermissionsOutput(args: GetServerPermissionsOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetServerPermissionsResult> {
-    return pulumi.output(args).apply((a: any) => getServerPermissions(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getServerPermissions:getServerPermissions", {
+        "principalId": args.principalId,
+    }, opts);
 }
 
 /**

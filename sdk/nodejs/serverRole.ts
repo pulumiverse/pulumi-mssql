@@ -22,7 +22,7 @@ import * as utilities from "./utilities";
  * import using <role_id> - can be retrieved using `SELECT [principal_id] FROM sys.server_principals WHERE [name]='<role_name>'`
  *
  * ```sh
- *  $ pulumi import mssql:index/serverRole:ServerRole example 7
+ * $ pulumi import mssql:index/serverRole:ServerRole example 7
  * ```
  */
 export class ServerRole extends pulumi.CustomResource {

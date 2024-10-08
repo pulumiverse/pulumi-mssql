@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -38,7 +37,7 @@ import (
 //			exampleSqlLogin, err := mssql.NewSqlLogin(ctx, "exampleSqlLogin", &mssql.SqlLoginArgs{
 //				Password:                pulumi.String("Str0ngPa$$word12"),
 //				MustChangePassword:      pulumi.Bool(true),
-//				DefaultDatabaseId:       *pulumi.String(exampleDatabase.Id),
+//				DefaultDatabaseId:       pulumi.String(exampleDatabase.Id),
 //				DefaultLanguage:         pulumi.String("english"),
 //				CheckPasswordExpiration: pulumi.Bool(true),
 //				CheckPasswordPolicy:     pulumi.Bool(true),
@@ -58,35 +57,30 @@ import (
 // import using login ID - can be retrieved using `SELECT SUSER_SID('<login_name>')`
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/sqlLogin:SqlLogin example 0x27578D8516843E4094EFA2CEED085C82
-//
+// $ pulumi import mssql:index/sqlLogin:SqlLogin example 0x27578D8516843E4094EFA2CEED085C82
 // ```
 type SqlLogin struct {
 	pulumi.CustomResourceState
 
-	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
 	// SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordExpiration pulumi.BoolPtrOutput `pulumi:"checkPasswordExpiration"`
 	// When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-	// Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordPolicy pulumi.BoolPtrOutput `pulumi:"checkPasswordPolicy"`
-	// ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-	// **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+	// In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	DefaultDatabaseId pulumi.StringPtrOutput `pulumi:"defaultDatabaseId"`
 	// Default language assigned to login. Defaults to current default language of the server. If the default language of the
-	// server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+	// server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
 	// does not support this feature, the flag will be ignored.
-	DefaultLanguage pulumi.StringPtrOutput `pulumi:"defaultLanguage"`
-	// When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-	// this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-	MustChangePassword pulumi.BoolPtrOutput `pulumi:"mustChangePassword"`
+	DefaultLanguage    pulumi.StringPtrOutput `pulumi:"defaultLanguage"`
+	MustChangePassword pulumi.BoolPtrOutput   `pulumi:"mustChangePassword"`
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
 	Password pulumi.StringOutput `pulumi:"password"`
-	// ID used to reference SQL Login in other resources, e.g. `server_role`. Can be retrieved from `sys.sql_logins`.
+	// ID used to reference SQL Login in other resources, e.g. `serverRole`. Can be retrieved from `sys.sql_logins`.
 	PrincipalId pulumi.StringOutput `pulumi:"principalId"`
 }
 
@@ -130,54 +124,48 @@ func GetSqlLogin(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering SqlLogin resources.
 type sqlLoginState struct {
-	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
 	// SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordExpiration *bool `pulumi:"checkPasswordExpiration"`
 	// When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-	// Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordPolicy *bool `pulumi:"checkPasswordPolicy"`
-	// ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-	// **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+	// In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	DefaultDatabaseId *string `pulumi:"defaultDatabaseId"`
 	// Default language assigned to login. Defaults to current default language of the server. If the default language of the
-	// server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+	// server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
 	// does not support this feature, the flag will be ignored.
-	DefaultLanguage *string `pulumi:"defaultLanguage"`
-	// When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-	// this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-	MustChangePassword *bool `pulumi:"mustChangePassword"`
+	DefaultLanguage    *string `pulumi:"defaultLanguage"`
+	MustChangePassword *bool   `pulumi:"mustChangePassword"`
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
 	Name *string `pulumi:"name"`
 	// Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
 	Password *string `pulumi:"password"`
-	// ID used to reference SQL Login in other resources, e.g. `server_role`. Can be retrieved from `sys.sql_logins`.
+	// ID used to reference SQL Login in other resources, e.g. `serverRole`. Can be retrieved from `sys.sql_logins`.
 	PrincipalId *string `pulumi:"principalId"`
 }
 
 type SqlLoginState struct {
-	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
 	// SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordExpiration pulumi.BoolPtrInput
 	// When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-	// Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordPolicy pulumi.BoolPtrInput
-	// ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-	// **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+	// In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	DefaultDatabaseId pulumi.StringPtrInput
 	// Default language assigned to login. Defaults to current default language of the server. If the default language of the
-	// server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+	// server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
 	// does not support this feature, the flag will be ignored.
-	DefaultLanguage pulumi.StringPtrInput
-	// When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-	// this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	DefaultLanguage    pulumi.StringPtrInput
 	MustChangePassword pulumi.BoolPtrInput
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
 	Name pulumi.StringPtrInput
 	// Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
 	Password pulumi.StringPtrInput
-	// ID used to reference SQL Login in other resources, e.g. `server_role`. Can be retrieved from `sys.sql_logins`.
+	// ID used to reference SQL Login in other resources, e.g. `serverRole`. Can be retrieved from `sys.sql_logins`.
 	PrincipalId pulumi.StringPtrInput
 }
 
@@ -186,23 +174,20 @@ func (SqlLoginState) ElementType() reflect.Type {
 }
 
 type sqlLoginArgs struct {
-	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
 	// SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordExpiration *bool `pulumi:"checkPasswordExpiration"`
 	// When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-	// Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordPolicy *bool `pulumi:"checkPasswordPolicy"`
-	// ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-	// **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+	// In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	DefaultDatabaseId *string `pulumi:"defaultDatabaseId"`
 	// Default language assigned to login. Defaults to current default language of the server. If the default language of the
-	// server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+	// server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
 	// does not support this feature, the flag will be ignored.
-	DefaultLanguage *string `pulumi:"defaultLanguage"`
-	// When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-	// this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
-	MustChangePassword *bool `pulumi:"mustChangePassword"`
+	DefaultLanguage    *string `pulumi:"defaultLanguage"`
+	MustChangePassword *bool   `pulumi:"mustChangePassword"`
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
 	Name *string `pulumi:"name"`
 	// Password for the login. Must follow strong password policies defined for SQL server. Passwords are case-sensitive, length must be 8-128 chars, can include all characters except `'` or `name`.
@@ -211,22 +196,19 @@ type sqlLoginArgs struct {
 
 // The set of arguments for constructing a SqlLogin resource.
 type SqlLoginArgs struct {
-	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+	// When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
 	// SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordExpiration pulumi.BoolPtrInput
 	// When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-	// Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	CheckPasswordPolicy pulumi.BoolPtrInput
-	// ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-	// **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	// ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+	// In case of Azure SQL, which does not support this feature, the flag will be ignored.
 	DefaultDatabaseId pulumi.StringPtrInput
 	// Default language assigned to login. Defaults to current default language of the server. If the default language of the
-	// server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+	// server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
 	// does not support this feature, the flag will be ignored.
-	DefaultLanguage pulumi.StringPtrInput
-	// When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-	// this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-	// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+	DefaultLanguage    pulumi.StringPtrInput
 	MustChangePassword pulumi.BoolPtrInput
 	// Login name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot contain `\`
 	Name pulumi.StringPtrInput
@@ -257,12 +239,6 @@ func (i *SqlLogin) ToSqlLoginOutputWithContext(ctx context.Context) SqlLoginOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SqlLoginOutput)
 }
 
-func (i *SqlLogin) ToOutput(ctx context.Context) pulumix.Output[*SqlLogin] {
-	return pulumix.Output[*SqlLogin]{
-		OutputState: i.ToSqlLoginOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SqlLoginArrayInput is an input type that accepts SqlLoginArray and SqlLoginArrayOutput values.
 // You can construct a concrete instance of `SqlLoginArrayInput` via:
 //
@@ -286,12 +262,6 @@ func (i SqlLoginArray) ToSqlLoginArrayOutput() SqlLoginArrayOutput {
 
 func (i SqlLoginArray) ToSqlLoginArrayOutputWithContext(ctx context.Context) SqlLoginArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SqlLoginArrayOutput)
-}
-
-func (i SqlLoginArray) ToOutput(ctx context.Context) pulumix.Output[[]*SqlLogin] {
-	return pulumix.Output[[]*SqlLogin]{
-		OutputState: i.ToSqlLoginArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // SqlLoginMapInput is an input type that accepts SqlLoginMap and SqlLoginMapOutput values.
@@ -319,12 +289,6 @@ func (i SqlLoginMap) ToSqlLoginMapOutputWithContext(ctx context.Context) SqlLogi
 	return pulumi.ToOutputWithContext(ctx, i).(SqlLoginMapOutput)
 }
 
-func (i SqlLoginMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SqlLogin] {
-	return pulumix.Output[map[string]*SqlLogin]{
-		OutputState: i.ToSqlLoginMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type SqlLoginOutput struct{ *pulumi.OutputState }
 
 func (SqlLoginOutput) ElementType() reflect.Type {
@@ -339,40 +303,31 @@ func (o SqlLoginOutput) ToSqlLoginOutputWithContext(ctx context.Context) SqlLogi
 	return o
 }
 
-func (o SqlLoginOutput) ToOutput(ctx context.Context) pulumix.Output[*SqlLogin] {
-	return pulumix.Output[*SqlLogin]{
-		OutputState: o.OutputState,
-	}
-}
-
-// When `true`, password expiration policy is enforced for this login. Defaults to `false`. -> **Note** In case of Azure
+// When `true`, password expiration policy is enforced for this login. Defaults to `false`. > **Note** In case of Azure
 // SQL, which does not support this feature, the flag will be ignored.
 func (o SqlLoginOutput) CheckPasswordExpiration() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.BoolPtrOutput { return v.CheckPasswordExpiration }).(pulumi.BoolPtrOutput)
 }
 
 // When `true`, the Windows password policies of the computer on which SQL Server is running are enforced on this login.
-// Defaults to `true`. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+// Defaults to `true`. > **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 func (o SqlLoginOutput) CheckPasswordPolicy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.BoolPtrOutput { return v.CheckPasswordPolicy }).(pulumi.BoolPtrOutput)
 }
 
-// ID of login's default DB. The ID can be retrieved using `mssql_database` data resource. Defaults to ID of `master`. ->
-// **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
+// ID of login's default DB. The ID can be retrieved using `Database` data resource. Defaults to ID of `master`. > **Note**
+// In case of Azure SQL, which does not support this feature, the flag will be ignored.
 func (o SqlLoginOutput) DefaultDatabaseId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.StringPtrOutput { return v.DefaultDatabaseId }).(pulumi.StringPtrOutput)
 }
 
 // Default language assigned to login. Defaults to current default language of the server. If the default language of the
-// server is later changed, the default language of the login remains unchanged. -> **Note** In case of Azure SQL, which
+// server is later changed, the default language of the login remains unchanged. > **Note** In case of Azure SQL, which
 // does not support this feature, the flag will be ignored.
 func (o SqlLoginOutput) DefaultLanguage() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.StringPtrOutput { return v.DefaultLanguage }).(pulumi.StringPtrOutput)
 }
 
-// When true, password change will be forced on first logon. Defaults to `false`. -> **Note** After password is changed,
-// this flag is being reset to `false`, which will show as changes in Terraform plan. Use `ignore_changes` block to prevent
-// this behavior. -> **Note** In case of Azure SQL, which does not support this feature, the flag will be ignored.
 func (o SqlLoginOutput) MustChangePassword() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.BoolPtrOutput { return v.MustChangePassword }).(pulumi.BoolPtrOutput)
 }
@@ -387,7 +342,7 @@ func (o SqlLoginOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.StringOutput { return v.Password }).(pulumi.StringOutput)
 }
 
-// ID used to reference SQL Login in other resources, e.g. `server_role`. Can be retrieved from `sys.sql_logins`.
+// ID used to reference SQL Login in other resources, e.g. `serverRole`. Can be retrieved from `sys.sql_logins`.
 func (o SqlLoginOutput) PrincipalId() pulumi.StringOutput {
 	return o.ApplyT(func(v *SqlLogin) pulumi.StringOutput { return v.PrincipalId }).(pulumi.StringOutput)
 }
@@ -404,12 +359,6 @@ func (o SqlLoginArrayOutput) ToSqlLoginArrayOutput() SqlLoginArrayOutput {
 
 func (o SqlLoginArrayOutput) ToSqlLoginArrayOutputWithContext(ctx context.Context) SqlLoginArrayOutput {
 	return o
-}
-
-func (o SqlLoginArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SqlLogin] {
-	return pulumix.Output[[]*SqlLogin]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SqlLoginArrayOutput) Index(i pulumi.IntInput) SqlLoginOutput {
@@ -430,12 +379,6 @@ func (o SqlLoginMapOutput) ToSqlLoginMapOutput() SqlLoginMapOutput {
 
 func (o SqlLoginMapOutput) ToSqlLoginMapOutputWithContext(ctx context.Context) SqlLoginMapOutput {
 	return o
-}
-
-func (o SqlLoginMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SqlLogin] {
-	return pulumix.Output[map[string]*SqlLogin]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SqlLoginMapOutput) MapIndex(k pulumi.StringInput) SqlLoginOutput {

@@ -8,16 +8,18 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
 var _ = internal.GetEnvOrDefault
 
 type AzureAuth struct {
-	ClientId     *string `pulumi:"clientId"`
+	// Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+	ClientId *string `pulumi:"clientId"`
+	// Service Principal secret. When omitted, default, chained set of credentials will be used.
 	ClientSecret *string `pulumi:"clientSecret"`
-	TenantId     *string `pulumi:"tenantId"`
+	// Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+	TenantId *string `pulumi:"tenantId"`
 }
 
 // AzureAuthInput is an input type that accepts AzureAuthArgs and AzureAuthOutput values.
@@ -32,9 +34,12 @@ type AzureAuthInput interface {
 }
 
 type AzureAuthArgs struct {
-	ClientId     pulumi.StringPtrInput `pulumi:"clientId"`
+	// Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+	ClientId pulumi.StringPtrInput `pulumi:"clientId"`
+	// Service Principal secret. When omitted, default, chained set of credentials will be used.
 	ClientSecret pulumi.StringPtrInput `pulumi:"clientSecret"`
-	TenantId     pulumi.StringPtrInput `pulumi:"tenantId"`
+	// Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+	TenantId pulumi.StringPtrInput `pulumi:"tenantId"`
 }
 
 func (AzureAuthArgs) ElementType() reflect.Type {
@@ -47,12 +52,6 @@ func (i AzureAuthArgs) ToAzureAuthOutput() AzureAuthOutput {
 
 func (i AzureAuthArgs) ToAzureAuthOutputWithContext(ctx context.Context) AzureAuthOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AzureAuthOutput)
-}
-
-func (i AzureAuthArgs) ToOutput(ctx context.Context) pulumix.Output[AzureAuth] {
-	return pulumix.Output[AzureAuth]{
-		OutputState: i.ToAzureAuthOutputWithContext(ctx).OutputState,
-	}
 }
 
 type AzureAuthOutput struct{ *pulumi.OutputState }
@@ -69,26 +68,25 @@ func (o AzureAuthOutput) ToAzureAuthOutputWithContext(ctx context.Context) Azure
 	return o
 }
 
-func (o AzureAuthOutput) ToOutput(ctx context.Context) pulumix.Output[AzureAuth] {
-	return pulumix.Output[AzureAuth]{
-		OutputState: o.OutputState,
-	}
-}
-
+// Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
 func (o AzureAuthOutput) ClientId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureAuth) *string { return v.ClientId }).(pulumi.StringPtrOutput)
 }
 
+// Service Principal secret. When omitted, default, chained set of credentials will be used.
 func (o AzureAuthOutput) ClientSecret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureAuth) *string { return v.ClientSecret }).(pulumi.StringPtrOutput)
 }
 
+// Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
 func (o AzureAuthOutput) TenantId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureAuth) *string { return v.TenantId }).(pulumi.StringPtrOutput)
 }
 
 type SqlAuth struct {
+	// Password for SQL authentication.
 	Password string `pulumi:"password"`
+	// User name for SQL authentication.
 	Username string `pulumi:"username"`
 }
 
@@ -104,7 +102,9 @@ type SqlAuthInput interface {
 }
 
 type SqlAuthArgs struct {
+	// Password for SQL authentication.
 	Password pulumi.StringInput `pulumi:"password"`
+	// User name for SQL authentication.
 	Username pulumi.StringInput `pulumi:"username"`
 }
 
@@ -118,12 +118,6 @@ func (i SqlAuthArgs) ToSqlAuthOutput() SqlAuthOutput {
 
 func (i SqlAuthArgs) ToSqlAuthOutputWithContext(ctx context.Context) SqlAuthOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SqlAuthOutput)
-}
-
-func (i SqlAuthArgs) ToOutput(ctx context.Context) pulumix.Output[SqlAuth] {
-	return pulumix.Output[SqlAuth]{
-		OutputState: i.ToSqlAuthOutputWithContext(ctx).OutputState,
-	}
 }
 
 type SqlAuthOutput struct{ *pulumi.OutputState }
@@ -140,16 +134,12 @@ func (o SqlAuthOutput) ToSqlAuthOutputWithContext(ctx context.Context) SqlAuthOu
 	return o
 }
 
-func (o SqlAuthOutput) ToOutput(ctx context.Context) pulumix.Output[SqlAuth] {
-	return pulumix.Output[SqlAuth]{
-		OutputState: o.OutputState,
-	}
-}
-
+// Password for SQL authentication.
 func (o SqlAuthOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v SqlAuth) string { return v.Password }).(pulumi.StringOutput)
 }
 
+// User name for SQL authentication.
 func (o SqlAuthOutput) Username() pulumi.StringOutput {
 	return o.ApplyT(func(v SqlAuth) string { return v.Username }).(pulumi.StringOutput)
 }

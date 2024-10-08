@@ -21,8 +21,6 @@ class DatabaseRoleArgs:
         The set of arguments for constructing a DatabaseRole resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
         :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-        :param pulumi.Input[str] owner_id: ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-               Defaults to ID of current user, used to authorize the Terraform provider.
         """
         if database_id is not None:
             pulumi.set(__self__, "database_id", database_id)
@@ -58,10 +56,6 @@ class DatabaseRoleArgs:
     @property
     @pulumi.getter(name="ownerId")
     def owner_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-        Defaults to ID of current user, used to authorize the Terraform provider.
-        """
         return pulumi.get(self, "owner_id")
 
     @owner_id.setter
@@ -79,8 +73,6 @@ class _DatabaseRoleState:
         Input properties used for looking up and filtering DatabaseRole resources.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
         :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-        :param pulumi.Input[str] owner_id: ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-               Defaults to ID of current user, used to authorize the Terraform provider.
         """
         if database_id is not None:
             pulumi.set(__self__, "database_id", database_id)
@@ -116,10 +108,6 @@ class _DatabaseRoleState:
     @property
     @pulumi.getter(name="ownerId")
     def owner_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-        Defaults to ID of current user, used to authorize the Terraform provider.
-        """
         return pulumi.get(self, "owner_id")
 
     @owner_id.setter
@@ -158,15 +146,13 @@ class DatabaseRole(pulumi.CustomResource):
         import using <db_id>/<role_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<role_name>'))`
 
         ```sh
-         $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
+        $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
         :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-        :param pulumi.Input[str] owner_id: ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-               Defaults to ID of current user, used to authorize the Terraform provider.
         """
         ...
     @overload
@@ -196,7 +182,7 @@ class DatabaseRole(pulumi.CustomResource):
         import using <db_id>/<role_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<role_name>'))`
 
         ```sh
-         $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
+        $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
         ```
 
         :param str resource_name: The name of the resource.
@@ -251,8 +237,6 @@ class DatabaseRole(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
         :param pulumi.Input[str] name: Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-        :param pulumi.Input[str] owner_id: ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-               Defaults to ID of current user, used to authorize the Terraform provider.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -282,9 +266,5 @@ class DatabaseRole(pulumi.CustomResource):
     @property
     @pulumi.getter(name="ownerId")
     def owner_id(self) -> pulumi.Output[str]:
-        """
-        ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-        Defaults to ID of current user, used to authorize the Terraform provider.
-        """
         return pulumi.get(self, "owner_id")
 

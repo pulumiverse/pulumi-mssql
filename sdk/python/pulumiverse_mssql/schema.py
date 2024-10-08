@@ -154,7 +154,7 @@ class Schema(pulumi.CustomResource):
         import using <db_id>/<schema_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', SCHEMA_ID('<schema_name>'))`
 
         ```sh
-         $ pulumi import mssql:index/schema:Schema example '7/5'
+        $ pulumi import mssql:index/schema:Schema example '7/5'
         ```
 
         :param str resource_name: The name of the resource.
@@ -191,7 +191,7 @@ class Schema(pulumi.CustomResource):
         import using <db_id>/<schema_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', SCHEMA_ID('<schema_name>'))`
 
         ```sh
-         $ pulumi import mssql:index/schema:Schema example '7/5'
+        $ pulumi import mssql:index/schema:Schema example '7/5'
         ```
 
         :param str resource_name: The name of the resource.

@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -56,13 +55,19 @@ type GetServerRolesResult struct {
 }
 
 func GetServerRolesOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetServerRolesResultOutput {
-	return pulumi.ToOutput(0).ApplyT(func(int) (GetServerRolesResult, error) {
-		r, err := GetServerRoles(ctx, opts...)
-		var s GetServerRolesResult
-		if r != nil {
-			s = *r
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetServerRolesResultOutput, error) {
+		opts = internal.PkgInvokeDefaultOpts(opts)
+		var rv GetServerRolesResult
+		secret, err := ctx.InvokePackageRaw("mssql:index/getServerRoles:getServerRoles", nil, &rv, "", opts...)
+		if err != nil {
+			return GetServerRolesResultOutput{}, err
 		}
-		return s, err
+
+		output := pulumi.ToOutput(rv).(GetServerRolesResultOutput)
+		if secret {
+			return pulumi.ToSecret(output).(GetServerRolesResultOutput), nil
+		}
+		return output, nil
 	}).(GetServerRolesResultOutput)
 }
 
@@ -79,12 +84,6 @@ func (o GetServerRolesResultOutput) ToGetServerRolesResultOutput() GetServerRole
 
 func (o GetServerRolesResultOutput) ToGetServerRolesResultOutputWithContext(ctx context.Context) GetServerRolesResultOutput {
 	return o
-}
-
-func (o GetServerRolesResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerRolesResult] {
-	return pulumix.Output[GetServerRolesResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o GetServerRolesResultOutput) Id() pulumi.StringOutput {

@@ -18,7 +18,7 @@ def readme():
 
 
 setup(name='pulumiverse_mssql',
-      python_requires='>=3.7',
+      python_requires='>=3.8',
       version=VERSION,
       description="A Pulumi Provider for Microsoft SQL Server and Azure SQL",
       long_description=readme(),

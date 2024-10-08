@@ -24,7 +24,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getAzureadServicePrincipal(args: GetAzureadServicePrincipalArgs, opts?: pulumi.InvokeOptions): Promise<GetAzureadServicePrincipalResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal", {
         "clientId": args.clientId,
@@ -92,7 +91,12 @@ export interface GetAzureadServicePrincipalResult {
  * ```
  */
 export function getAzureadServicePrincipalOutput(args: GetAzureadServicePrincipalOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAzureadServicePrincipalResult> {
-    return pulumi.output(args).apply((a: any) => getAzureadServicePrincipal(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal", {
+        "clientId": args.clientId,
+        "databaseId": args.databaseId,
+        "name": args.name,
+    }, opts);
 }
 
 /**

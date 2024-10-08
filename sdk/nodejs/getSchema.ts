@@ -24,7 +24,6 @@ import * as utilities from "./utilities";
  */
 export function getSchema(args?: GetSchemaArgs, opts?: pulumi.InvokeOptions): Promise<GetSchemaResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSchema:getSchema", {
         "databaseId": args.databaseId,
@@ -91,7 +90,13 @@ export interface GetSchemaResult {
  * ```
  */
 export function getSchemaOutput(args?: GetSchemaOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSchemaResult> {
-    return pulumi.output(args).apply((a: any) => getSchema(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSchema:getSchema", {
+        "databaseId": args.databaseId,
+        "id": args.id,
+        "name": args.name,
+    }, opts);
 }
 
 /**

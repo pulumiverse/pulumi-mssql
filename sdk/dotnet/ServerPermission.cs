@@ -44,7 +44,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;principal_id&gt;/&lt;permission&gt;
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
+    /// $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/serverPermission:ServerPermission")]

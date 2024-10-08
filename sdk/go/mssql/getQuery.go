@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -27,31 +26,25 @@ import (
 //	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			test, err := mssql.LookupDatabase(ctx, &mssql.LookupDatabaseArgs{
-//				Name: "test",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			column, err := mssql.GetQuery(ctx, &mssql.GetQueryArgs{
-//				DatabaseId: test.Id,
-//				Query:      "SELECT [column_id], [name] FROM sys.columns WHERE [object_id] = OBJECT_ID('test_table')",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			var splat0 []string
-//			for _, val0 := range column.Results {
-//				splat0 = append(splat0, val0.Name)
-//			}
-//			ctx.Export("columnNames", splat0)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// test, err := mssql.LookupDatabase(ctx, &mssql.LookupDatabaseArgs{
+// Name: "test",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// column, err := mssql.GetQuery(ctx, &mssql.GetQueryArgs{
+// DatabaseId: test.Id,
+// Query: "SELECT [column_id], [name] FROM sys.columns WHERE [object_id] = OBJECT_ID('test_table')",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// ctx.Export("columnNames", pulumi.StringArray(%!v(PANIC=Format method: fatal: A failure has occurred: unlowered splat expression @ #-functions-%smssql:index-getQuery:getQuery.pp:8,11-33)))
+// return nil
+// })
+// }
 // ```
 func GetQuery(ctx *pulumi.Context, args *GetQueryArgs, opts ...pulumi.InvokeOption) (*GetQueryResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
@@ -84,14 +77,20 @@ type GetQueryResult struct {
 
 func GetQueryOutput(ctx *pulumi.Context, args GetQueryOutputArgs, opts ...pulumi.InvokeOption) GetQueryResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetQueryResult, error) {
+		ApplyT(func(v interface{}) (GetQueryResultOutput, error) {
 			args := v.(GetQueryArgs)
-			r, err := GetQuery(ctx, &args, opts...)
-			var s GetQueryResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetQueryResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getQuery:getQuery", args, &rv, "", opts...)
+			if err != nil {
+				return GetQueryResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetQueryResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetQueryResultOutput), nil
+			}
+			return output, nil
 		}).(GetQueryResultOutput)
 }
 
@@ -120,12 +119,6 @@ func (o GetQueryResultOutput) ToGetQueryResultOutput() GetQueryResultOutput {
 
 func (o GetQueryResultOutput) ToGetQueryResultOutputWithContext(ctx context.Context) GetQueryResultOutput {
 	return o
-}
-
-func (o GetQueryResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetQueryResult] {
-	return pulumix.Output[GetQueryResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

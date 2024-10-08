@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -93,14 +92,20 @@ type GetSchemaPermissionsResult struct {
 
 func GetSchemaPermissionsOutput(ctx *pulumi.Context, args GetSchemaPermissionsOutputArgs, opts ...pulumi.InvokeOption) GetSchemaPermissionsResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetSchemaPermissionsResult, error) {
+		ApplyT(func(v interface{}) (GetSchemaPermissionsResultOutput, error) {
 			args := v.(GetSchemaPermissionsArgs)
-			r, err := GetSchemaPermissions(ctx, &args, opts...)
-			var s GetSchemaPermissionsResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetSchemaPermissionsResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getSchemaPermissions:getSchemaPermissions", args, &rv, "", opts...)
+			if err != nil {
+				return GetSchemaPermissionsResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetSchemaPermissionsResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetSchemaPermissionsResultOutput), nil
+			}
+			return output, nil
 		}).(GetSchemaPermissionsResultOutput)
 }
 
@@ -129,12 +134,6 @@ func (o GetSchemaPermissionsResultOutput) ToGetSchemaPermissionsResultOutput() G
 
 func (o GetSchemaPermissionsResultOutput) ToGetSchemaPermissionsResultOutputWithContext(ctx context.Context) GetSchemaPermissionsResultOutput {
 	return o
-}
-
-func (o GetSchemaPermissionsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSchemaPermissionsResult] {
-	return pulumix.Output[GetSchemaPermissionsResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `<database_id>/<schema_id>/<principal_id>`.

@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Retrieves information about DB schema.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -40,8 +38,6 @@ namespace Pulumiverse.Mssql
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetSchemaResult> InvokeAsync(GetSchemaArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSchemaResult>("mssql:index/getSchema:getSchema", args ?? new GetSchemaArgs(), options.WithDefaults());
@@ -49,9 +45,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Retrieves information about DB schema.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -74,8 +68,6 @@ namespace Pulumiverse.Mssql
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetSchemaResult> Invoke(GetSchemaInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSchemaResult>("mssql:index/getSchema:getSchema", args ?? new GetSchemaInvokeArgs(), options.WithDefaults());

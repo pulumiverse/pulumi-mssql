@@ -152,7 +152,7 @@ class ServerPermission(pulumi.CustomResource):
         import using <principal_id>/<permission>
 
         ```sh
-         $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
+        $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
         ```
 
         :param str resource_name: The name of the resource.
@@ -189,7 +189,7 @@ class ServerPermission(pulumi.CustomResource):
         import using <principal_id>/<permission>
 
         ```sh
-         $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
+        $ pulumi import mssql:index/serverPermission:ServerPermission example '7/CONNECT SQL'
         ```
 
         :param str resource_name: The name of the resource.

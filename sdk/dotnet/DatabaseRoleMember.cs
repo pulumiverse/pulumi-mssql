@@ -61,7 +61,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;role_id&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('&lt;role_name&gt;'), '/', DATABASE_PRINCIPAL_ID('&lt;member_name'))`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/databaseRoleMember:DatabaseRoleMember example '7/5/9'
+    /// $ pulumi import mssql:index/databaseRoleMember:DatabaseRoleMember example '7/5/9'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/databaseRoleMember:DatabaseRoleMember")]

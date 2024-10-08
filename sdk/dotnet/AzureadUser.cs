@@ -55,7 +55,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;user_id&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', principal_id) FROM sys.database_principals WHERE [name] = '&lt;username&gt;'`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/azureadUser:AzureadUser example '7/5'
+    /// $ pulumi import mssql:index/azureadUser:AzureadUser example '7/5'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/azureadUser:AzureadUser")]

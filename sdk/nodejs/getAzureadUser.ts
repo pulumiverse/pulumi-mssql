@@ -24,7 +24,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getAzureadUser(args: GetAzureadUserArgs, opts?: pulumi.InvokeOptions): Promise<GetAzureadUserResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getAzureadUser:getAzureadUser", {
         "databaseId": args.databaseId,
@@ -92,7 +91,12 @@ export interface GetAzureadUserResult {
  * ```
  */
 export function getAzureadUserOutput(args: GetAzureadUserOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAzureadUserResult> {
-    return pulumi.output(args).apply((a: any) => getAzureadUser(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getAzureadUser:getAzureadUser", {
+        "databaseId": args.databaseId,
+        "name": args.name,
+        "userObjectId": args.userObjectId,
+    }, opts);
 }
 
 /**

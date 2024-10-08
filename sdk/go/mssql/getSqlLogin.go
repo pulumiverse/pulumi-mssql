@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -79,14 +78,20 @@ type LookupSqlLoginResult struct {
 
 func LookupSqlLoginOutput(ctx *pulumi.Context, args LookupSqlLoginOutputArgs, opts ...pulumi.InvokeOption) LookupSqlLoginResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupSqlLoginResult, error) {
+		ApplyT(func(v interface{}) (LookupSqlLoginResultOutput, error) {
 			args := v.(LookupSqlLoginArgs)
-			r, err := LookupSqlLogin(ctx, &args, opts...)
-			var s LookupSqlLoginResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupSqlLoginResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getSqlLogin:getSqlLogin", args, &rv, "", opts...)
+			if err != nil {
+				return LookupSqlLoginResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupSqlLoginResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupSqlLoginResultOutput), nil
+			}
+			return output, nil
 		}).(LookupSqlLoginResultOutput)
 }
 
@@ -113,12 +118,6 @@ func (o LookupSqlLoginResultOutput) ToLookupSqlLoginResultOutput() LookupSqlLogi
 
 func (o LookupSqlLoginResultOutput) ToLookupSqlLoginResultOutputWithContext(ctx context.Context) LookupSqlLoginResultOutput {
 	return o
-}
-
-func (o LookupSqlLoginResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSqlLoginResult] {
-	return pulumix.Output[LookupSqlLoginResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // When `true`, password expiration policy is enforced for this login.

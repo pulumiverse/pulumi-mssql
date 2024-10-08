@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -45,8 +44,8 @@ import (
 //				return err
 //			}
 //			exampleAzureadServicePrincipal, err := mssql.NewAzureadServicePrincipal(ctx, "exampleAzureadServicePrincipal", &mssql.AzureadServicePrincipalArgs{
-//				DatabaseId: *pulumi.String(exampleDatabase.Id),
-//				ClientId:   *pulumi.String(exampleServicePrincipal.ApplicationId),
+//				DatabaseId: pulumi.String(exampleDatabase.Id),
+//				ClientId:   pulumi.String(exampleServicePrincipal.ApplicationId),
 //			})
 //			if err != nil {
 //				return err
@@ -63,9 +62,7 @@ import (
 // import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', principal_id) FROM sys.database_principals WHERE [name] = '<username>'`
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/azureadServicePrincipal:AzureadServicePrincipal example '7/5'
-//
+// $ pulumi import mssql:index/azureadServicePrincipal:AzureadServicePrincipal example '7/5'
 // ```
 type AzureadServicePrincipal struct {
 	pulumi.CustomResourceState
@@ -177,12 +174,6 @@ func (i *AzureadServicePrincipal) ToAzureadServicePrincipalOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadServicePrincipalOutput)
 }
 
-func (i *AzureadServicePrincipal) ToOutput(ctx context.Context) pulumix.Output[*AzureadServicePrincipal] {
-	return pulumix.Output[*AzureadServicePrincipal]{
-		OutputState: i.ToAzureadServicePrincipalOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AzureadServicePrincipalArrayInput is an input type that accepts AzureadServicePrincipalArray and AzureadServicePrincipalArrayOutput values.
 // You can construct a concrete instance of `AzureadServicePrincipalArrayInput` via:
 //
@@ -206,12 +197,6 @@ func (i AzureadServicePrincipalArray) ToAzureadServicePrincipalArrayOutput() Azu
 
 func (i AzureadServicePrincipalArray) ToAzureadServicePrincipalArrayOutputWithContext(ctx context.Context) AzureadServicePrincipalArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadServicePrincipalArrayOutput)
-}
-
-func (i AzureadServicePrincipalArray) ToOutput(ctx context.Context) pulumix.Output[[]*AzureadServicePrincipal] {
-	return pulumix.Output[[]*AzureadServicePrincipal]{
-		OutputState: i.ToAzureadServicePrincipalArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // AzureadServicePrincipalMapInput is an input type that accepts AzureadServicePrincipalMap and AzureadServicePrincipalMapOutput values.
@@ -239,12 +224,6 @@ func (i AzureadServicePrincipalMap) ToAzureadServicePrincipalMapOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(AzureadServicePrincipalMapOutput)
 }
 
-func (i AzureadServicePrincipalMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*AzureadServicePrincipal] {
-	return pulumix.Output[map[string]*AzureadServicePrincipal]{
-		OutputState: i.ToAzureadServicePrincipalMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type AzureadServicePrincipalOutput struct{ *pulumi.OutputState }
 
 func (AzureadServicePrincipalOutput) ElementType() reflect.Type {
@@ -257,12 +236,6 @@ func (o AzureadServicePrincipalOutput) ToAzureadServicePrincipalOutput() Azuread
 
 func (o AzureadServicePrincipalOutput) ToAzureadServicePrincipalOutputWithContext(ctx context.Context) AzureadServicePrincipalOutput {
 	return o
-}
-
-func (o AzureadServicePrincipalOutput) ToOutput(ctx context.Context) pulumix.Output[*AzureadServicePrincipal] {
-	return pulumix.Output[*AzureadServicePrincipal]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Azure AD clientId of the Service Principal. This can be either regular Service Principal or Managed Service Identity.
@@ -294,12 +267,6 @@ func (o AzureadServicePrincipalArrayOutput) ToAzureadServicePrincipalArrayOutput
 	return o
 }
 
-func (o AzureadServicePrincipalArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*AzureadServicePrincipal] {
-	return pulumix.Output[[]*AzureadServicePrincipal]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o AzureadServicePrincipalArrayOutput) Index(i pulumi.IntInput) AzureadServicePrincipalOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *AzureadServicePrincipal {
 		return vs[0].([]*AzureadServicePrincipal)[vs[1].(int)]
@@ -318,12 +285,6 @@ func (o AzureadServicePrincipalMapOutput) ToAzureadServicePrincipalMapOutput() A
 
 func (o AzureadServicePrincipalMapOutput) ToAzureadServicePrincipalMapOutputWithContext(ctx context.Context) AzureadServicePrincipalMapOutput {
 	return o
-}
-
-func (o AzureadServicePrincipalMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*AzureadServicePrincipal] {
-	return pulumix.Output[map[string]*AzureadServicePrincipal]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AzureadServicePrincipalMapOutput) MapIndex(k pulumi.StringInput) AzureadServicePrincipalOutput {

@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -79,14 +78,20 @@ type LookupSqlUserResult struct {
 
 func LookupSqlUserOutput(ctx *pulumi.Context, args LookupSqlUserOutputArgs, opts ...pulumi.InvokeOption) LookupSqlUserResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupSqlUserResult, error) {
+		ApplyT(func(v interface{}) (LookupSqlUserResultOutput, error) {
 			args := v.(LookupSqlUserArgs)
-			r, err := LookupSqlUser(ctx, &args, opts...)
-			var s LookupSqlUserResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupSqlUserResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getSqlUser:getSqlUser", args, &rv, "", opts...)
+			if err != nil {
+				return LookupSqlUserResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupSqlUserResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupSqlUserResultOutput), nil
+			}
+			return output, nil
 		}).(LookupSqlUserResultOutput)
 }
 
@@ -115,12 +120,6 @@ func (o LookupSqlUserResultOutput) ToLookupSqlUserResultOutput() LookupSqlUserRe
 
 func (o LookupSqlUserResultOutput) ToLookupSqlUserResultOutputWithContext(ctx context.Context) LookupSqlUserResultOutput {
 	return o
-}
-
-func (o LookupSqlUserResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSqlUserResult] {
-	return pulumix.Output[LookupSqlUserResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

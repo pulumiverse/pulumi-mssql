@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -41,8 +40,8 @@ import (
 //				return err
 //			}
 //			_, err = mssql.NewDatabaseRole(ctx, "exampleDatabaseRole", &mssql.DatabaseRoleArgs{
-//				DatabaseId: *pulumi.String(exampleDatabase.Id),
-//				OwnerId:    *pulumi.String(owner.Id),
+//				DatabaseId: pulumi.String(exampleDatabase.Id),
+//				OwnerId:    pulumi.String(owner.Id),
 //			})
 //			if err != nil {
 //				return err
@@ -58,9 +57,7 @@ import (
 // import using <db_id>/<role_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<role_name>'))`
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
-//
+// $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
 // ```
 type DatabaseRole struct {
 	pulumi.CustomResourceState
@@ -68,9 +65,7 @@ type DatabaseRole struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringOutput `pulumi:"databaseId"`
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name pulumi.StringOutput `pulumi:"name"`
-	// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-	// Defaults to ID of current user, used to authorize the Terraform provider.
+	Name    pulumi.StringOutput `pulumi:"name"`
 	OwnerId pulumi.StringOutput `pulumi:"ownerId"`
 }
 
@@ -107,9 +102,7 @@ type databaseRoleState struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name *string `pulumi:"name"`
-	// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-	// Defaults to ID of current user, used to authorize the Terraform provider.
+	Name    *string `pulumi:"name"`
 	OwnerId *string `pulumi:"ownerId"`
 }
 
@@ -117,9 +110,7 @@ type DatabaseRoleState struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name pulumi.StringPtrInput
-	// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-	// Defaults to ID of current user, used to authorize the Terraform provider.
+	Name    pulumi.StringPtrInput
 	OwnerId pulumi.StringPtrInput
 }
 
@@ -131,9 +122,7 @@ type databaseRoleArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name *string `pulumi:"name"`
-	// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-	// Defaults to ID of current user, used to authorize the Terraform provider.
+	Name    *string `pulumi:"name"`
 	OwnerId *string `pulumi:"ownerId"`
 }
 
@@ -142,9 +131,7 @@ type DatabaseRoleArgs struct {
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput
 	// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
-	Name pulumi.StringPtrInput
-	// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-	// Defaults to ID of current user, used to authorize the Terraform provider.
+	Name    pulumi.StringPtrInput
 	OwnerId pulumi.StringPtrInput
 }
 
@@ -169,12 +156,6 @@ func (i *DatabaseRole) ToDatabaseRoleOutput() DatabaseRoleOutput {
 
 func (i *DatabaseRole) ToDatabaseRoleOutputWithContext(ctx context.Context) DatabaseRoleOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseRoleOutput)
-}
-
-func (i *DatabaseRole) ToOutput(ctx context.Context) pulumix.Output[*DatabaseRole] {
-	return pulumix.Output[*DatabaseRole]{
-		OutputState: i.ToDatabaseRoleOutputWithContext(ctx).OutputState,
-	}
 }
 
 // DatabaseRoleArrayInput is an input type that accepts DatabaseRoleArray and DatabaseRoleArrayOutput values.
@@ -202,12 +183,6 @@ func (i DatabaseRoleArray) ToDatabaseRoleArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseRoleArrayOutput)
 }
 
-func (i DatabaseRoleArray) ToOutput(ctx context.Context) pulumix.Output[[]*DatabaseRole] {
-	return pulumix.Output[[]*DatabaseRole]{
-		OutputState: i.ToDatabaseRoleArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // DatabaseRoleMapInput is an input type that accepts DatabaseRoleMap and DatabaseRoleMapOutput values.
 // You can construct a concrete instance of `DatabaseRoleMapInput` via:
 //
@@ -233,12 +208,6 @@ func (i DatabaseRoleMap) ToDatabaseRoleMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(DatabaseRoleMapOutput)
 }
 
-func (i DatabaseRoleMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DatabaseRole] {
-	return pulumix.Output[map[string]*DatabaseRole]{
-		OutputState: i.ToDatabaseRoleMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type DatabaseRoleOutput struct{ *pulumi.OutputState }
 
 func (DatabaseRoleOutput) ElementType() reflect.Type {
@@ -253,12 +222,6 @@ func (o DatabaseRoleOutput) ToDatabaseRoleOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o DatabaseRoleOutput) ToOutput(ctx context.Context) pulumix.Output[*DatabaseRole] {
-	return pulumix.Output[*DatabaseRole]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 func (o DatabaseRoleOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v *DatabaseRole) pulumi.StringOutput { return v.DatabaseId }).(pulumi.StringOutput)
@@ -269,8 +232,6 @@ func (o DatabaseRoleOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *DatabaseRole) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-// Defaults to ID of current user, used to authorize the Terraform provider.
 func (o DatabaseRoleOutput) OwnerId() pulumi.StringOutput {
 	return o.ApplyT(func(v *DatabaseRole) pulumi.StringOutput { return v.OwnerId }).(pulumi.StringOutput)
 }
@@ -287,12 +248,6 @@ func (o DatabaseRoleArrayOutput) ToDatabaseRoleArrayOutput() DatabaseRoleArrayOu
 
 func (o DatabaseRoleArrayOutput) ToDatabaseRoleArrayOutputWithContext(ctx context.Context) DatabaseRoleArrayOutput {
 	return o
-}
-
-func (o DatabaseRoleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DatabaseRole] {
-	return pulumix.Output[[]*DatabaseRole]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DatabaseRoleArrayOutput) Index(i pulumi.IntInput) DatabaseRoleOutput {
@@ -313,12 +268,6 @@ func (o DatabaseRoleMapOutput) ToDatabaseRoleMapOutput() DatabaseRoleMapOutput {
 
 func (o DatabaseRoleMapOutput) ToDatabaseRoleMapOutputWithContext(ctx context.Context) DatabaseRoleMapOutput {
 	return o
-}
-
-func (o DatabaseRoleMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DatabaseRole] {
-	return pulumix.Output[map[string]*DatabaseRole]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DatabaseRoleMapOutput) MapIndex(k pulumi.StringInput) DatabaseRoleOutput {

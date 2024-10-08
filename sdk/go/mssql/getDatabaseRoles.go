@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -58,7 +57,7 @@ func GetDatabaseRoles(ctx *pulumi.Context, args *GetDatabaseRolesArgs, opts ...p
 
 // A collection of arguments for invoking getDatabaseRoles.
 type GetDatabaseRolesArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -74,20 +73,26 @@ type GetDatabaseRolesResult struct {
 
 func GetDatabaseRolesOutput(ctx *pulumi.Context, args GetDatabaseRolesOutputArgs, opts ...pulumi.InvokeOption) GetDatabaseRolesResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetDatabaseRolesResult, error) {
+		ApplyT(func(v interface{}) (GetDatabaseRolesResultOutput, error) {
 			args := v.(GetDatabaseRolesArgs)
-			r, err := GetDatabaseRoles(ctx, &args, opts...)
-			var s GetDatabaseRolesResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetDatabaseRolesResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getDatabaseRoles:getDatabaseRoles", args, &rv, "", opts...)
+			if err != nil {
+				return GetDatabaseRolesResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetDatabaseRolesResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetDatabaseRolesResultOutput), nil
+			}
+			return output, nil
 		}).(GetDatabaseRolesResultOutput)
 }
 
 // A collection of arguments for invoking getDatabaseRoles.
 type GetDatabaseRolesOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 
@@ -108,12 +113,6 @@ func (o GetDatabaseRolesResultOutput) ToGetDatabaseRolesResultOutput() GetDataba
 
 func (o GetDatabaseRolesResultOutput) ToGetDatabaseRolesResultOutputWithContext(ctx context.Context) GetDatabaseRolesResultOutput {
 	return o
-}
-
-func (o GetDatabaseRolesResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabaseRolesResult] {
-	return pulumix.Output[GetDatabaseRolesResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

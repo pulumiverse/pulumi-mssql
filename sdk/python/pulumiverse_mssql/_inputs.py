@@ -20,6 +20,11 @@ class ProviderAzureAuthArgs:
                  client_id: Optional[pulumi.Input[str]] = None,
                  client_secret: Optional[pulumi.Input[str]] = None,
                  tenant_id: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] client_id: Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+        :param pulumi.Input[str] client_secret: Service Principal secret. When omitted, default, chained set of credentials will be used.
+        :param pulumi.Input[str] tenant_id: Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+        """
         if client_id is not None:
             pulumi.set(__self__, "client_id", client_id)
         if client_secret is not None:
@@ -30,6 +35,9 @@ class ProviderAzureAuthArgs:
     @property
     @pulumi.getter(name="clientId")
     def client_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+        """
         return pulumi.get(self, "client_id")
 
     @client_id.setter
@@ -39,6 +47,9 @@ class ProviderAzureAuthArgs:
     @property
     @pulumi.getter(name="clientSecret")
     def client_secret(self) -> Optional[pulumi.Input[str]]:
+        """
+        Service Principal secret. When omitted, default, chained set of credentials will be used.
+        """
         return pulumi.get(self, "client_secret")
 
     @client_secret.setter
@@ -48,6 +59,9 @@ class ProviderAzureAuthArgs:
     @property
     @pulumi.getter(name="tenantId")
     def tenant_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+        """
         return pulumi.get(self, "tenant_id")
 
     @tenant_id.setter
@@ -60,12 +74,19 @@ class ProviderSqlAuthArgs:
     def __init__(__self__, *,
                  password: pulumi.Input[str],
                  username: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] password: Password for SQL authentication.
+        :param pulumi.Input[str] username: User name for SQL authentication.
+        """
         pulumi.set(__self__, "password", password)
         pulumi.set(__self__, "username", username)
 
     @property
     @pulumi.getter
     def password(self) -> pulumi.Input[str]:
+        """
+        Password for SQL authentication.
+        """
         return pulumi.get(self, "password")
 
     @password.setter
@@ -75,6 +96,9 @@ class ProviderSqlAuthArgs:
     @property
     @pulumi.getter
     def username(self) -> pulumi.Input[str]:
+        """
+        User name for SQL authentication.
+        """
         return pulumi.get(self, "username")
 
     @username.setter

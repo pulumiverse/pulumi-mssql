@@ -26,8 +26,6 @@ class ScriptArgs:
         :param pulumi.Input[str] read_script: SQL script returning current state of the DB. It must return single-row result set where column names match the keys of `state` map and all values are strings that will be compared against `state` to determine if the resource state matches DB state.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] state: Desired state of the DB. It is arbitrary map of string values that will be compared against the values returned by the `read_script`.
         :param pulumi.Input[str] update_script: SQL script executed when the desired state specified in `state` attribute does not match the state returned by `read_script`
-        :param pulumi.Input[str] create_script: SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-               to create the resource.
         :param pulumi.Input[str] delete_script: SQL script executed when the resource is being destroyed. When not provided, no action will be taken during resource destruction.
         """
         pulumi.set(__self__, "database_id", database_id)
@@ -90,10 +88,6 @@ class ScriptArgs:
     @property
     @pulumi.getter(name="createScript")
     def create_script(self) -> Optional[pulumi.Input[str]]:
-        """
-        SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-        to create the resource.
-        """
         return pulumi.get(self, "create_script")
 
     @create_script.setter
@@ -124,8 +118,6 @@ class _ScriptState:
                  update_script: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Script resources.
-        :param pulumi.Input[str] create_script: SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-               to create the resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
         :param pulumi.Input[str] delete_script: SQL script executed when the resource is being destroyed. When not provided, no action will be taken during resource destruction.
         :param pulumi.Input[str] read_script: SQL script returning current state of the DB. It must return single-row result set where column names match the keys of `state` map and all values are strings that will be compared against `state` to determine if the resource state matches DB state.
@@ -148,10 +140,6 @@ class _ScriptState:
     @property
     @pulumi.getter(name="createScript")
     def create_script(self) -> Optional[pulumi.Input[str]]:
-        """
-        SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-        to create the resource.
-        """
         return pulumi.get(self, "create_script")
 
     @create_script.setter
@@ -258,8 +246,6 @@ class Script(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] create_script: SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-               to create the resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
         :param pulumi.Input[str] delete_script: SQL script executed when the resource is being destroyed. When not provided, no action will be taken during resource destruction.
         :param pulumi.Input[str] read_script: SQL script returning current state of the DB. It must return single-row result set where column names match the keys of `state` map and all values are strings that will be compared against `state` to determine if the resource state matches DB state.
@@ -364,8 +350,6 @@ class Script(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] create_script: SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-               to create the resource.
         :param pulumi.Input[str] database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
         :param pulumi.Input[str] delete_script: SQL script executed when the resource is being destroyed. When not provided, no action will be taken during resource destruction.
         :param pulumi.Input[str] read_script: SQL script returning current state of the DB. It must return single-row result set where column names match the keys of `state` map and all values are strings that will be compared against `state` to determine if the resource state matches DB state.
@@ -387,10 +371,6 @@ class Script(pulumi.CustomResource):
     @property
     @pulumi.getter(name="createScript")
     def create_script(self) -> pulumi.Output[Optional[str]]:
-        """
-        SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-        to create the resource.
-        """
         return pulumi.get(self, "create_script")
 
     @property

@@ -36,7 +36,7 @@ namespace Pulumiverse.Mssql
     /// import using database ID - can be retrieved using `SELECT DB_ID('&lt;db_name&gt;')`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/database:Database example 12
+    /// $ pulumi import mssql:index/database:Database example 12
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/database:Database")]

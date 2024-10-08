@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Returns all permissions granted in a DB to given principal
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -49,8 +47,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetDatabasePermissionsResult> InvokeAsync(GetDatabasePermissionsArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetDatabasePermissionsResult>("mssql:index/getDatabasePermissions:getDatabasePermissions", args ?? new GetDatabasePermissionsArgs(), options.WithDefaults());
@@ -58,9 +54,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Returns all permissions granted in a DB to given principal
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -92,8 +86,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetDatabasePermissionsResult> Invoke(GetDatabasePermissionsInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetDatabasePermissionsResult>("mssql:index/getDatabasePermissions:getDatabasePermissions", args ?? new GetDatabasePermissionsInvokeArgs(), options.WithDefaults());

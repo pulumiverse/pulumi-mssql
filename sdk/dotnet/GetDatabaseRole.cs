@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single database role.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -44,8 +42,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetDatabaseRoleResult> InvokeAsync(GetDatabaseRoleArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetDatabaseRoleResult>("mssql:index/getDatabaseRole:getDatabaseRole", args ?? new GetDatabaseRoleArgs(), options.WithDefaults());
@@ -53,9 +49,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single database role.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -82,8 +76,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetDatabaseRoleResult> Invoke(GetDatabaseRoleInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetDatabaseRoleResult>("mssql:index/getDatabaseRole:getDatabaseRole", args ?? new GetDatabaseRoleInvokeArgs(), options.WithDefaults());
@@ -99,7 +91,7 @@ namespace Pulumiverse.Mssql
         public string? DatabaseId { get; set; }
 
         /// <summary>
-        /// Name of the database principal.
+        /// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
         /// </summary>
         [Input("name", required: true)]
         public string Name { get; set; } = null!;
@@ -119,7 +111,7 @@ namespace Pulumiverse.Mssql
         public Input<string>? DatabaseId { get; set; }
 
         /// <summary>
-        /// Name of the database principal.
+        /// Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
