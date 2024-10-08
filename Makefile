@@ -22,7 +22,7 @@ GO_MINOR_VERSION := $(shell go version | cut -c 14- | cut -d' ' -f1 | cut -d'.' 
 # the (local) version must match the version specified in .github/workflows/release.yml
 # otherwise publkishing the Go SDK of the provider will fail
 REQUIRED_GO_MAJOR_VERSION := 1
-REQUIRED_GO_MINOR_VERSION := 20
+REQUIRED_GO_MINOR_VERSION := 22
 GO_VERSION_VALIDATION_ERR_MSG := Golang version $(REQUIRED_GO_MAJOR_VERSION).$(REQUIRED_GO_MINOR_VERSION) is required
 
 .PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python cleanup validate_go_version
@@ -102,6 +102,9 @@ $(WORKING_DIR)/bin/$(JAVA_GEN)::
 lint_provider:: provider # lint the provider code
 	cd provider && golangci-lint run -c ../.golangci.yml
 
+tidy:: # call go mod tidy in relevant directories
+	find ./provider -name go.mod -execdir go mod tidy \;
+
 cleanup:: # cleans up the temporary directory
 	rm -r $(WORKING_DIR)/bin
 	rm -f provider/cmd/${PROVIDER}/schema.go
@@ -127,8 +130,11 @@ install_python_sdk::
 
 install_go_sdk::
 
-install_nodejs_sdk::
+install_nodejs_sdk:: build_nodejs
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+
+uninstall_nodejs_sdk::
+	yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 
 install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 
