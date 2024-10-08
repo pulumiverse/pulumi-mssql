@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single SQL database user.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -44,8 +42,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetSqlUserResult> InvokeAsync(GetSqlUserArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSqlUserResult>("mssql:index/getSqlUser:getSqlUser", args ?? new GetSqlUserArgs(), options.WithDefaults());
@@ -53,9 +49,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single SQL database user.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -82,8 +76,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetSqlUserResult> Invoke(GetSqlUserInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSqlUserResult>("mssql:index/getSqlUser:getSqlUser", args ?? new GetSqlUserInvokeArgs(), options.WithDefaults());

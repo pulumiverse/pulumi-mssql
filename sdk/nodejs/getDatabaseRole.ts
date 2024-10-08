@@ -26,7 +26,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getDatabaseRole(args: GetDatabaseRoleArgs, opts?: pulumi.InvokeOptions): Promise<GetDatabaseRoleResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getDatabaseRole:getDatabaseRole", {
         "databaseId": args.databaseId,
@@ -43,7 +42,7 @@ export interface GetDatabaseRoleArgs {
      */
     databaseId?: string;
     /**
-     * Name of the database principal.
+     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
      */
     name: string;
 }
@@ -93,7 +92,11 @@ export interface GetDatabaseRoleResult {
  * ```
  */
 export function getDatabaseRoleOutput(args: GetDatabaseRoleOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabaseRoleResult> {
-    return pulumi.output(args).apply((a: any) => getDatabaseRole(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getDatabaseRole:getDatabaseRole", {
+        "databaseId": args.databaseId,
+        "name": args.name,
+    }, opts);
 }
 
 /**
@@ -105,7 +108,7 @@ export interface GetDatabaseRoleOutputArgs {
      */
     databaseId?: pulumi.Input<string>;
     /**
-     * Name of the database principal.
+     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
      */
     name: pulumi.Input<string>;
 }

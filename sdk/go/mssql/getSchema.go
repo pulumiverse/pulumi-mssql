@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -80,14 +79,20 @@ type LookupSchemaResult struct {
 
 func LookupSchemaOutput(ctx *pulumi.Context, args LookupSchemaOutputArgs, opts ...pulumi.InvokeOption) LookupSchemaResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupSchemaResult, error) {
+		ApplyT(func(v interface{}) (LookupSchemaResultOutput, error) {
 			args := v.(LookupSchemaArgs)
-			r, err := LookupSchema(ctx, &args, opts...)
-			var s LookupSchemaResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupSchemaResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getSchema:getSchema", args, &rv, "", opts...)
+			if err != nil {
+				return LookupSchemaResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupSchemaResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupSchemaResultOutput), nil
+			}
+			return output, nil
 		}).(LookupSchemaResultOutput)
 }
 
@@ -118,12 +123,6 @@ func (o LookupSchemaResultOutput) ToLookupSchemaResultOutput() LookupSchemaResul
 
 func (o LookupSchemaResultOutput) ToLookupSchemaResultOutputWithContext(ctx context.Context) LookupSchemaResultOutput {
 	return o
-}
-
-func (o LookupSchemaResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupSchemaResult] {
-	return pulumix.Output[LookupSchemaResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

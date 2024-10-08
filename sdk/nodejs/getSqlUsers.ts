@@ -26,7 +26,6 @@ import * as utilities from "./utilities";
  */
 export function getSqlUsers(args?: GetSqlUsersArgs, opts?: pulumi.InvokeOptions): Promise<GetSqlUsersResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSqlUsers:getSqlUsers", {
         "databaseId": args.databaseId,
@@ -38,7 +37,7 @@ export function getSqlUsers(args?: GetSqlUsersArgs, opts?: pulumi.InvokeOptions)
  */
 export interface GetSqlUsersArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
      */
     databaseId?: string;
 }
@@ -79,7 +78,11 @@ export interface GetSqlUsersResult {
  * ```
  */
 export function getSqlUsersOutput(args?: GetSqlUsersOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSqlUsersResult> {
-    return pulumi.output(args).apply((a: any) => getSqlUsers(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSqlUsers:getSqlUsers", {
+        "databaseId": args.databaseId,
+    }, opts);
 }
 
 /**
@@ -87,7 +90,7 @@ export function getSqlUsersOutput(args?: GetSqlUsersOutputArgs, opts?: pulumi.In
  */
 export interface GetSqlUsersOutputArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
      */
     databaseId?: pulumi.Input<string>;
 }

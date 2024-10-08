@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single Azure AD database user.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -44,8 +42,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetAzureadUserResult> InvokeAsync(GetAzureadUserArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAzureadUserResult>("mssql:index/getAzureadUser:getAzureadUser", args ?? new GetAzureadUserArgs(), options.WithDefaults());
@@ -53,9 +49,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single Azure AD database user.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -82,8 +76,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetAzureadUserResult> Invoke(GetAzureadUserInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAzureadUserResult>("mssql:index/getAzureadUser:getAzureadUser", args ?? new GetAzureadUserInvokeArgs(), options.WithDefaults());

@@ -116,7 +116,7 @@ class Database(pulumi.CustomResource):
         import using database ID - can be retrieved using `SELECT DB_ID('<db_name>')`
 
         ```sh
-         $ pulumi import mssql:index/database:Database example 12
+        $ pulumi import mssql:index/database:Database example 12
         ```
 
         :param str resource_name: The name of the resource.
@@ -147,7 +147,7 @@ class Database(pulumi.CustomResource):
         import using database ID - can be retrieved using `SELECT DB_ID('<db_name>')`
 
         ```sh
-         $ pulumi import mssql:index/database:Database example 12
+        $ pulumi import mssql:index/database:Database example 12
         ```
 
         :param str resource_name: The name of the resource.

@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -74,14 +73,20 @@ type GetServerPermissionsResult struct {
 
 func GetServerPermissionsOutput(ctx *pulumi.Context, args GetServerPermissionsOutputArgs, opts ...pulumi.InvokeOption) GetServerPermissionsResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetServerPermissionsResult, error) {
+		ApplyT(func(v interface{}) (GetServerPermissionsResultOutput, error) {
 			args := v.(GetServerPermissionsArgs)
-			r, err := GetServerPermissions(ctx, &args, opts...)
-			var s GetServerPermissionsResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetServerPermissionsResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getServerPermissions:getServerPermissions", args, &rv, "", opts...)
+			if err != nil {
+				return GetServerPermissionsResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetServerPermissionsResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetServerPermissionsResultOutput), nil
+			}
+			return output, nil
 		}).(GetServerPermissionsResultOutput)
 }
 
@@ -108,12 +113,6 @@ func (o GetServerPermissionsResultOutput) ToGetServerPermissionsResultOutput() G
 
 func (o GetServerPermissionsResultOutput) ToGetServerPermissionsResultOutputWithContext(ctx context.Context) GetServerPermissionsResultOutput {
 	return o
-}
-
-func (o GetServerPermissionsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetServerPermissionsResult] {
-	return pulumix.Output[GetServerPermissionsResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Equals to `principalId`.

@@ -21,7 +21,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getSqlLogin(args: GetSqlLoginArgs, opts?: pulumi.InvokeOptions): Promise<GetSqlLoginResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSqlLogin:getSqlLogin", {
         "name": args.name,
@@ -92,7 +91,10 @@ export interface GetSqlLoginResult {
  * ```
  */
 export function getSqlLoginOutput(args: GetSqlLoginOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSqlLoginResult> {
-    return pulumi.output(args).apply((a: any) => getSqlLogin(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSqlLogin:getSqlLogin", {
+        "name": args.name,
+    }, opts);
 }
 
 /**

@@ -86,7 +86,7 @@ def get_database_roles(database_id: Optional[str] = None,
     ```
 
 
-    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -117,6 +117,6 @@ def get_database_roles_output(database_id: Optional[pulumi.Input[Optional[str]]]
     ```
 
 
-    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+    :param str database_id: ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
     """
     ...

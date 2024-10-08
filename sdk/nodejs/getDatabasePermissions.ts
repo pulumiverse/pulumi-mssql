@@ -29,7 +29,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getDatabasePermissions(args: GetDatabasePermissionsArgs, opts?: pulumi.InvokeOptions): Promise<GetDatabasePermissionsResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getDatabasePermissions:getDatabasePermissions", {
         "principalId": args.principalId,
@@ -86,7 +85,10 @@ export interface GetDatabasePermissionsResult {
  * ```
  */
 export function getDatabasePermissionsOutput(args: GetDatabasePermissionsOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabasePermissionsResult> {
-    return pulumi.output(args).apply((a: any) => getDatabasePermissions(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getDatabasePermissions:getDatabasePermissions", {
+        "principalId": args.principalId,
+    }, opts);
 }
 
 /**

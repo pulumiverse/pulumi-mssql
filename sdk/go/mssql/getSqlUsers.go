@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -58,7 +57,7 @@ func GetSqlUsers(ctx *pulumi.Context, args *GetSqlUsersArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getSqlUsers.
 type GetSqlUsersArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -74,20 +73,26 @@ type GetSqlUsersResult struct {
 
 func GetSqlUsersOutput(ctx *pulumi.Context, args GetSqlUsersOutputArgs, opts ...pulumi.InvokeOption) GetSqlUsersResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetSqlUsersResult, error) {
+		ApplyT(func(v interface{}) (GetSqlUsersResultOutput, error) {
 			args := v.(GetSqlUsersArgs)
-			r, err := GetSqlUsers(ctx, &args, opts...)
-			var s GetSqlUsersResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetSqlUsersResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getSqlUsers:getSqlUsers", args, &rv, "", opts...)
+			if err != nil {
+				return GetSqlUsersResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetSqlUsersResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetSqlUsersResultOutput), nil
+			}
+			return output, nil
 		}).(GetSqlUsersResultOutput)
 }
 
 // A collection of arguments for invoking getSqlUsers.
 type GetSqlUsersOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 
@@ -108,12 +113,6 @@ func (o GetSqlUsersResultOutput) ToGetSqlUsersResultOutput() GetSqlUsersResultOu
 
 func (o GetSqlUsersResultOutput) ToGetSqlUsersResultOutputWithContext(ctx context.Context) GetSqlUsersResultOutput {
 	return o
-}
-
-func (o GetSqlUsersResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSqlUsersResult] {
-	return pulumix.Output[GetSqlUsersResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Returns all permissions granted in a schema to given principal
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -56,8 +54,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetSchemaPermissionsResult> InvokeAsync(GetSchemaPermissionsArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSchemaPermissionsResult>("mssql:index/getSchemaPermissions:getSchemaPermissions", args ?? new GetSchemaPermissionsArgs(), options.WithDefaults());
@@ -65,9 +61,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Returns all permissions granted in a schema to given principal
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -106,8 +100,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetSchemaPermissionsResult> Invoke(GetSchemaPermissionsInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSchemaPermissionsResult>("mssql:index/getSchemaPermissions:getSchemaPermissions", args ?? new GetSchemaPermissionsInvokeArgs(), options.WithDefaults());

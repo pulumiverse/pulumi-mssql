@@ -60,10 +60,6 @@ export class Script extends pulumi.CustomResource {
         return obj['__pulumiType'] === Script.__pulumiType;
     }
 
-    /**
-     * SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-     * to create the resource.
-     */
     public readonly createScript!: pulumi.Output<string | undefined>;
     /**
      * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
@@ -135,10 +131,6 @@ export class Script extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Script resources.
  */
 export interface ScriptState {
-    /**
-     * SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-     * to create the resource.
-     */
     createScript?: pulumi.Input<string>;
     /**
      * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
@@ -166,10 +158,6 @@ export interface ScriptState {
  * The set of arguments for constructing a Script resource.
  */
 export interface ScriptArgs {
-    /**
-     * SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-     * to create the resource.
-     */
     createScript?: pulumi.Input<string>;
     /**
      * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.

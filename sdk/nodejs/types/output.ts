@@ -192,13 +192,28 @@ export interface GetSqlUsersUser {
 
 export namespace config {
     export interface AzureAuth {
+        /**
+         * Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+         */
         clientId?: string;
+        /**
+         * Service Principal secret. When omitted, default, chained set of credentials will be used.
+         */
         clientSecret?: string;
+        /**
+         * Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+         */
         tenantId?: string;
     }
 
     export interface SqlAuth {
+        /**
+         * Password for SQL authentication.
+         */
         password: string;
+        /**
+         * User name for SQL authentication.
+         */
         username: string;
     }
 

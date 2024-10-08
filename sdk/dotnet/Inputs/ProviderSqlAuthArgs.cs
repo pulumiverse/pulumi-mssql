@@ -15,6 +15,10 @@ namespace Pulumiverse.Mssql.Inputs
     {
         [Input("password", required: true)]
         private Input<string>? _password;
+
+        /// <summary>
+        /// Password for SQL authentication.
+        /// </summary>
         public Input<string>? Password
         {
             get => _password;
@@ -25,6 +29,9 @@ namespace Pulumiverse.Mssql.Inputs
             }
         }
 
+        /// <summary>
+        /// User name for SQL authentication.
+        /// </summary>
         [Input("username", required: true)]
         public Input<string> Username { get; set; } = null!;
 

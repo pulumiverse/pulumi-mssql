@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -43,7 +42,7 @@ import (
 //				return err
 //			}
 //			_, err = mssql.NewDatabasePermission(ctx, "deleteToExample", &mssql.DatabasePermissionArgs{
-//				PrincipalId: *pulumi.String(exampleSqlUser.Id),
+//				PrincipalId: pulumi.String(exampleSqlUser.Id),
 //				Permission:  pulumi.String("DELETE"),
 //			})
 //			if err != nil {
@@ -60,9 +59,7 @@ import (
 // import using <db_id>/<principal_id>/<permission> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<principal_name>'), '/DELETE')`
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/databasePermission:DatabasePermission example '7/5/DELETE'
-//
+// $ pulumi import mssql:index/databasePermission:DatabasePermission example '7/5/DELETE'
 // ```
 type DatabasePermission struct {
 	pulumi.CustomResourceState
@@ -174,12 +171,6 @@ func (i *DatabasePermission) ToDatabasePermissionOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(DatabasePermissionOutput)
 }
 
-func (i *DatabasePermission) ToOutput(ctx context.Context) pulumix.Output[*DatabasePermission] {
-	return pulumix.Output[*DatabasePermission]{
-		OutputState: i.ToDatabasePermissionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // DatabasePermissionArrayInput is an input type that accepts DatabasePermissionArray and DatabasePermissionArrayOutput values.
 // You can construct a concrete instance of `DatabasePermissionArrayInput` via:
 //
@@ -203,12 +194,6 @@ func (i DatabasePermissionArray) ToDatabasePermissionArrayOutput() DatabasePermi
 
 func (i DatabasePermissionArray) ToDatabasePermissionArrayOutputWithContext(ctx context.Context) DatabasePermissionArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DatabasePermissionArrayOutput)
-}
-
-func (i DatabasePermissionArray) ToOutput(ctx context.Context) pulumix.Output[[]*DatabasePermission] {
-	return pulumix.Output[[]*DatabasePermission]{
-		OutputState: i.ToDatabasePermissionArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // DatabasePermissionMapInput is an input type that accepts DatabasePermissionMap and DatabasePermissionMapOutput values.
@@ -236,12 +221,6 @@ func (i DatabasePermissionMap) ToDatabasePermissionMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(DatabasePermissionMapOutput)
 }
 
-func (i DatabasePermissionMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DatabasePermission] {
-	return pulumix.Output[map[string]*DatabasePermission]{
-		OutputState: i.ToDatabasePermissionMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type DatabasePermissionOutput struct{ *pulumi.OutputState }
 
 func (DatabasePermissionOutput) ElementType() reflect.Type {
@@ -254,12 +233,6 @@ func (o DatabasePermissionOutput) ToDatabasePermissionOutput() DatabasePermissio
 
 func (o DatabasePermissionOutput) ToDatabasePermissionOutputWithContext(ctx context.Context) DatabasePermissionOutput {
 	return o
-}
-
-func (o DatabasePermissionOutput) ToOutput(ctx context.Context) pulumix.Output[*DatabasePermission] {
-	return pulumix.Output[*DatabasePermission]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name of database-level SQL permission. For full list of supported permissions, see [docs](https://learn.microsoft.com/en-us/sql/t-sql/statements/grant-database-permissions-transact-sql?view=azuresqldb-current#remarks)
@@ -291,12 +264,6 @@ func (o DatabasePermissionArrayOutput) ToDatabasePermissionArrayOutputWithContex
 	return o
 }
 
-func (o DatabasePermissionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DatabasePermission] {
-	return pulumix.Output[[]*DatabasePermission]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o DatabasePermissionArrayOutput) Index(i pulumi.IntInput) DatabasePermissionOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DatabasePermission {
 		return vs[0].([]*DatabasePermission)[vs[1].(int)]
@@ -315,12 +282,6 @@ func (o DatabasePermissionMapOutput) ToDatabasePermissionMapOutput() DatabasePer
 
 func (o DatabasePermissionMapOutput) ToDatabasePermissionMapOutputWithContext(ctx context.Context) DatabasePermissionMapOutput {
 	return o
-}
-
-func (o DatabasePermissionMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DatabasePermission] {
-	return pulumix.Output[map[string]*DatabasePermission]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DatabasePermissionMapOutput) MapIndex(k pulumi.StringInput) DatabasePermissionOutput {

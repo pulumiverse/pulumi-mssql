@@ -24,7 +24,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getSqlUser(args: GetSqlUserArgs, opts?: pulumi.InvokeOptions): Promise<GetSqlUserResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSqlUser:getSqlUser", {
         "databaseId": args.databaseId,
@@ -87,7 +86,11 @@ export interface GetSqlUserResult {
  * ```
  */
 export function getSqlUserOutput(args: GetSqlUserOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSqlUserResult> {
-    return pulumi.output(args).apply((a: any) => getSqlUser(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSqlUser:getSqlUser", {
+        "databaseId": args.databaseId,
+        "name": args.name,
+    }, opts);
 }
 
 /**

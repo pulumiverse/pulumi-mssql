@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -81,14 +80,20 @@ type LookupAzureadUserResult struct {
 
 func LookupAzureadUserOutput(ctx *pulumi.Context, args LookupAzureadUserOutputArgs, opts ...pulumi.InvokeOption) LookupAzureadUserResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupAzureadUserResult, error) {
+		ApplyT(func(v interface{}) (LookupAzureadUserResultOutput, error) {
 			args := v.(LookupAzureadUserArgs)
-			r, err := LookupAzureadUser(ctx, &args, opts...)
-			var s LookupAzureadUserResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupAzureadUserResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getAzureadUser:getAzureadUser", args, &rv, "", opts...)
+			if err != nil {
+				return LookupAzureadUserResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupAzureadUserResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupAzureadUserResultOutput), nil
+			}
+			return output, nil
 		}).(LookupAzureadUserResultOutput)
 }
 
@@ -119,12 +124,6 @@ func (o LookupAzureadUserResultOutput) ToLookupAzureadUserResultOutput() LookupA
 
 func (o LookupAzureadUserResultOutput) ToLookupAzureadUserResultOutputWithContext(ctx context.Context) LookupAzureadUserResultOutput {
 	return o
-}
-
-func (o LookupAzureadUserResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupAzureadUserResult] {
-	return pulumix.Output[LookupAzureadUserResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.

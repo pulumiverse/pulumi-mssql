@@ -119,7 +119,7 @@ class ServerRoleMember(pulumi.CustomResource):
         import using <role_id>/<member_id> - can be retrieved using `sys.server_principals` view
 
         ```sh
-         $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
+        $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
         ```
 
         :param str resource_name: The name of the resource.
@@ -155,7 +155,7 @@ class ServerRoleMember(pulumi.CustomResource):
         import using <role_id>/<member_id> - can be retrieved using `sys.server_principals` view
 
         ```sh
-         $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
+        $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
         ```
 
         :param str resource_name: The name of the resource.

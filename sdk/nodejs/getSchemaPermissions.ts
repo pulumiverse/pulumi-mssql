@@ -34,7 +34,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getSchemaPermissions(args: GetSchemaPermissionsArgs, opts?: pulumi.InvokeOptions): Promise<GetSchemaPermissionsResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSchemaPermissions:getSchemaPermissions", {
         "principalId": args.principalId,
@@ -105,7 +104,11 @@ export interface GetSchemaPermissionsResult {
  * ```
  */
 export function getSchemaPermissionsOutput(args: GetSchemaPermissionsOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSchemaPermissionsResult> {
-    return pulumi.output(args).apply((a: any) => getSchemaPermissions(a, opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSchemaPermissions:getSchemaPermissions", {
+        "principalId": args.principalId,
+        "schemaId": args.schemaId,
+    }, opts);
 }
 
 /**

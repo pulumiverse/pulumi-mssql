@@ -125,7 +125,7 @@ class DatabaseRoleMember(pulumi.CustomResource):
         import using <db_id>/<role_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<role_name>'), '/', DATABASE_PRINCIPAL_ID('<member_name'))`
 
         ```sh
-         $ pulumi import mssql:index/databaseRoleMember:DatabaseRoleMember example '7/5/9'
+        $ pulumi import mssql:index/databaseRoleMember:DatabaseRoleMember example '7/5/9'
         ```
 
         :param str resource_name: The name of the resource.
@@ -167,7 +167,7 @@ class DatabaseRoleMember(pulumi.CustomResource):
         import using <db_id>/<role_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<role_name>'), '/', DATABASE_PRINCIPAL_ID('<member_name'))`
 
         ```sh
-         $ pulumi import mssql:index/databaseRoleMember:DatabaseRoleMember example '7/5/9'
+        $ pulumi import mssql:index/databaseRoleMember:DatabaseRoleMember example '7/5/9'
         ```
 
         :param str resource_name: The name of the resource.

@@ -160,7 +160,7 @@ class SqlUser(pulumi.CustomResource):
         import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<username>'))`
 
         ```sh
-         $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
+        $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
         ```
 
         :param str resource_name: The name of the resource.
@@ -204,7 +204,7 @@ class SqlUser(pulumi.CustomResource):
         import using <db_id>/<user_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<username>'))`
 
         ```sh
-         $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
+        $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
         ```
 
         :param str resource_name: The name of the resource.

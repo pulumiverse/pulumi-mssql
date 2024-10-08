@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -40,10 +39,10 @@ import (
 //				return err
 //			}
 //			_, err = mssql.NewScript(ctx, "cdc", &mssql.ScriptArgs{
-//				DatabaseId:   *pulumi.String(test.Id),
-//				ReadScript:   pulumi.String(fmt.Sprintf("SELECT COUNT(*) AS [is_enabled] FROM sys.change_tracking_databases WHERE database_id=%v", test.Id)),
-//				DeleteScript: pulumi.String(fmt.Sprintf("ALTER DATABASE [%v] SET CHANGE_TRACKING = OFF", test.Name)),
-//				UpdateScript: pulumi.String(fmt.Sprintf("IF (SELECT COUNT(*) FROM sys.change_tracking_databases WHERE database_id=%v) = 0\n  ALTER DATABASE [%v] SET CHANGE_TRACKING = ON\n", test.Id, test.Name)),
+//				DatabaseId:   pulumi.String(test.Id),
+//				ReadScript:   pulumi.Sprintf("SELECT COUNT(*) AS [is_enabled] FROM sys.change_tracking_databases WHERE database_id=%v", test.Id),
+//				DeleteScript: pulumi.Sprintf("ALTER DATABASE [%v] SET CHANGE_TRACKING = OFF", test.Name),
+//				UpdateScript: pulumi.Sprintf("IF (SELECT COUNT(*) FROM sys.change_tracking_databases WHERE database_id=%v) = 0\n  ALTER DATABASE [%v] SET CHANGE_TRACKING = ON\n", test.Id, test.Name),
 //				State: pulumi.StringMap{
 //					"is_enabled": pulumi.String("1"),
 //				},
@@ -59,8 +58,6 @@ import (
 type Script struct {
 	pulumi.CustomResourceState
 
-	// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-	// to create the resource.
 	CreateScript pulumi.StringPtrOutput `pulumi:"createScript"`
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringOutput `pulumi:"databaseId"`
@@ -116,8 +113,6 @@ func GetScript(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Script resources.
 type scriptState struct {
-	// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-	// to create the resource.
 	CreateScript *string `pulumi:"createScript"`
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId *string `pulumi:"databaseId"`
@@ -132,8 +127,6 @@ type scriptState struct {
 }
 
 type ScriptState struct {
-	// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-	// to create the resource.
 	CreateScript pulumi.StringPtrInput
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringPtrInput
@@ -152,8 +145,6 @@ func (ScriptState) ElementType() reflect.Type {
 }
 
 type scriptArgs struct {
-	// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-	// to create the resource.
 	CreateScript *string `pulumi:"createScript"`
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId string `pulumi:"databaseId"`
@@ -169,8 +160,6 @@ type scriptArgs struct {
 
 // The set of arguments for constructing a Script resource.
 type ScriptArgs struct {
-	// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-	// to create the resource.
 	CreateScript pulumi.StringPtrInput
 	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
 	DatabaseId pulumi.StringInput
@@ -207,12 +196,6 @@ func (i *Script) ToScriptOutputWithContext(ctx context.Context) ScriptOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ScriptOutput)
 }
 
-func (i *Script) ToOutput(ctx context.Context) pulumix.Output[*Script] {
-	return pulumix.Output[*Script]{
-		OutputState: i.ToScriptOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ScriptArrayInput is an input type that accepts ScriptArray and ScriptArrayOutput values.
 // You can construct a concrete instance of `ScriptArrayInput` via:
 //
@@ -236,12 +219,6 @@ func (i ScriptArray) ToScriptArrayOutput() ScriptArrayOutput {
 
 func (i ScriptArray) ToScriptArrayOutputWithContext(ctx context.Context) ScriptArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ScriptArrayOutput)
-}
-
-func (i ScriptArray) ToOutput(ctx context.Context) pulumix.Output[[]*Script] {
-	return pulumix.Output[[]*Script]{
-		OutputState: i.ToScriptArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ScriptMapInput is an input type that accepts ScriptMap and ScriptMapOutput values.
@@ -269,12 +246,6 @@ func (i ScriptMap) ToScriptMapOutputWithContext(ctx context.Context) ScriptMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(ScriptMapOutput)
 }
 
-func (i ScriptMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Script] {
-	return pulumix.Output[map[string]*Script]{
-		OutputState: i.ToScriptMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ScriptOutput struct{ *pulumi.OutputState }
 
 func (ScriptOutput) ElementType() reflect.Type {
@@ -289,14 +260,6 @@ func (o ScriptOutput) ToScriptOutputWithContext(ctx context.Context) ScriptOutpu
 	return o
 }
 
-func (o ScriptOutput) ToOutput(ctx context.Context) pulumix.Output[*Script] {
-	return pulumix.Output[*Script]{
-		OutputState: o.OutputState,
-	}
-}
-
-// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-// to create the resource.
 func (o ScriptOutput) CreateScript() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Script) pulumi.StringPtrOutput { return v.CreateScript }).(pulumi.StringPtrOutput)
 }
@@ -340,12 +303,6 @@ func (o ScriptArrayOutput) ToScriptArrayOutputWithContext(ctx context.Context) S
 	return o
 }
 
-func (o ScriptArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Script] {
-	return pulumix.Output[[]*Script]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ScriptArrayOutput) Index(i pulumi.IntInput) ScriptOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Script {
 		return vs[0].([]*Script)[vs[1].(int)]
@@ -364,12 +321,6 @@ func (o ScriptMapOutput) ToScriptMapOutput() ScriptMapOutput {
 
 func (o ScriptMapOutput) ToScriptMapOutputWithContext(ctx context.Context) ScriptMapOutput {
 	return o
-}
-
-func (o ScriptMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Script] {
-	return pulumix.Output[map[string]*Script]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ScriptMapOutput) MapIndex(k pulumi.StringInput) ScriptOutput {

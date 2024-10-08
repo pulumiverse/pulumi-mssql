@@ -26,7 +26,6 @@ import * as utilities from "./utilities";
  */
 export function getSchemas(args?: GetSchemasArgs, opts?: pulumi.InvokeOptions): Promise<GetSchemasResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSchemas:getSchemas", {
         "databaseId": args.databaseId,
@@ -38,7 +37,7 @@ export function getSchemas(args?: GetSchemasArgs, opts?: pulumi.InvokeOptions): 
  */
 export interface GetSchemasArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
      */
     databaseId?: string;
 }
@@ -79,7 +78,11 @@ export interface GetSchemasResult {
  * ```
  */
 export function getSchemasOutput(args?: GetSchemasOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSchemasResult> {
-    return pulumi.output(args).apply((a: any) => getSchemas(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSchemas:getSchemas", {
+        "databaseId": args.databaseId,
+    }, opts);
 }
 
 /**
@@ -87,7 +90,7 @@ export function getSchemasOutput(args?: GetSchemasOutputArgs, opts?: pulumi.Invo
  */
 export interface GetSchemasOutputArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
      */
     databaseId?: pulumi.Input<string>;
 }

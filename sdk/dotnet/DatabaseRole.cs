@@ -48,7 +48,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;role_id&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('&lt;role_name&gt;'))`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
+    /// $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/databaseRole:DatabaseRole")]
@@ -66,10 +66,6 @@ namespace Pulumiverse.Mssql
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-        /// Defaults to ID of current user, used to authorize the Terraform provider.
-        /// </summary>
         [Output("ownerId")]
         public Output<string> OwnerId { get; private set; } = null!;
 
@@ -132,10 +128,6 @@ namespace Pulumiverse.Mssql
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-        /// Defaults to ID of current user, used to authorize the Terraform provider.
-        /// </summary>
         [Input("ownerId")]
         public Input<string>? OwnerId { get; set; }
 
@@ -159,10 +151,6 @@ namespace Pulumiverse.Mssql
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-        /// Defaults to ID of current user, used to authorize the Terraform provider.
-        /// </summary>
         [Input("ownerId")]
         public Input<string>? OwnerId { get; set; }
 

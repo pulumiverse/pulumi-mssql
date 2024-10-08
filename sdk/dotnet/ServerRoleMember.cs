@@ -45,7 +45,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;role_id&gt;/&lt;member_id&gt; - can be retrieved using `sys.server_principals` view
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
+    /// $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/serverRoleMember:ServerRoleMember")]

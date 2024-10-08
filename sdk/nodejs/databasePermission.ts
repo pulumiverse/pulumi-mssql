@@ -32,7 +32,7 @@ import * as utilities from "./utilities";
  * import using <db_id>/<principal_id>/<permission> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<principal_name>'), '/DELETE')`
  *
  * ```sh
- *  $ pulumi import mssql:index/databasePermission:DatabasePermission example '7/5/DELETE'
+ * $ pulumi import mssql:index/databasePermission:DatabasePermission example '7/5/DELETE'
  * ```
  */
 export class DatabasePermission extends pulumi.CustomResource {

@@ -57,7 +57,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;user_id&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('&lt;username&gt;'))`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
+    /// $ pulumi import mssql:index/sqlUser:SqlUser example '7/5'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/sqlUser:SqlUser")]

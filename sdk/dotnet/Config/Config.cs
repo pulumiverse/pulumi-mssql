@@ -77,14 +77,29 @@ namespace Pulumiverse.Mssql
 
              public class AzureAuth
              {
+            /// <summary>
+            /// Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+            /// </summary>
                 public string? ClientId { get; set; } = null!;
+            /// <summary>
+            /// Service Principal secret. When omitted, default, chained set of credentials will be used.
+            /// </summary>
                 public string? ClientSecret { get; set; } = null!;
+            /// <summary>
+            /// Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+            /// </summary>
                 public string? TenantId { get; set; } = null!;
             }
 
              public class SqlAuth
              {
+            /// <summary>
+            /// Password for SQL authentication.
+            /// </summary>
                 public string Password { get; set; }
+            /// <summary>
+            /// User name for SQL authentication.
+            /// </summary>
                 public string Username { get; set; }
             }
         }

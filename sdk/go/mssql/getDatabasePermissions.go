@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -81,14 +80,20 @@ type GetDatabasePermissionsResult struct {
 
 func GetDatabasePermissionsOutput(ctx *pulumi.Context, args GetDatabasePermissionsOutputArgs, opts ...pulumi.InvokeOption) GetDatabasePermissionsResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetDatabasePermissionsResult, error) {
+		ApplyT(func(v interface{}) (GetDatabasePermissionsResultOutput, error) {
 			args := v.(GetDatabasePermissionsArgs)
-			r, err := GetDatabasePermissions(ctx, &args, opts...)
-			var s GetDatabasePermissionsResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetDatabasePermissionsResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getDatabasePermissions:getDatabasePermissions", args, &rv, "", opts...)
+			if err != nil {
+				return GetDatabasePermissionsResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetDatabasePermissionsResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetDatabasePermissionsResultOutput), nil
+			}
+			return output, nil
 		}).(GetDatabasePermissionsResultOutput)
 }
 
@@ -115,12 +120,6 @@ func (o GetDatabasePermissionsResultOutput) ToGetDatabasePermissionsResultOutput
 
 func (o GetDatabasePermissionsResultOutput) ToGetDatabasePermissionsResultOutputWithContext(ctx context.Context) GetDatabasePermissionsResultOutput {
 	return o
-}
-
-func (o GetDatabasePermissionsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabasePermissionsResult] {
-	return pulumix.Output[GetDatabasePermissionsResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // `<database_id>/<principal_id>`.

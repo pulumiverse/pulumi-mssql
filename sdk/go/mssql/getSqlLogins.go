@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -57,13 +56,19 @@ type GetSqlLoginsResult struct {
 }
 
 func GetSqlLoginsOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetSqlLoginsResultOutput {
-	return pulumi.ToOutput(0).ApplyT(func(int) (GetSqlLoginsResult, error) {
-		r, err := GetSqlLogins(ctx, opts...)
-		var s GetSqlLoginsResult
-		if r != nil {
-			s = *r
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetSqlLoginsResultOutput, error) {
+		opts = internal.PkgInvokeDefaultOpts(opts)
+		var rv GetSqlLoginsResult
+		secret, err := ctx.InvokePackageRaw("mssql:index/getSqlLogins:getSqlLogins", nil, &rv, "", opts...)
+		if err != nil {
+			return GetSqlLoginsResultOutput{}, err
 		}
-		return s, err
+
+		output := pulumi.ToOutput(rv).(GetSqlLoginsResultOutput)
+		if secret {
+			return pulumi.ToSecret(output).(GetSqlLoginsResultOutput), nil
+		}
+		return output, nil
 	}).(GetSqlLoginsResultOutput)
 }
 
@@ -80,12 +85,6 @@ func (o GetSqlLoginsResultOutput) ToGetSqlLoginsResultOutput() GetSqlLoginsResul
 
 func (o GetSqlLoginsResultOutput) ToGetSqlLoginsResultOutputWithContext(ctx context.Context) GetSqlLoginsResultOutput {
 	return o
-}
-
-func (o GetSqlLoginsResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSqlLoginsResult] {
-	return pulumix.Output[GetSqlLoginsResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of the resource used only internally by the provider.

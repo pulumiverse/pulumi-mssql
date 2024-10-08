@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -25,30 +24,24 @@ import (
 //	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql"
 //
 // )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			example, err := mssql.LookupDatabase(ctx, &mssql.LookupDatabaseArgs{
-//				Name: "example",
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			all, err := mssql.GetSchemas(ctx, &mssql.GetSchemasArgs{
-//				DatabaseId: pulumi.StringRef(example.Id),
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			var splat0 []*string
-//			for _, val0 := range all.Schemas {
-//				splat0 = append(splat0, val0.Name)
-//			}
-//			ctx.Export("allSchemaNames", splat0)
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// pulumi.Run(func(ctx *pulumi.Context) error {
+// example, err := mssql.LookupDatabase(ctx, &mssql.LookupDatabaseArgs{
+// Name: "example",
+// }, nil);
+// if err != nil {
+// return err
+// }
+// all, err := mssql.GetSchemas(ctx, &mssql.GetSchemasArgs{
+// DatabaseId: pulumi.StringRef(example.Id),
+// }, nil);
+// if err != nil {
+// return err
+// }
+// ctx.Export("allSchemaNames", pulumi.StringArray(%!v(PANIC=Format method: fatal: A failure has occurred: unlowered splat expression @ #-functions-%smssql:index-getSchemas:getSchemas.pp:7,11-30)))
+// return nil
+// })
+// }
 // ```
 func GetSchemas(ctx *pulumi.Context, args *GetSchemasArgs, opts ...pulumi.InvokeOption) (*GetSchemasResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
@@ -62,7 +55,7 @@ func GetSchemas(ctx *pulumi.Context, args *GetSchemasArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getSchemas.
 type GetSchemasArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId *string `pulumi:"databaseId"`
 }
 
@@ -78,20 +71,26 @@ type GetSchemasResult struct {
 
 func GetSchemasOutput(ctx *pulumi.Context, args GetSchemasOutputArgs, opts ...pulumi.InvokeOption) GetSchemasResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetSchemasResult, error) {
+		ApplyT(func(v interface{}) (GetSchemasResultOutput, error) {
 			args := v.(GetSchemasArgs)
-			r, err := GetSchemas(ctx, &args, opts...)
-			var s GetSchemasResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetSchemasResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getSchemas:getSchemas", args, &rv, "", opts...)
+			if err != nil {
+				return GetSchemasResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetSchemasResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetSchemasResultOutput), nil
+			}
+			return output, nil
 		}).(GetSchemasResultOutput)
 }
 
 // A collection of arguments for invoking getSchemas.
 type GetSchemasOutputArgs struct {
-	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`.
+	// ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
 	DatabaseId pulumi.StringPtrInput `pulumi:"databaseId"`
 }
 
@@ -112,12 +111,6 @@ func (o GetSchemasResultOutput) ToGetSchemasResultOutput() GetSchemasResultOutpu
 
 func (o GetSchemasResultOutput) ToGetSchemasResultOutputWithContext(ctx context.Context) GetSchemasResultOutput {
 	return o
-}
-
-func (o GetSchemasResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetSchemasResult] {
-	return pulumix.Output[GetSchemasResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of database. Can be retrieved using `Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.

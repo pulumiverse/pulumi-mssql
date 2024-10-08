@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single SQL login.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -39,8 +37,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetSqlLoginResult> InvokeAsync(GetSqlLoginArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetSqlLoginResult>("mssql:index/getSqlLogin:getSqlLogin", args ?? new GetSqlLoginArgs(), options.WithDefaults());
@@ -48,9 +44,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Obtains information about single SQL login.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -72,8 +66,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetSqlLoginResult> Invoke(GetSqlLoginInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetSqlLoginResult>("mssql:index/getSqlLogin:getSqlLogin", args ?? new GetSqlLoginInvokeArgs(), options.WithDefaults());

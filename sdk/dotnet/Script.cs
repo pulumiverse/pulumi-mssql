@@ -56,10 +56,6 @@ namespace Pulumiverse.Mssql
     [MssqlResourceType("mssql:index/script:Script")]
     public partial class Script : global::Pulumi.CustomResource
     {
-        /// <summary>
-        /// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-        /// to create the resource.
-        /// </summary>
         [Output("createScript")]
         public Output<string?> CreateScript { get; private set; } = null!;
 
@@ -140,10 +136,6 @@ namespace Pulumiverse.Mssql
 
     public sealed class ScriptArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-        /// to create the resource.
-        /// </summary>
         [Input("createScript")]
         public Input<string>? CreateScript { get; set; }
 
@@ -191,10 +183,6 @@ namespace Pulumiverse.Mssql
 
     public sealed class ScriptState : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// SQL script executed when the resource does not exist in Terraform state. When not provided, `update_script` will be used
-        /// to create the resource.
-        /// </summary>
         [Input("createScript")]
         public Input<string>? CreateScript { get; set; }
 

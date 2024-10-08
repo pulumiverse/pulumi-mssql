@@ -25,7 +25,6 @@ import * as utilities from "./utilities";
  */
 export function getServerRole(args?: GetServerRoleArgs, opts?: pulumi.InvokeOptions): Promise<GetServerRoleResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getServerRole:getServerRole", {
         "id": args.id,
@@ -38,11 +37,11 @@ export function getServerRole(args?: GetServerRoleArgs, opts?: pulumi.InvokeOpti
  */
 export interface GetServerRoleArgs {
     /**
-     * ID of the member principal
+     * Role principal ID. Either `name` or `id` must be provided.
      */
     id?: string;
     /**
-     * Name of the server principal
+     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
      */
     name?: string;
 }
@@ -86,7 +85,12 @@ export interface GetServerRoleResult {
  * ```
  */
 export function getServerRoleOutput(args?: GetServerRoleOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetServerRoleResult> {
-    return pulumi.output(args).apply((a: any) => getServerRole(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getServerRole:getServerRole", {
+        "id": args.id,
+        "name": args.name,
+    }, opts);
 }
 
 /**
@@ -94,11 +98,11 @@ export function getServerRoleOutput(args?: GetServerRoleOutputArgs, opts?: pulum
  */
 export interface GetServerRoleOutputArgs {
     /**
-     * ID of the member principal
+     * Role principal ID. Either `name` or `id` must be provided.
      */
     id?: pulumi.Input<string>;
     /**
-     * Name of the server principal
+     * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars. Either `name` or `id` must be provided.
      */
     name?: pulumi.Input<string>;
 }

@@ -15,9 +15,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Returns all permissions grated to given principal
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -43,8 +41,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetServerPermissionsResult> InvokeAsync(GetServerPermissionsArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetServerPermissionsResult>("mssql:index/getServerPermissions:getServerPermissions", args ?? new GetServerPermissionsArgs(), options.WithDefaults());
@@ -52,9 +48,7 @@ namespace Pulumiverse.Mssql
         /// <summary>
         /// Returns all permissions grated to given principal
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -80,8 +74,6 @@ namespace Pulumiverse.Mssql
         ///     };
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetServerPermissionsResult> Invoke(GetServerPermissionsInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetServerPermissionsResult>("mssql:index/getServerPermissions:getServerPermissions", args ?? new GetServerPermissionsInvokeArgs(), options.WithDefaults());

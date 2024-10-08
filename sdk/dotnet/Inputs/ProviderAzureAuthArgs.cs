@@ -13,11 +13,18 @@ namespace Pulumiverse.Mssql.Inputs
 
     public sealed class ProviderAzureAuthArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Service Principal client (application) ID. When omitted, default, chained set of credentials will be used.
+        /// </summary>
         [Input("clientId")]
         public Input<string>? ClientId { get; set; }
 
         [Input("clientSecret")]
         private Input<string>? _clientSecret;
+
+        /// <summary>
+        /// Service Principal secret. When omitted, default, chained set of credentials will be used.
+        /// </summary>
         public Input<string>? ClientSecret
         {
             get => _clientSecret;
@@ -28,6 +35,9 @@ namespace Pulumiverse.Mssql.Inputs
             }
         }
 
+        /// <summary>
+        /// Azure AD tenant ID. Required only if Azure SQL Server's tenant is different than Service Principal's.
+        /// </summary>
         [Input("tenantId")]
         public Input<string>? TenantId { get; set; }
 

@@ -117,7 +117,7 @@ class ServerRole(pulumi.CustomResource):
         import using <role_id> - can be retrieved using `SELECT [principal_id] FROM sys.server_principals WHERE [name]='<role_name>'`
 
         ```sh
-         $ pulumi import mssql:index/serverRole:ServerRole example 7
+        $ pulumi import mssql:index/serverRole:ServerRole example 7
         ```
 
         :param str resource_name: The name of the resource.
@@ -149,7 +149,7 @@ class ServerRole(pulumi.CustomResource):
         import using <role_id> - can be retrieved using `SELECT [principal_id] FROM sys.server_principals WHERE [name]='<role_name>'`
 
         ```sh
-         $ pulumi import mssql:index/serverRole:ServerRole example 7
+        $ pulumi import mssql:index/serverRole:ServerRole example 7
         ```
 
         :param str resource_name: The name of the resource.

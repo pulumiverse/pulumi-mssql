@@ -56,7 +56,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;schema_id&gt;/&lt;principal_id&gt;/&lt;permission&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', SCHEMA_ID('&lt;schema_name&gt;'), '/', DATABASE_PRINCIPAL_ID('&lt;principal_name&gt;'), '/DELETE')`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/schemaPermission:SchemaPermission example '7/5/8/DELETE'
+    /// $ pulumi import mssql:index/schemaPermission:SchemaPermission example '7/5/8/DELETE'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/schemaPermission:SchemaPermission")]

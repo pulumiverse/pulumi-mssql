@@ -20,7 +20,6 @@ import * as utilities from "./utilities";
  * ```
  */
 export function getSqlLogins(opts?: pulumi.InvokeOptions): Promise<GetSqlLoginsResult> {
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getSqlLogins:getSqlLogins", {
     }, opts);
@@ -53,5 +52,7 @@ export interface GetSqlLoginsResult {
  * ```
  */
 export function getSqlLoginsOutput(opts?: pulumi.InvokeOptions): pulumi.Output<GetSqlLoginsResult> {
-    return pulumi.output(getSqlLogins(opts))
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getSqlLogins:getSqlLogins", {
+    }, opts);
 }

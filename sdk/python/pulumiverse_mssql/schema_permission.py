@@ -188,7 +188,7 @@ class SchemaPermission(pulumi.CustomResource):
         import using <db_id>/<schema_id>/<principal_id>/<permission> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', SCHEMA_ID('<schema_name>'), '/', DATABASE_PRINCIPAL_ID('<principal_name>'), '/DELETE')`
 
         ```sh
-         $ pulumi import mssql:index/schemaPermission:SchemaPermission example '7/5/8/DELETE'
+        $ pulumi import mssql:index/schemaPermission:SchemaPermission example '7/5/8/DELETE'
         ```
 
         :param str resource_name: The name of the resource.
@@ -230,7 +230,7 @@ class SchemaPermission(pulumi.CustomResource):
         import using <db_id>/<schema_id>/<principal_id>/<permission> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', SCHEMA_ID('<schema_name>'), '/', DATABASE_PRINCIPAL_ID('<principal_name>'), '/DELETE')`
 
         ```sh
-         $ pulumi import mssql:index/schemaPermission:SchemaPermission example '7/5/8/DELETE'
+        $ pulumi import mssql:index/schemaPermission:SchemaPermission example '7/5/8/DELETE'
         ```
 
         :param str resource_name: The name of the resource.

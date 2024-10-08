@@ -49,7 +49,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;db_id&gt;/&lt;principal_id&gt;/&lt;permission&gt; - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('&lt;principal_name&gt;'), '/DELETE')`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/databasePermission:DatabasePermission example '7/5/DELETE'
+    /// $ pulumi import mssql:index/databasePermission:DatabasePermission example '7/5/DELETE'
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/databasePermission:DatabasePermission")]

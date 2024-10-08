@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -57,13 +56,19 @@ type GetDatabasesResult struct {
 }
 
 func GetDatabasesOutput(ctx *pulumi.Context, opts ...pulumi.InvokeOption) GetDatabasesResultOutput {
-	return pulumi.ToOutput(0).ApplyT(func(int) (GetDatabasesResult, error) {
-		r, err := GetDatabases(ctx, opts...)
-		var s GetDatabasesResult
-		if r != nil {
-			s = *r
+	return pulumi.ToOutput(0).ApplyT(func(int) (GetDatabasesResultOutput, error) {
+		opts = internal.PkgInvokeDefaultOpts(opts)
+		var rv GetDatabasesResult
+		secret, err := ctx.InvokePackageRaw("mssql:index/getDatabases:getDatabases", nil, &rv, "", opts...)
+		if err != nil {
+			return GetDatabasesResultOutput{}, err
 		}
-		return s, err
+
+		output := pulumi.ToOutput(rv).(GetDatabasesResultOutput)
+		if secret {
+			return pulumi.ToSecret(output).(GetDatabasesResultOutput), nil
+		}
+		return output, nil
 	}).(GetDatabasesResultOutput)
 }
 
@@ -80,12 +85,6 @@ func (o GetDatabasesResultOutput) ToGetDatabasesResultOutput() GetDatabasesResul
 
 func (o GetDatabasesResultOutput) ToGetDatabasesResultOutputWithContext(ctx context.Context) GetDatabasesResultOutput {
 	return o
-}
-
-func (o GetDatabasesResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetDatabasesResult] {
-	return pulumix.Output[GetDatabasesResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Set of database objects

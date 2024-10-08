@@ -31,7 +31,7 @@ import * as utilities from "./utilities";
  * import using <db_id>/<role_id> - can be retrieved using `SELECT CONCAT(DB_ID(), '/', DATABASE_PRINCIPAL_ID('<role_name>'))`
  *
  * ```sh
- *  $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
+ * $ pulumi import mssql:index/databaseRole:DatabaseRole example '7/5'
  * ```
  */
 export class DatabaseRole extends pulumi.CustomResource {
@@ -70,10 +70,6 @@ export class DatabaseRole extends pulumi.CustomResource {
      * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
      */
     public readonly name!: pulumi.Output<string>;
-    /**
-     * ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-     * Defaults to ID of current user, used to authorize the Terraform provider.
-     */
     public readonly ownerId!: pulumi.Output<string>;
 
     /**
@@ -115,10 +111,6 @@ export interface DatabaseRoleState {
      * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
      */
     name?: pulumi.Input<string>;
-    /**
-     * ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-     * Defaults to ID of current user, used to authorize the Terraform provider.
-     */
     ownerId?: pulumi.Input<string>;
 }
 
@@ -134,9 +126,5 @@ export interface DatabaseRoleArgs {
      * Role name. Must follow [Regular Identifiers rules](https://docs.microsoft.com/en-us/sql/relational-databases/databases/database-identifiers#rules-for-regular-identifiers) and cannot be longer than 128 chars.
      */
     name?: pulumi.Input<string>;
-    /**
-     * ID of another database role or user owning this role. Can be retrieved using `mssql_database_role` or `mssql_sql_user`.
-     * Defaults to ID of current user, used to authorize the Terraform provider.
-     */
     ownerId?: pulumi.Input<string>;
 }

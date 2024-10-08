@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -41,7 +40,7 @@ import (
 //			}
 //			_, err = mssql.NewServerRoleMember(ctx, "exampleServerRoleMember", &mssql.ServerRoleMemberArgs{
 //				RoleId:   exampleServerRole.ID(),
-//				MemberId: *pulumi.String(member.Id),
+//				MemberId: pulumi.String(member.Id),
 //			})
 //			if err != nil {
 //				return err
@@ -57,9 +56,7 @@ import (
 // import using <role_id>/<member_id> - can be retrieved using `sys.server_principals` view
 //
 // ```sh
-//
-//	$ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
-//
+// $ pulumi import mssql:index/serverRoleMember:ServerRoleMember example '7/5'
 // ```
 type ServerRoleMember struct {
 	pulumi.CustomResourceState
@@ -161,12 +158,6 @@ func (i *ServerRoleMember) ToServerRoleMemberOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(ServerRoleMemberOutput)
 }
 
-func (i *ServerRoleMember) ToOutput(ctx context.Context) pulumix.Output[*ServerRoleMember] {
-	return pulumix.Output[*ServerRoleMember]{
-		OutputState: i.ToServerRoleMemberOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServerRoleMemberArrayInput is an input type that accepts ServerRoleMemberArray and ServerRoleMemberArrayOutput values.
 // You can construct a concrete instance of `ServerRoleMemberArrayInput` via:
 //
@@ -190,12 +181,6 @@ func (i ServerRoleMemberArray) ToServerRoleMemberArrayOutput() ServerRoleMemberA
 
 func (i ServerRoleMemberArray) ToServerRoleMemberArrayOutputWithContext(ctx context.Context) ServerRoleMemberArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServerRoleMemberArrayOutput)
-}
-
-func (i ServerRoleMemberArray) ToOutput(ctx context.Context) pulumix.Output[[]*ServerRoleMember] {
-	return pulumix.Output[[]*ServerRoleMember]{
-		OutputState: i.ToServerRoleMemberArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ServerRoleMemberMapInput is an input type that accepts ServerRoleMemberMap and ServerRoleMemberMapOutput values.
@@ -223,12 +208,6 @@ func (i ServerRoleMemberMap) ToServerRoleMemberMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ServerRoleMemberMapOutput)
 }
 
-func (i ServerRoleMemberMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServerRoleMember] {
-	return pulumix.Output[map[string]*ServerRoleMember]{
-		OutputState: i.ToServerRoleMemberMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ServerRoleMemberOutput struct{ *pulumi.OutputState }
 
 func (ServerRoleMemberOutput) ElementType() reflect.Type {
@@ -241,12 +220,6 @@ func (o ServerRoleMemberOutput) ToServerRoleMemberOutput() ServerRoleMemberOutpu
 
 func (o ServerRoleMemberOutput) ToServerRoleMemberOutputWithContext(ctx context.Context) ServerRoleMemberOutput {
 	return o
-}
-
-func (o ServerRoleMemberOutput) ToOutput(ctx context.Context) pulumix.Output[*ServerRoleMember] {
-	return pulumix.Output[*ServerRoleMember]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ID of the member. Can be retrieved using `ServerRole` or `SqlLogin`
@@ -273,12 +246,6 @@ func (o ServerRoleMemberArrayOutput) ToServerRoleMemberArrayOutputWithContext(ct
 	return o
 }
 
-func (o ServerRoleMemberArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ServerRoleMember] {
-	return pulumix.Output[[]*ServerRoleMember]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ServerRoleMemberArrayOutput) Index(i pulumi.IntInput) ServerRoleMemberOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ServerRoleMember {
 		return vs[0].([]*ServerRoleMember)[vs[1].(int)]
@@ -297,12 +264,6 @@ func (o ServerRoleMemberMapOutput) ToServerRoleMemberMapOutput() ServerRoleMembe
 
 func (o ServerRoleMemberMapOutput) ToServerRoleMemberMapOutputWithContext(ctx context.Context) ServerRoleMemberMapOutput {
 	return o
-}
-
-func (o ServerRoleMemberMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServerRoleMember] {
-	return pulumix.Output[map[string]*ServerRoleMember]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServerRoleMemberMapOutput) MapIndex(k pulumi.StringInput) ServerRoleMemberOutput {

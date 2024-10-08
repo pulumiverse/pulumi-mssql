@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-mssql/sdk/go/mssql/internal"
 )
 
@@ -81,14 +80,20 @@ type LookupAzureadServicePrincipalResult struct {
 
 func LookupAzureadServicePrincipalOutput(ctx *pulumi.Context, args LookupAzureadServicePrincipalOutputArgs, opts ...pulumi.InvokeOption) LookupAzureadServicePrincipalResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupAzureadServicePrincipalResult, error) {
+		ApplyT(func(v interface{}) (LookupAzureadServicePrincipalResultOutput, error) {
 			args := v.(LookupAzureadServicePrincipalArgs)
-			r, err := LookupAzureadServicePrincipal(ctx, &args, opts...)
-			var s LookupAzureadServicePrincipalResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupAzureadServicePrincipalResult
+			secret, err := ctx.InvokePackageRaw("mssql:index/getAzureadServicePrincipal:getAzureadServicePrincipal", args, &rv, "", opts...)
+			if err != nil {
+				return LookupAzureadServicePrincipalResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupAzureadServicePrincipalResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupAzureadServicePrincipalResultOutput), nil
+			}
+			return output, nil
 		}).(LookupAzureadServicePrincipalResultOutput)
 }
 
@@ -119,12 +124,6 @@ func (o LookupAzureadServicePrincipalResultOutput) ToLookupAzureadServicePrincip
 
 func (o LookupAzureadServicePrincipalResultOutput) ToLookupAzureadServicePrincipalResultOutputWithContext(ctx context.Context) LookupAzureadServicePrincipalResultOutput {
 	return o
-}
-
-func (o LookupAzureadServicePrincipalResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupAzureadServicePrincipalResult] {
-	return pulumix.Output[LookupAzureadServicePrincipalResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Azure AD clientId of the Service Principal. This can be either regular Service Principal or Managed Service Identity.

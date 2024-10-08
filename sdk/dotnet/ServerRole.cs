@@ -38,7 +38,7 @@ namespace Pulumiverse.Mssql
     /// import using &lt;role_id&gt; - can be retrieved using `SELECT [principal_id] FROM sys.server_principals WHERE [name]='&lt;role_name&gt;'`
     /// 
     /// ```sh
-    ///  $ pulumi import mssql:index/serverRole:ServerRole example 7
+    /// $ pulumi import mssql:index/serverRole:ServerRole example 7
     /// ```
     /// </summary>
     [MssqlResourceType("mssql:index/serverRole:ServerRole")]

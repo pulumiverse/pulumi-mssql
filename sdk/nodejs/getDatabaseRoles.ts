@@ -26,7 +26,6 @@ import * as utilities from "./utilities";
  */
 export function getDatabaseRoles(args?: GetDatabaseRolesArgs, opts?: pulumi.InvokeOptions): Promise<GetDatabaseRolesResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("mssql:index/getDatabaseRoles:getDatabaseRoles", {
         "databaseId": args.databaseId,
@@ -38,7 +37,7 @@ export function getDatabaseRoles(args?: GetDatabaseRolesArgs, opts?: pulumi.Invo
  */
 export interface GetDatabaseRolesArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
      */
     databaseId?: string;
 }
@@ -79,7 +78,11 @@ export interface GetDatabaseRolesResult {
  * ```
  */
 export function getDatabaseRolesOutput(args?: GetDatabaseRolesOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetDatabaseRolesResult> {
-    return pulumi.output(args).apply((a: any) => getDatabaseRoles(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("mssql:index/getDatabaseRoles:getDatabaseRoles", {
+        "databaseId": args.databaseId,
+    }, opts);
 }
 
 /**
@@ -87,7 +90,7 @@ export function getDatabaseRolesOutput(args?: GetDatabaseRolesOutputArgs, opts?:
  */
 export interface GetDatabaseRolesOutputArgs {
     /**
-     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`.
+     * ID of database. Can be retrieved using `mssql.Database` or `SELECT DB_ID('<db_name>')`. Defaults to ID of `master`.
      */
     databaseId?: pulumi.Input<string>;
 }
