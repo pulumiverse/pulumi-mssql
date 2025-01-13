@@ -219,7 +219,7 @@ provider_mssql = mssql.Provider("provider-mssql",
 _, err := mssql.NewProvider(ctx, "provider-mssql", &mssql.ProviderArgs{
 	Hostname:  pulumi.String("example.database.windows.net"),
 	Port:      pulumi.Int(1433),
-	AzureAuth: AzureAuth: mssql.ProviderAzureAuthArgs{},
+	AzureAuth: &mssql.ProviderAzureAuthArgs{},
 })
 if err != nil {
 	return err
